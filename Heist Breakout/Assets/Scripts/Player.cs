@@ -1,4 +1,5 @@
 
+
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -20,6 +21,10 @@ public class Player : MonoBehaviour
 
     private Vector2 currentInputVector;
     private Vector2 smoothInputVelocity;
+    public float vecX;
+    public float vecY;
+    public float mag;
+
 
 
     void Awake()
@@ -34,15 +39,21 @@ public class Player : MonoBehaviour
     {
         
     }
-     
-   
+
+
     void Update()
     {
         Vector2 input = moveAction.ReadValue<Vector2>();
-        currentInputVector = Vector2.SmoothDamp(currentInputVector,input,ref smoothInputVelocity,smoothInputSpeed);
+        currentInputVector = Vector2.SmoothDamp(currentInputVector, input, ref smoothInputVelocity, smoothInputSpeed);
         Vector3 move = new Vector3(currentInputVector.x, currentInputVector.y, 0);
+        vecX = move.x;
+        vecY = move.y;
+        mag = move.magnitude;
+        mag=Mathf.Clamp(mag, 0.1f, 1.0f);
         controller.Move(move * Time.deltaTime * playerSpeed);
+
         Debug.Log(move);
+        //Debug.Log(mag);
 
 
     }
