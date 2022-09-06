@@ -22,6 +22,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "hit",
+                    "type": "Value",
+                    "id": "17d20474-f9af-4ae2-ad72-552bf02f3005",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -93,12 +102,45 @@
                 },
                 {
                     "name": "",
-                    "id": "3a2ff1db-aa5d-4556-9b14-40a197da2ab9",
-                    "path": "*/{PrimaryAction}",
+                    "id": "517fd743-c941-4c26-9574-eea2a1e9ab03",
+                    "path": "<Keyboard>/tab",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "velocity",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "880511a0-ce8a-48a1-b019-93caa88c2d87",
+                    "path": "<XInputController>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "velocity",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "35b4d8bf-3961-4d60-a1f3-ebb403b7e48a",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "hit",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7151e17f-2470-45a6-8121-71194cd06262",
+                    "path": "<XInputController>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "hit",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

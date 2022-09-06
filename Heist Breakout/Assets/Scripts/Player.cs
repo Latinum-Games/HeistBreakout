@@ -1,5 +1,5 @@
 
-
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -7,8 +7,8 @@ public class Player : MonoBehaviour
 {
     [SerializeField]
     private float playerSpeed = 2.0f;
-    [SerializeField]
-    private float inputSmoothDamp  = .3f;
+    //[SerializeField]
+    //private float inputSmoothDamp  = .3f;
     [SerializeField]
     private float smoothInputSpeed = .2f;
 
@@ -18,12 +18,26 @@ public class Player : MonoBehaviour
 
     private InputAction moveAction;
     private InputAction velocityAction;
+    private InputAction hitAction;
 
     private Vector2 currentInputVector;
     private Vector2 smoothInputVelocity;
-    public float vecX;
-    public float vecY;
+    private float vecX;
+    private float vecY;
     public float mag;
+
+    [SerializeField]
+    public float maxSoundArea = 2;
+
+    public enum Velocity{ Slow,Normal,Fast}
+    public Velocity velocity;
+    private int velState=1;
+    [SerializeField]
+    private bool isChangingVel=true;
+    [SerializeField]
+    private bool isHitting=false;
+
+    public GameObject HitBox;
 
 
 
@@ -33,6 +47,7 @@ public class Player : MonoBehaviour
         playerInput = GetComponent<PlayerInput>();
         moveAction = playerInput.actions["Move"];
         velocityAction = playerInput.actions["Velocity"];
+        hitAction = playerInput.actions["Hit"];
     }
 
     void Start()
@@ -43,6 +58,39 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        
+        if(velState==0)
+        {
+            velocity=Velocity.Slow;
+            maxSoundArea=1.5f;
+            playerSpeed=4f;
+        }
+        if(velState==1)
+        {
+            velocity=Velocity.Normal;
+            maxSoundArea=2f;
+            playerSpeed=7f;
+        }
+        if(velState==2)
+        {
+            velocity=Velocity.Fast;
+            maxSoundArea=2.5f;
+            playerSpeed=10f;
+        } 
+        if(velocityAction.IsPressed()&&isChangingVel)
+        {
+            StartCoroutine(changeVel());
+        }
+
+        if(hitAction.IsPressed()&&!isHitting)
+        {
+            StartCoroutine(actHitBox());
+        }
+        
+
+
+        //Debug.Log(velocityAction.IsPressed());
+
         Vector2 input = moveAction.ReadValue<Vector2>();
         currentInputVector = Vector2.SmoothDamp(currentInputVector, input, ref smoothInputVelocity, smoothInputSpeed);
         Vector3 move = new Vector3(currentInputVector.x, currentInputVector.y, 0);
@@ -52,9 +100,31 @@ public class Player : MonoBehaviour
         mag=Mathf.Clamp(mag, 0.1f, 1.0f);
         controller.Move(move * Time.deltaTime * playerSpeed);
 
-        Debug.Log(move);
+        //Debug.Log(move);
         //Debug.Log(mag);
 
 
+    }
+    IEnumerator changeVel()
+    {
+        isChangingVel=false;
+
+        if(velState==2)
+            {
+                velState=0;
+            }
+            else
+            {velState++;}
+        yield return new WaitForSeconds(1);
+
+        isChangingVel=true;
+    }
+    IEnumerator actHitBox()
+    {
+        isHitting=true;
+        HitBox.SetActive(true);
+        yield return new WaitForSeconds(1);
+        HitBox.SetActive(false);
+        isHitting=false;
     }
 }
