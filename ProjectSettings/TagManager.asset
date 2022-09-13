@@ -14,10 +14,10 @@ TagManager:
   - Player
   - Enemy
   - Action
-  - 
-  - 
-  - 
-  - 
+  - Mask
+  - BehindMask
+  - Black
+  - Wall
   - 
   - 
   - 

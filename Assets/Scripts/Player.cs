@@ -1,16 +1,16 @@
-
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Player : MonoBehaviour
-{
-    [SerializeField]
-    private float playerSpeed = 2.0f;
+public class Player : MonoBehaviour {
+
+    // FIELD OF VIEW
+    [SerializeField] private FieldOfView fieldOfView;
+
+    [SerializeField] private float playerSpeed = 2.0f;
     //[SerializeField]
     //private float inputSmoothDamp  = .3f;
-    [SerializeField]
-    private float smoothInputSpeed = .2f;
+    [SerializeField] private float smoothInputSpeed = .2f;
 
     private PlayerInput playerInput;
     private CharacterController controller;
@@ -26,23 +26,17 @@ public class Player : MonoBehaviour
     private float vecY;
     public float mag;
 
-    [SerializeField]
-    public float maxSoundArea = 2;
+    [SerializeField] public float maxSoundArea = 2;
 
     public enum Velocity{ Slow,Normal,Fast}
     public Velocity velocity;
     private int velState=1;
-    [SerializeField]
-    private bool isChangingVel=true;
-    [SerializeField]
-    private bool isHitting=false;
+    [SerializeField] private bool isChangingVel=true;
+    [SerializeField] private bool isHitting=false;
 
     public GameObject HitBox;
 
-
-
-    void Awake()
-    {
+    void Awake() {
         controller = GetComponent<CharacterController>();
         playerInput = GetComponent<PlayerInput>();
         moveAction = playerInput.actions["Move"];
@@ -50,78 +44,65 @@ public class Player : MonoBehaviour
         hitAction = playerInput.actions["Hit"];
     }
 
-    void Start()
-    {
+    void Start() {
         
     }
 
-
-    void Update()
-    {
-        
-        if(velState==0)
-        {
+    void Update() {
+        if(velState==0) {
             velocity=Velocity.Slow;
-            maxSoundArea=1.5f;
-            playerSpeed=4f;
-        }
-        if(velState==1)
-        {
-            velocity=Velocity.Normal;
             maxSoundArea=2f;
+            playerSpeed=4f;
+
+        } if(velState==1) {
+            velocity=Velocity.Normal;
+            maxSoundArea=5f;
             playerSpeed=7f;
-        }
-        if(velState==2)
-        {
+
+        } if(velState==2) {
             velocity=Velocity.Fast;
-            maxSoundArea=2.5f;
+            maxSoundArea=7f;
             playerSpeed=10f;
-        } 
-        if(velocityAction.IsPressed()&&isChangingVel)
-        {
+
+        } if(velocityAction.IsPressed()&&isChangingVel) {
             StartCoroutine(changeVel());
-        }
 
-        if(hitAction.IsPressed()&&!isHitting)
-        {
+        } if(hitAction.IsPressed()&&!isHitting) {
             StartCoroutine(actHitBox());
+
         }
-        
-
-
         //Debug.Log(velocityAction.IsPressed());
 
         Vector2 input = moveAction.ReadValue<Vector2>();
         currentInputVector = Vector2.SmoothDamp(currentInputVector, input, ref smoothInputVelocity, smoothInputSpeed);
         Vector3 move = new Vector3(currentInputVector.x, currentInputVector.y, 0);
-        vecX = move.x;
-        vecY = move.y;
+        // vecX = move.x;
+        // vecY = move.y;
         mag = move.magnitude;
-        mag=Mathf.Clamp(mag, 0.1f, 1.0f);
+        mag = Mathf.Clamp(mag, 0.1f, 1.0f);
         controller.Move(move * Time.deltaTime * playerSpeed);
 
-        //Debug.Log(move);
+
+        fieldOfView.SetOrigin(transform.position);
+
+        //Debug.Log(transform.position);
         //Debug.Log(mag);
-
-
     }
-    IEnumerator changeVel()
-    {
+
+    IEnumerator changeVel() {
         isChangingVel=false;
 
-        if(velState==2)
-            {
-                velState=0;
-            }
-            else
-            {velState++;}
-        yield return new WaitForSeconds(1);
+        if(velState == 2) {
+            velState = 0;
+        } else {
+            velState++;
+        }
 
+        yield return new WaitForSeconds(1);
         isChangingVel=true;
     }
-    IEnumerator actHitBox()
-    {
-        isHitting=true;
+    IEnumerator actHitBox() {
+        isHitting = true;
         HitBox.SetActive(true);
         yield return new WaitForSeconds(1);
         HitBox.SetActive(false);
