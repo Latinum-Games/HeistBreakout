@@ -76,10 +76,10 @@ public class Player : MonoBehaviour {
         Vector2 input = moveAction.ReadValue<Vector2>();
         currentInputVector = Vector2.SmoothDamp(currentInputVector, input, ref smoothInputVelocity, smoothInputSpeed);
         Vector3 move = new Vector3(currentInputVector.x, currentInputVector.y, 0);
-        vecX = move.x;
-        vecY = move.y;
+        // vecX = move.x;
+        // vecY = move.y;
         mag = move.magnitude;
-        mag=Mathf.Clamp(mag, 0.1f, 1.0f);
+        mag = Mathf.Clamp(mag, 0.1f, 1.0f);
         controller.Move(move * Time.deltaTime * playerSpeed);
 
 
