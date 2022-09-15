@@ -91,7 +91,7 @@ public class EnemyChase : MonoBehaviour
         RaycastHit2D hit = Physics2D.Linecast(cast.position, endPos, 1 << LayerMask.NameToLayer("Action"));
         if(hit.collider !=null)
         {
-            if(hit.collider.gameObject.CompareTag("Player"))
+            if(hit.collider.gameObject.CompareTag("Body"))
             {
                 val = true;
             }
