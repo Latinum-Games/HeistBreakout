@@ -57,12 +57,12 @@ public class Player : MonoBehaviour {
         } if(velState==1) {
             velocity=Velocity.Normal;
             maxSoundArea=5f;
-            playerSpeed=7f;
+            playerSpeed=5f;
 
         } if(velState==2) {
             velocity=Velocity.Fast;
             maxSoundArea=7f;
-            playerSpeed=10f;
+            playerSpeed=7f;
 
         } if(velocityAction.IsPressed()&&isChangingVel) {
             StartCoroutine(changeVel());
