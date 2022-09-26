@@ -1185,6 +1185,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 740974987}
+    - target: {fileID: 6683871201436507772, guid: 5e1884d6a8343014b9b4b65406f73ed5, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7270716068114071485, guid: 5e1884d6a8343014b9b4b65406f73ed5, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -2400,3 +2404,29 @@ Transform:
   m_Father: {fileID: 1058291759}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2022034850 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6683871201436507770, guid: 5e1884d6a8343014b9b4b65406f73ed5, type: 3}
+  m_PrefabInstance: {fileID: 853738389}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2022034859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2022034850}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0399f317741af914d9f592cbeb701e19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radius: 5
+  angle: 90
+  targetLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  obstructionLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  playerRef: {fileID: 0}

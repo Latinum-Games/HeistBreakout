@@ -10,8 +10,8 @@ public class EnemyFieldOfView : MonoBehaviour
     public LayerMask obstructionLayer;
     public GameObject playerRef;
     public bool CanSeePlayer {get; private set;}
-
-
+    private Vector2 directionToTarget {get; set;}
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -39,7 +39,7 @@ public class EnemyFieldOfView : MonoBehaviour
         if(rangeCheck.Length>0)
         {
             Transform target = rangeCheck[0].transform;
-            Vector2 directionToTarget=(target.position-transform.position).normalized;
+            directionToTarget=(target.position-transform.position).normalized;
             if(Vector2.Angle(transform.up,directionToTarget)<angle/2)
             {
                 float distanceToTarget = Vector2.Distance(transform.position,target.position);
@@ -70,6 +70,7 @@ public class EnemyFieldOfView : MonoBehaviour
                 {
                     Gizmos.color =Color.green;
                     Gizmos.DrawLine(transform.position,playerRef.transform.position);
+                    
                 }
 
             
@@ -77,7 +78,31 @@ public class EnemyFieldOfView : MonoBehaviour
         private Vector2 DirectionFromAngle(float eulerY, float angleInDegrees)
         {
             angleInDegrees += eulerY;
-            return new Vector2(Mathf.Sin(angleInDegrees * Mathf.Deg2Rad),Mathf.Cos(angleInDegrees * Mathf.Deg2Rad));
+            Debug.Log(directionToTarget);
+            //Debug.Log(directionToTarget[0]);
+            
+            if (directionToTarget[0] >= 0.5f && directionToTarget[1] >= -0.5f && directionToTarget[1] <= 0.5f)
+            {
+                //derecha
+                return new Vector2(-Mathf.Cos(angleInDegrees * Mathf.Deg2Rad),Mathf.Sin(angleInDegrees * Mathf.Deg2Rad));
+                
+            }else if (directionToTarget[1] >= 0.5f && directionToTarget[0] >= -0.5f && directionToTarget[0] <= 0.5f){
+
+                //arriba
+                return new Vector2(Mathf.Cos(angleInDegrees * Mathf.Deg2Rad),Mathf.Sin(angleInDegrees * Mathf.Deg2Rad));
+
+            }else if (directionToTarget[0] <= -0.5f && directionToTarget[1] <= -0.5f && directionToTarget[1] <= 0.5f){
+
+                //izquierda
+                return new Vector2(-Mathf.Sin(angleInDegrees * Mathf.Deg2Rad),Mathf.Cos(angleInDegrees * Mathf.Deg2Rad));
+
+            }else if (directionToTarget[0] > 0 && directionToTarget[1] < 0){
+
+                return new Vector2(Mathf.Sin(angleInDegrees * Mathf.Deg2Rad),Mathf.Cos(angleInDegrees * Mathf.Deg2Rad));
+            }
+            
+                
+                return new Vector2(-Mathf.Cos(angleInDegrees * Mathf.Deg2Rad),Mathf.Sin(angleInDegrees * Mathf.Deg2Rad));
         }
 
     }
