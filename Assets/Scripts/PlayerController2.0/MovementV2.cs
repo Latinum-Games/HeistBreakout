@@ -1,14 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public enum PlayerMovementState {
-    Sneaking,
-    Walking,
-    Running
-}
+using UnityEngine.Serialization;
 
 public class MovementV2 : MonoBehaviour {
+
+    private enum PlayerMovementState {
+        Sneaking,
+        Walking,
+        Running
+    }
 
     [Header("Components")]
     private Rigidbody2D rb2d;
@@ -16,7 +17,7 @@ public class MovementV2 : MonoBehaviour {
 
     [Header("Movement Variables")]
     [SerializeField] private float movementAcceleration;
-    [SerializeField] private float maxMovementSpeed;
+    [SerializeField] private float baseMovementSpeed;
     [SerializeField] private float linearDrag;
     private float horizontalDirection;
     private float verticalDirection;
@@ -32,6 +33,7 @@ public class MovementV2 : MonoBehaviour {
     }
 
     private void FixedUpdate() {
+        SwitchWalkingState();
         MoveCharacter();
         // rb2d.drag = linearDrag;
 
@@ -42,19 +44,30 @@ public class MovementV2 : MonoBehaviour {
         return new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
     }
 
+    // TODO: UPDATE TO THE NEW INPUT SYSTEM
+    private void SwitchWalkingState() {
+        if (Input.GetKey(KeyCode.LeftShift)) {
+            movementState = PlayerMovementState.Running;
+        } else if (Input.GetKey(KeyCode.Space)) {
+            movementState = PlayerMovementState.Sneaking;
+        } else {
+            movementState = PlayerMovementState.Walking;
+        }
+    }
+
     private void MoveCharacter() {
         rb2d.AddForce(new Vector2(horizontalDirection, verticalDirection) * movementAcceleration);
 
         float currentMaxMovementSpeed = 0F;
         switch (movementState) {
             case PlayerMovementState.Sneaking:
-                currentMaxMovementSpeed = maxMovementSpeed / 2;
+                currentMaxMovementSpeed = baseMovementSpeed / 2.5f;
                 break;
             case PlayerMovementState.Walking:
-                currentMaxMovementSpeed = maxMovementSpeed;
+                currentMaxMovementSpeed = baseMovementSpeed;
                 break;
             case PlayerMovementState.Running:
-                currentMaxMovementSpeed = maxMovementSpeed * 2;
+                currentMaxMovementSpeed = baseMovementSpeed * 2;
                 break;
         }
 
