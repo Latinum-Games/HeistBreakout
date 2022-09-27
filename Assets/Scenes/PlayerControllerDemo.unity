@@ -493,6 +493,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f18c4f3b46bd242f3b81a0e40ae693ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementAcceleration: 50
+  movementState: 1
+  movementAcceleration: 300
   maxMovementSpeed: 10
   linearDrag: 10
