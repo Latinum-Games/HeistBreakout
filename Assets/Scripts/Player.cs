@@ -79,6 +79,7 @@ public class Player : MonoBehaviour {
         // vecX = move.x;
         // vecY = move.y;
         mag = move.magnitude;
+        
         mag = Mathf.Clamp(mag, 0.1f, 1.0f);
         controller.Move(move * Time.deltaTime * playerSpeed);
 
