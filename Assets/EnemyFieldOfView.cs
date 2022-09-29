@@ -108,7 +108,10 @@ public class EnemyFieldOfView : MonoBehaviour
         private void OnDrawGizmos() {
             
                 Gizmos.color=Color.white;
+                #if UNITY_EDITOR
                 UnityEditor.Handles.DrawWireDisc(transform.position,Vector3.forward,radius);
+                #endif
+                
                 Vector3 angle01 = DirectionFromAngle(-transform.eulerAngles.z,-angle/2);
                 Vector3 angle02 = DirectionFromAngle(transform.eulerAngles.z,angle/2);
                 Gizmos.color =Color.yellow;
