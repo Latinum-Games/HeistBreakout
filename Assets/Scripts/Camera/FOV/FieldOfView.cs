@@ -10,39 +10,38 @@ public class FieldOfView : MonoBehaviour {
     [SerializeField] private int rayCount;
     [SerializeField] private float viewDistance;
 
-    private Mesh mesh;
-    private Vector3 origin;
+    private Mesh _mesh;
+    private Vector3 _origin;
 
     // Start is called before the first frame update
     private void Start() {
-        mesh = new Mesh();
-        origin = Vector3.zero;
-        GetComponent<MeshFilter>().mesh = mesh;
+        _mesh = new Mesh();
+        _origin = Vector3.zero;
+        GetComponent<MeshFilter>().mesh = _mesh;
     }
 
     private void LateUpdate() {
-        float angle = 0f;
-        float angleIncrease = fov / rayCount;
+        var angle = 0f;
+        var angleIncrease = fov / rayCount;
 
         // RENDER FOV TRIANGLE
-        Vector3[] vertices = new Vector3[rayCount + 1 + 1];
-        Vector2[] uv = new Vector2[vertices.Length];
-        int[] triangles = new int[rayCount * 3];
+        var vertices = new Vector3[rayCount + 1 + 1];
+        var uv = new Vector2[vertices.Length];
+        var triangles = new int[rayCount * 3];
 
-        vertices[0] = origin;
-        int vertexIndex = 1;
-        int triangleIndex = 0;
+        vertices[0] = _origin;
+        var vertexIndex = 1;
+        var triangleIndex = 0;
 
-        for (int i = 0; i <= rayCount; i++) {
+        for (var i = 0; i <= rayCount; i++) {
             Vector3 vertex;
-            RaycastHit2D raycastHit2d = Physics2D.Raycast(origin, GetVectorFromAngle(angle), viewDistance, layerMask);
+            RaycastHit2D raycastHit2d = Physics2D.Raycast(_origin, GetVectorFromAngle(angle), viewDistance, layerMask);
             if (raycastHit2d.collider == null) {
                 // No hit
-                vertex = origin + GetVectorFromAngle(angle) * viewDistance;
+                vertex = _origin + GetVectorFromAngle(angle) * viewDistance;
             } else {
                 // Hit Object
-                vertex = raycastHit2d.point;
-
+                vertex = raycastHit2d.point;    
             }
 
             vertices[vertexIndex] = vertex;
@@ -58,23 +57,23 @@ public class FieldOfView : MonoBehaviour {
             angle -= angleIncrease;
         }
 
-        mesh.vertices = vertices;
-        mesh.uv = uv;
-        mesh.triangles = triangles;
+        _mesh.vertices = vertices;
+        _mesh.uv = uv;
+        _mesh.triangles = triangles;
+        
+        _mesh.RecalculateBounds();
+        _mesh.RecalculateBounds();
     }
 
     public void SetOrigin(Vector3 origin) {
-        this.origin = origin;
+        this._origin = origin;
     }
 
     // UTILS FROM CODE MONKEY LIBRARY
-
-    public static Vector3 GetVectorFromAngle(float angle) {
+    private static Vector3 GetVectorFromAngle(float angle) {
         // angle = 0 -> 360
-        float angleRad = angle * (Mathf.PI/180f);
+        var angleRad = angle * (Mathf.PI/180f);
         return new Vector3(Mathf.Cos(angleRad), Mathf.Sin(angleRad));
     }
-
-
 }
 

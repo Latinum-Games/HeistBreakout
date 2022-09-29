@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,37 +6,42 @@ using UnityEngine.Serialization;
 
 public class MovementV2 : MonoBehaviour {
 
-    private enum PlayerMovementState {
+    public enum PlayerMovementState {
         Sneaking,
         Walking,
         Running
     }
 
     [Header("Components")]
-    private Rigidbody2D rb2d;
+    private Rigidbody2D _rb2d;
+
+    [SerializeField] private FieldOfView fieldOfView;
     [SerializeField] private PlayerMovementState movementState = PlayerMovementState.Walking;
 
     [Header("Movement Variables")]
     [SerializeField] private float movementAcceleration;
     [SerializeField] private float baseMovementSpeed;
     [SerializeField] private float linearDrag;
-    private float horizontalDirection;
-    private float verticalDirection;
+    [SerializeField] private float sneakingSpeedMultiplier = 0.33f;
+    [SerializeField] private float runningSpeedMultiplier = 2.5f;
+    private float _horizontalDirection;
+    private float _verticalDirection;
 
     private void Start() {
-        rb2d = GetComponent<Rigidbody2D>();
-        rb2d.drag = linearDrag;
+        _rb2d = GetComponent<Rigidbody2D>();
+        _rb2d.drag = linearDrag;
     }
 
     private void Update() {
-        horizontalDirection = GetInput().x;
-        verticalDirection = GetInput().y;
+        _horizontalDirection = GetInput().x;
+        _verticalDirection = GetInput().y;
     }
 
     private void FixedUpdate() {
         SwitchWalkingState();
         MoveCharacter();
-        // rb2d.drag = linearDrag;
+        fieldOfView.SetOrigin(transform.position);
+        _rb2d.drag = linearDrag;
 
     }
 
@@ -56,30 +62,38 @@ public class MovementV2 : MonoBehaviour {
     }
 
     private void MoveCharacter() {
-        rb2d.AddForce(new Vector2(horizontalDirection, verticalDirection) * movementAcceleration);
+        var velocity = _rb2d.velocity;
+        _rb2d.AddForce(new Vector2(_horizontalDirection, _verticalDirection) * movementAcceleration);
 
-        float currentMaxMovementSpeed = 0F;
-        switch (movementState) {
-            case PlayerMovementState.Sneaking:
-                currentMaxMovementSpeed = baseMovementSpeed / 2.5f;
-                break;
-            case PlayerMovementState.Walking:
-                currentMaxMovementSpeed = baseMovementSpeed;
-                break;
-            case PlayerMovementState.Running:
-                currentMaxMovementSpeed = baseMovementSpeed * 2;
-                break;
-        }
+        var currentMaxMovementSpeed = movementState switch {
+            PlayerMovementState.Sneaking => baseMovementSpeed * sneakingSpeedMultiplier,
+            PlayerMovementState.Walking => baseMovementSpeed,
+            PlayerMovementState.Running => baseMovementSpeed * runningSpeedMultiplier,
+            _ => throw new ArgumentOutOfRangeException()
+        };
 
         // Max Speed on X Axis
-        if (Mathf.Abs(rb2d.velocity.x) > currentMaxMovementSpeed) {
-            rb2d.velocity = new Vector2(Mathf.Sign(rb2d.velocity.x) * currentMaxMovementSpeed, rb2d.velocity.y);
+        if (Mathf.Abs(velocity.x) > currentMaxMovementSpeed) {
+            _rb2d.velocity = new Vector2(Mathf.Sign(velocity.x) * currentMaxMovementSpeed, velocity.y).normalized;
         }
 
         // Max Speed on Y Axis
-        if (Mathf.Abs(rb2d.velocity.y) > currentMaxMovementSpeed) {
-            rb2d.velocity = new Vector2(rb2d.velocity.x, Mathf.Sign(rb2d.velocity.y) * currentMaxMovementSpeed);
+        if (Mathf.Abs(velocity.y) > currentMaxMovementSpeed) {
+            _rb2d.velocity = new Vector2(velocity.x, Mathf.Sign(velocity.y) * currentMaxMovementSpeed).normalized;
         }
     }
 
+    // Public functions
+    public PlayerMovementState GetPlayerMovementState() {
+        return movementState;
+    }
+
+    public float GetHorizontalDirection() {
+        return _horizontalDirection;
+    }
+
+    public float GetVerticalDirection() {
+        return _verticalDirection;
+    }
+    
 }
