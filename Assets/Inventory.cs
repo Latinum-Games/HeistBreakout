@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
+    [SerializeField] private LayerMask layerMask;
     public int maxWeight=50;
     public int currentWeight=0;
     public int loot=0;
@@ -19,21 +20,18 @@ public class Inventory : MonoBehaviour
     {
         
     }
-    void OnTriggerEnter2D(Collider2D col)
-    {
+    void OnTriggerEnter2D(Collider2D col) {
+        Debug.Log(col.gameObject.layer);
+        Debug.Log(layerMask.value);
         
-        if (col.gameObject.CompareTag("Collectable") )
-    {
-        int temp = currentWeight + col.gameObject.GetComponent<collectable>().weight;
-        Debug.Log(temp);
+        if (col.gameObject.CompareTag("Collectable") ) {
+            int temp = currentWeight + col.gameObject.GetComponent<collectable>().weight;
 
-        if(currentWeight<temp)
-        {
-            currentWeight+=col.gameObject.GetComponent<collectable>().weight;
-            loot +=col.gameObject.GetComponent<collectable>().money;
-            Destroy(col.gameObject);
+            if(currentWeight<temp) {
+                currentWeight+=col.gameObject.GetComponent<collectable>().weight;
+                loot +=col.gameObject.GetComponent<collectable>().money;
+                Destroy(col.gameObject);
+            }
         }
-        
-    }
     }
 }
