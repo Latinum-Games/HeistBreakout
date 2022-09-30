@@ -1585,7 +1585,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 5
-  angle: 59
   targetLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -1593,6 +1592,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4096
   playerRef: {fileID: 0}
+  enemyAngleState: 2
 --- !u!1001 &1479654894
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2422,11 +2422,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 5
-  angle: 90
   targetLayer:
     serializedVersion: 2
     m_Bits: 64
   obstructionLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4096
   playerRef: {fileID: 0}
+  enemyAngleState: 2
