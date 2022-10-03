@@ -11,12 +11,10 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
-  - Player
   - Enemy
-  - Action
   - Mask
   - BehindMask
   - Black
@@ -40,13 +38,15 @@ TagManager:
   - 
   - 
   - 
+  - 
+  - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 430223769
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Foreground
+  - name: Top
     uniqueID: 694040831
-    locked: 0
-  - name: Background
-    uniqueID: 430223769
     locked: 0
