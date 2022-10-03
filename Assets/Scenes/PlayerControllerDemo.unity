@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 9938452}
   - component: {fileID: 9938454}
   - component: {fileID: 9938453}
-  m_Layer: 6
+  m_Layer: 14
   m_Name: SoundCollider
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -712,7 +712,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 357159541}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -15.123526, y: 15.918254, z: -10}
+  m_LocalPosition: {x: -15.106646, y: 15.918254, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1921195033}
@@ -1539,7 +1539,7 @@ GameObject:
   - component: {fileID: 1418803622}
   - component: {fileID: 1418803621}
   - component: {fileID: 1418803620}
-  m_Layer: 8
+  m_Layer: 13
   m_Name: gem
   m_TagString: Collectable
   m_Icon: {fileID: 0}
@@ -2266,7 +2266,7 @@ GameObject:
   - component: {fileID: 1939738558}
   - component: {fileID: 1939738557}
   - component: {fileID: 1939738556}
-  m_Layer: 8
+  m_Layer: 13
   m_Name: duck
   m_TagString: Collectable
   m_Icon: {fileID: 0}
@@ -2391,7 +2391,7 @@ GameObject:
   - component: {fileID: 2146510559}
   - component: {fileID: 2146510558}
   - component: {fileID: 2146510557}
-  m_Layer: 6
+  m_Layer: 14
   m_Name: SoundRenderer
   m_TagString: Sound
   m_Icon: {fileID: 0}

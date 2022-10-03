@@ -24,14 +24,17 @@ public class Inventory : MonoBehaviour
         Debug.Log(col.gameObject.layer);
         Debug.Log(layerMask.value);
         
-        if (col.gameObject.CompareTag("Collectable") ) {
-            int temp = currentWeight + col.gameObject.GetComponent<collectable>().weight;
+        if (col.gameObject.CompareTag("Collectable") )
+    {
+        int temp = currentWeight + col.gameObject.GetComponent<collectable>().weight;
+        Debug.Log("Pesare:" +temp);
+        Debug.Log("peso "+currentWeight);
 
-            if(currentWeight<temp) {
-                currentWeight+=col.gameObject.GetComponent<collectable>().weight;
-                loot +=col.gameObject.GetComponent<collectable>().money;
-                Destroy(col.gameObject);
-            }
+        if(maxWeight>temp)
+        {
+            currentWeight+=col.gameObject.GetComponent<collectable>().weight;
+            loot +=col.gameObject.GetComponent<collectable>().money;
+            Destroy(col.gameObject);
         }
     }
 }
