@@ -25,9 +25,10 @@ public class Inventory : MonoBehaviour
         if (col.gameObject.CompareTag("Collectable") )
     {
         int temp = currentWeight + col.gameObject.GetComponent<collectable>().weight;
-        Debug.Log(temp);
+        Debug.Log("Pesare:" +temp);
+        Debug.Log("peso "+currentWeight);
 
-        if(currentWeight<temp)
+        if(maxWeight>temp)
         {
             currentWeight+=col.gameObject.GetComponent<collectable>().weight;
             loot +=col.gameObject.GetComponent<collectable>().money;
