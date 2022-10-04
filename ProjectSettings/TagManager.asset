@@ -7,6 +7,7 @@ TagManager:
   - Sound
   - Body
   - Collectable
+  - Wall
   layers:
   - Default
   - TransparentFX
@@ -15,12 +16,12 @@ TagManager:
   - Water
   - UI
   - Enemy
+  - Items
+  - Background
   - Mask
   - BehindMask
   - Black
   - Wall
-  - Collectables
-  - Sound
   - 
   - 
   - 
