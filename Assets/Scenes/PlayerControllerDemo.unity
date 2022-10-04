@@ -1963,6 +1963,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d906f88e8b860cc41a73350f7a44fba3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 256
   maxWeight: 50
   currentWeight: 0
   loot: 0
