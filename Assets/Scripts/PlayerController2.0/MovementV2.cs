@@ -6,6 +6,8 @@ using UnityEngine.Serialization;
 
 public class MovementV2 : MonoBehaviour {
 
+    public Animator animator;
+
     public enum PlayerMovementState {
         Sneaking,
         Walking,
@@ -35,6 +37,7 @@ public class MovementV2 : MonoBehaviour {
     private void Update() {
         _horizontalDirection = GetInput().x;
         _verticalDirection = GetInput().y;
+        animator.SetFloat("Speed", Mathf.Abs(_horizontalDirection) + Mathf.Abs(_verticalDirection));
     }
 
     private void FixedUpdate() {
@@ -54,10 +57,14 @@ public class MovementV2 : MonoBehaviour {
     private void SwitchWalkingState() {
         if (Input.GetKey(KeyCode.LeftShift)) {
             movementState = PlayerMovementState.Running;
+            animator.SetInteger("Movement", 3);
         } else if (Input.GetKey(KeyCode.Space)) {
             movementState = PlayerMovementState.Sneaking;
+            animator.SetInteger("Movement", 1);
         } else {
             movementState = PlayerMovementState.Walking;
+            animator.SetInteger("Movement", 2);
+            
         }
     }
 
