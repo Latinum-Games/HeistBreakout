@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Scenes/Menus.unity.meta
 guid: b7b01ec344acf60409e8d58486a94385
+========
+guid: 9062d1e4202ab2148b4985260f3c8773
+>>>>>>>> main:Assets/Scenes/MVP 2.0.unity.meta
 DefaultImporter:
   externalObjects: {}
   userData: 
