@@ -6,16 +6,18 @@ TagManager:
   tags:
   - Sound
   - Body
+  - Collectable
+  - Wall
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
-  - Player
   - Enemy
-  - Action
+  - Items
+  - Background
   - Mask
   - BehindMask
   - Black
@@ -40,6 +42,12 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 430223769
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Top
+    uniqueID: 694040831
     locked: 0

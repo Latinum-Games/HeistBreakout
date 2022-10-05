@@ -7,6 +7,6 @@ public class LobbyMenu : MonoBehaviour
 {
     public void OnClick_Play()
     {
-        SceneManager.LoadScene("Test MVP 1.0");
+        SceneManager.LoadScene("MVP 2.0");
     }
 }

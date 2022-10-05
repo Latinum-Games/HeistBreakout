@@ -20,7 +20,7 @@ public class FieldOfView : MonoBehaviour {
         GetComponent<MeshFilter>().mesh = _mesh;
     }
 
-    private void LateUpdate() {
+    private void FixedUpdate() {
         var angle = 0f;
         var angleIncrease = fov / rayCount;
 
@@ -36,6 +36,7 @@ public class FieldOfView : MonoBehaviour {
         for (var i = 0; i <= rayCount; i++) {
             Vector3 vertex;
             RaycastHit2D raycastHit2d = Physics2D.Raycast(_origin, GetVectorFromAngle(angle), viewDistance, layerMask);
+            
             if (raycastHit2d.collider == null) {
                 // No hit
                 vertex = _origin + GetVectorFromAngle(angle) * viewDistance;
