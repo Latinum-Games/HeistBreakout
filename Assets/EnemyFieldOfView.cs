@@ -5,6 +5,8 @@ using UnityEngine;
 public class EnemyFieldOfView : MonoBehaviour
 {
     public float radius = 5f;
+    public float seeTime=5f;
+    public float timer=0f;
     [Range(1,360)]private float angle =90f;
     public LayerMask targetLayer;
     public LayerMask obstructionLayer;
@@ -14,6 +16,13 @@ public class EnemyFieldOfView : MonoBehaviour
     private float directionAngleHort {get; set;}
     private float directionAngleVert {get; set;}
     private bool noFirst {get; set;}
+    private bool CanWalk;
+    public enum EnemyState {
+        Patrolling,
+        Alert,
+        Persecution,
+        Hit
+    }
 
     private enum ActiveEnemyAngleState {
         Left,
@@ -23,28 +32,104 @@ public class EnemyFieldOfView : MonoBehaviour
     }
 
     [SerializeField] private ActiveEnemyAngleState enemyAngleState = ActiveEnemyAngleState.Up;
+    [SerializeField] private EnemyState State = EnemyState.Patrolling;
     
     // Start is called before the first frame update
     void Start()
     {
         playerRef = GameObject.FindGameObjectWithTag("Player");
-        StartCoroutine(FOVCheck());
+        
+        //StartCoroutine(FOVCheck());
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-    }
-    private IEnumerator FOVCheck()
-    {
-        WaitForSeconds wait =new WaitForSeconds(0.2f);
-        while(true)
+        //MIRAR CONSTANTEMENTE 0-0
+        FOV();
+        //TE VI
+        if(CanSeePlayer && State==EnemyState.Patrolling)
         {
-            yield return wait;
-            FOV();
+            State= EnemyState.Alert;
         }
+
+
+
+        //TE OBSERVO 5 SEG
+        if (CanSeePlayer && State==EnemyState.Alert)
+        {
+            timer += Time.deltaTime;
+            if (timer>=seeTime)
+            {Debug.Log("te vi 5 seg hehe te persiguire");
+            
+            
+            State= EnemyState.Persecution;
+            
+            }
+            else{
+                timer=0;
+            }
+        }
+
+
+        //TE OBSERVE 5 SEG Y TE SEGUIRE
+        if (CanSeePlayer && State==EnemyState.Persecution)
+        {
+            GetComponent<WaypointMover>().canWalk=false;
+            Debug.Log("te estoy persiguiendo jeje");
+        }
+
+
+        //YA  NO TE VEO Y TE PERSEGUIA
+        if (!CanSeePlayer && State==EnemyState.Persecution)
+        {
+            Debug.Log("te perseguia y ya no te veo");
+            timer += Time.deltaTime;
+            if (timer>=seeTime)
+            {
+            
+            State= EnemyState.Alert;
+            
+            }
+            else{
+                timer=0;
+            }
+
+            
+        }
+
+        //YA NO TE VEO Y ESTABA OBSERVANDO
+        if (!CanSeePlayer && State==EnemyState.Alert)
+        {
+            Debug.Log("te veia y ya no te veo");
+
+            timer += Time.deltaTime;
+
+            if (timer>=seeTime)
+            {
+           
+            State= EnemyState.Patrolling;
+            GetComponent<WaypointMover>().canWalk=true;
+            timer=0;
+            }
+            else{
+                timer=0;
+            }
+
+        }
+
+
+
     }
+    //private IEnumerator FOVCheck()
+    //{
+        //WaitForSeconds wait =new WaitForSeconds(0.2f);
+        //while(true)
+        //{
+            //yield return wait;
+          //  FOV();
+        //}
+    //}
     private void FOV()
     {
         Collider2D[] rangeCheck =Physics2D.OverlapCircleAll(transform.position,radius,targetLayer); 

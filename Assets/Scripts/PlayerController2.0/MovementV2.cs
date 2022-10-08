@@ -14,10 +14,12 @@ public class MovementV2 : MonoBehaviour {
         Running
     }
 
+
     [Header("Components")]
     private Rigidbody2D _rb2d;
 
     [SerializeField] private FieldOfView fieldOfView;
+    
     [SerializeField] private PlayerMovementState movementState = PlayerMovementState.Walking;
 
     [Header("Movement Variables")]
