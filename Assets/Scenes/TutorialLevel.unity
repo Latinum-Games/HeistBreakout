@@ -25090,9 +25090,9 @@ MonoBehaviour:
   fieldOfView: {fileID: 253599926}
   movementState: 1
   movementAcceleration: 300
-  baseMovementSpeed: 6
+  baseMovementSpeed: 5
   linearDrag: 10
-  sneakingSpeedMultiplier: 0.33
+  sneakingSpeedMultiplier: 2
   runningSpeedMultiplier: 1.7
 --- !u!50 &1386466005
 Rigidbody2D:
