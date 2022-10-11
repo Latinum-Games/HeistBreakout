@@ -17,6 +17,7 @@ public class EnemyFieldOfView : MonoBehaviour
     private float directionAngleVert {get; set;}
     private bool noFirst {get; set;}
     private bool CanWalk;
+    private AIChasing scriptChasing;
     public enum EnemyState {
         Patrolling,
         Alert,
@@ -31,12 +32,14 @@ public class EnemyFieldOfView : MonoBehaviour
         Down
     }
 
-    [SerializeField] private ActiveEnemyAngleState enemyAngleState = ActiveEnemyAngleState.Up;
+    [SerializeField] private ActiveEnemyAngleState enemyAngleState = ActiveEnemyAngleState.Down;
     [SerializeField] private EnemyState State = EnemyState.Patrolling;
     
     // Start is called before the first frame update
     void Start()
     {
+        scriptChasing = GetComponent<AIChasing>();
+        scriptChasing.enabled = false;
         playerRef = GameObject.FindGameObjectWithTag("Player");
         
         //StartCoroutine(FOVCheck());
@@ -62,12 +65,12 @@ public class EnemyFieldOfView : MonoBehaviour
             if (timer>=seeTime)
             {Debug.Log("te vi 5 seg hehe te persiguire");
             
-            
+            scriptChasing.enabled = true;
             State= EnemyState.Persecution;
             
             }
             else{
-                timer=0;
+                //timer=0;
             }
         }
 
@@ -77,22 +80,25 @@ public class EnemyFieldOfView : MonoBehaviour
         {
             GetComponent<WaypointMover>().canWalk=false;
             Debug.Log("te estoy persiguiendo jeje");
+            scriptChasing.enabled = true;
         }
 
 
         //YA  NO TE VEO Y TE PERSEGUIA
         if (!CanSeePlayer && State==EnemyState.Persecution)
         {
+            scriptChasing.enabled = false;
             Debug.Log("te perseguia y ya no te veo");
             timer += Time.deltaTime;
             if (timer>=seeTime)
             {
             
+            
             State= EnemyState.Alert;
             
             }
             else{
-                timer=0;
+                //timer=0;
             }
 
             
@@ -102,6 +108,7 @@ public class EnemyFieldOfView : MonoBehaviour
         if (!CanSeePlayer && State==EnemyState.Alert)
         {
             Debug.Log("te veia y ya no te veo");
+            scriptChasing.enabled = false;
 
             timer += Time.deltaTime;
 
@@ -113,7 +120,7 @@ public class EnemyFieldOfView : MonoBehaviour
             timer=0;
             }
             else{
-                timer=0;
+                //timer=0;
             }
 
         }
@@ -148,11 +155,11 @@ public class EnemyFieldOfView : MonoBehaviour
                 if (!noFirst){
                     if (enemyAngleState == ActiveEnemyAngleState.Right && directionAngleHort<angle/2){
                         CanSeePlayer = true;
-                    }else if (enemyAngleState == ActiveEnemyAngleState.Down && directionAngleVert > angle*1.5){
+                    }else if (enemyAngleState == ActiveEnemyAngleState.Up && directionAngleVert > angle*1.5){
                         CanSeePlayer = true;
                     }else if (enemyAngleState == ActiveEnemyAngleState.Left && directionAngleHort>angle*1.5){
                         CanSeePlayer = true;
-                    }else if (enemyAngleState == ActiveEnemyAngleState.Up && directionAngleVert<angle/2){
+                    }else if (enemyAngleState == ActiveEnemyAngleState.Down && directionAngleVert<angle/2){
                         CanSeePlayer = true;
                     }else{
                         CanSeePlayer = false;
@@ -167,10 +174,10 @@ public class EnemyFieldOfView : MonoBehaviour
             //si ya se vio y se mueve dentro del rango de visión del enemigo, el enemigo lo seguirá con la vista
             if(CanSeePlayer){
                 if(directionAngleVert<angle/2){
-                    enemyAngleState = ActiveEnemyAngleState.Up;
+                    enemyAngleState = ActiveEnemyAngleState.Down;
 
                 }else if (directionAngleVert > angle*1.5){
-                    enemyAngleState = ActiveEnemyAngleState.Down;
+                    enemyAngleState = ActiveEnemyAngleState.Up;
 
                 }else if(directionAngleHort<angle/2){
                     enemyAngleState = ActiveEnemyAngleState.Right;
@@ -237,7 +244,7 @@ public class EnemyFieldOfView : MonoBehaviour
                 return new Vector2(Mathf.Sin(angleInDegrees * Mathf.Deg2Rad),-Mathf.Cos(angleInDegrees * Mathf.Deg2Rad));
 
             }
-                return new Vector2(Mathf.Sin(angleInDegrees * Mathf.Deg2Rad),-Mathf.Cos(angleInDegrees * Mathf.Deg2Rad));
+                return new Vector2(Mathf.Sin(angleInDegrees * Mathf.Deg2Rad),Mathf.Cos(angleInDegrees * Mathf.Deg2Rad));
 
             }
                 
