@@ -61,7 +61,7 @@ public class Gachapon : MonoBehaviour {
             }
         }
 
-        // Sumarle el contador de pity a todo
+        // Sumarle el contador de pity a
         ContEpic ++;
         ContLegndary ++;
     }
