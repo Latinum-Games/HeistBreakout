@@ -1,24 +1,48 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class  Interactor : MonoBehaviour {
 
-    [SerializeField] private Transform _interactionPoint;
-    [SerializeField] private float _interactionPointRadius = 0.5f;
-    [SerializeField] private LayerMask _interactableMask;
+    // Private
+    [Header("Player Interaction Area")]
+    [SerializeField] private Transform interactionPoint;
+    [SerializeField] private float interactionPointRadius = 0.5f;
+    [SerializeField] private LayerMask interactableMask;
 
-    private readonly Collider2D[] _colliders = new Collider2D[3];
-    [SerializeField] private int _numFound;
+    [Header("Intractable")]
+    private readonly Collider2D[] colliders = new Collider2D[3];
+    [SerializeField] private int numOfInteractablesFound;
+    [SerializeField] private InteractionPromptUI interactionPromptUI;
+    private IInteractable interactable;
 
     private void Update() {
-        _numFound = Physics2D.OverlapCircleNonAlloc(_interactionPoint.position, _interactionPointRadius, _colliders,
-             _interactableMask);
+        numOfInteractablesFound = Physics2D.OverlapCircleNonAlloc(
+            interactionPoint.position, 
+            interactionPointRadius, 
+            colliders,
+            interactableMask
+        );
+
+        if (numOfInteractablesFound > 0) {
+            interactable = colliders[0].GetComponent<IInteractable>();
+
+            if (interactable != null) {
+                if (!interactionPromptUI.isDisplayed) {
+                    interactionPromptUI.ShowInteractionPrompt(interactable.InteractionPrompt);
+                }
+                
+                // TODO: UPDATE TO THE NEW INPUT MANAGER
+                if (Input.GetKey(KeyCode.E)) { 
+                    interactable.Interact(this);
+                }
+            }
+        } else {
+            interactable = null;
+            if (interactionPromptUI.isDisplayed) interactionPromptUI.CloseInteractionPrompt();
+        }
     }
 
     private void OnDrawGizmos() {
          Gizmos.color = Color.red;
-         Gizmos.DrawWireSphere(_interactionPoint.position, _interactionPointRadius);
+         Gizmos.DrawWireSphere(interactionPoint.position, interactionPointRadius);
     }
 }

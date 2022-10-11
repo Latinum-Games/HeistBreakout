@@ -69,7 +69,8 @@ public class MovementV2 : MonoBehaviour {
         var velocity = rb2d.velocity;
         rb2d.AddForce(new Vector2(horizontalDirection, verticalDirection) * movementAcceleration);
 
-        var currentMaxMovementSpeed = movementState switch {
+        // TODO ADD THE MOVEMENT ACCELERATION TO THE MOVEMENT SPEED CALCULATIONS FOR THE STATES
+        var currentMaxMovementSpeed = movementState switch { 
             PlayerMovementState.Sneaking => baseMovementSpeed / sneakingSpeedDivider,
             PlayerMovementState.Walking => baseMovementSpeed,
             PlayerMovementState.Running => baseMovementSpeed * runningSpeedMultiplier,

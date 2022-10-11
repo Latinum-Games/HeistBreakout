@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class KeyAction : MonoBehaviour, IInteractable {
-    
-    public string InteractionPrompt { get; }
-    public void Interact(Interactor interactor) {
-        throw new System.NotImplementedException();
+    [SerializeField] private string prompt;
+    public string InteractionPrompt => prompt;
+    public bool Interact(Interactor interactor) {
+        Debug.Log("EXECUTING KEY ACTION");
+        return true;
     }
     
 }
