@@ -62,6 +62,15 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Hit"",
+                    ""type"": ""Button"",
+                    ""id"": ""f29d4908-292d-4545-82b6-cf8e4b4759f0"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -152,6 +161,17 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""action"": ""Run"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c025b5d5-dda6-4d9e-a18a-4add2da1f621"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Hit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -164,6 +184,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         m_PlayerOverworld_Move = m_PlayerOverworld.FindAction("Move", throwIfNotFound: true);
         m_PlayerOverworld_Sneak = m_PlayerOverworld.FindAction("Sneak", throwIfNotFound: true);
         m_PlayerOverworld_Run = m_PlayerOverworld.FindAction("Run", throwIfNotFound: true);
+        m_PlayerOverworld_Hit = m_PlayerOverworld.FindAction("Hit", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -227,6 +248,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerOverworld_Move;
     private readonly InputAction m_PlayerOverworld_Sneak;
     private readonly InputAction m_PlayerOverworld_Run;
+    private readonly InputAction m_PlayerOverworld_Hit;
     public struct PlayerOverworldActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -235,6 +257,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         public InputAction @Move => m_Wrapper.m_PlayerOverworld_Move;
         public InputAction @Sneak => m_Wrapper.m_PlayerOverworld_Sneak;
         public InputAction @Run => m_Wrapper.m_PlayerOverworld_Run;
+        public InputAction @Hit => m_Wrapper.m_PlayerOverworld_Hit;
         public InputActionMap Get() { return m_Wrapper.m_PlayerOverworld; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -256,6 +279,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @Run.started -= m_Wrapper.m_PlayerOverworldActionsCallbackInterface.OnRun;
                 @Run.performed -= m_Wrapper.m_PlayerOverworldActionsCallbackInterface.OnRun;
                 @Run.canceled -= m_Wrapper.m_PlayerOverworldActionsCallbackInterface.OnRun;
+                @Hit.started -= m_Wrapper.m_PlayerOverworldActionsCallbackInterface.OnHit;
+                @Hit.performed -= m_Wrapper.m_PlayerOverworldActionsCallbackInterface.OnHit;
+                @Hit.canceled -= m_Wrapper.m_PlayerOverworldActionsCallbackInterface.OnHit;
             }
             m_Wrapper.m_PlayerOverworldActionsCallbackInterface = instance;
             if (instance != null)
@@ -272,6 +298,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @Run.started += instance.OnRun;
                 @Run.performed += instance.OnRun;
                 @Run.canceled += instance.OnRun;
+                @Hit.started += instance.OnHit;
+                @Hit.performed += instance.OnHit;
+                @Hit.canceled += instance.OnHit;
             }
         }
     }
@@ -282,5 +311,6 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnSneak(InputAction.CallbackContext context);
         void OnRun(InputAction.CallbackContext context);
+        void OnHit(InputAction.CallbackContext context);
     }
 }
