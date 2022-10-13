@@ -1,5 +1,7 @@
 using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
+
 
 public class MovementV2 : MonoBehaviour {
     public enum PlayerMovementState {
@@ -30,6 +32,7 @@ public class MovementV2 : MonoBehaviour {
     private Vector2 dirVec;
     private float angleVec;
     private bool isMoving =false;
+    private bool canHit=true;
     public enum PlayerLookState{
         Up,
         Down,
@@ -41,7 +44,17 @@ public class MovementV2 : MonoBehaviour {
     public GameObject downHit;
     public GameObject leftHit;
     public GameObject rightHit;
+    public GameObject upbox;
+    public GameObject downbox;
+    public GameObject leftbox;
+    public GameObject rightbox;
+    
+    
 
+private void Awake()
+{
+    
+}
     private void Start() {
         inputVector = Vector2.zero;
         movementState = PlayerMovementState.Walking;
@@ -58,6 +71,11 @@ public class MovementV2 : MonoBehaviour {
         animator.SetFloat("Speed", Mathf.Abs(horizontalDirection) + Mathf.Abs(verticalDirection));
         if(checkMove())
         {Hitboxer();}
+        //if(hit)
+        //{
+          //  hitting();
+
+        //}
         
         
     }
@@ -66,6 +84,52 @@ public class MovementV2 : MonoBehaviour {
         MoveCharacter();
         fieldOfView.SetOrigin(transform.position);
         rb2d.drag = linearDrag;
+
+    }
+    private void hitting()
+    {
+        if (lookState== PlayerLookState.Up && canHit) 
+            {
+                upbox.SetActive(true);
+                downbox.SetActive(false);
+                leftbox.SetActive(false);
+                rightbox.SetActive(false);
+                
+                new WaitForSeconds(1);
+                canHit=false;
+            }
+            if (lookState== PlayerLookState.Down && canHit)
+            {
+                upbox.SetActive(false);
+                downbox.SetActive(true);
+                leftbox.SetActive(false);
+                rightbox.SetActive(false);
+                new WaitForSeconds(1);
+                canHit=false;
+            }
+            if (lookState== PlayerLookState.Left && canHit)
+            {
+                upbox.SetActive(false);
+                downbox.SetActive(false);
+                leftbox.SetActive(true);
+                rightbox.SetActive(false);
+                new WaitForSeconds(1);
+                canHit=false;
+            }
+            if (lookState== PlayerLookState.Right && canHit)
+            {
+                upbox.SetActive(false);
+                downbox.SetActive(false);
+                leftbox.SetActive(false);
+                rightbox.SetActive(true);
+                new WaitForSeconds(1);
+                canHit=false;
+            }
+                upbox.SetActive(false);
+                downbox.SetActive(false);
+                leftbox.SetActive(false);
+                rightbox.SetActive(false);
+                new WaitForSeconds(5);
 
     }
     private bool checkMove()
