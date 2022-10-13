@@ -135,7 +135,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 208766775}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e0aaba9736e463445882b5ca6aa45d97, type: 3}
   m_Name: 
@@ -175,9 +175,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0621ceb017bbaf4c9875393435dc0a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waypoints: []
-  moveSpeed: 1
-  waitTime: 3
+  waypoints:
+  - {fileID: 2049586861}
+  - {fileID: 334675543}
+  - {fileID: 1389380197}
+  - {fileID: 1084500927}
+  moveSpeed: 2
+  waitTime: 1
   stopped: 0
   canWalk: 1
   travelDirection: {x: 0, y: 0, z: 0}
@@ -350,9 +354,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e1a74f03a3c6754aa6f70563fc1faec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: gem
-  weight: 50
-  money: 100
 --- !u!212 &334675542
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -426,6 +427,18 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 4058351391681810728, guid: 5e1884d6a8343014b9b4b65406f73ed5, type: 3}
+      propertyPath: timer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4058351391681810728, guid: 5e1884d6a8343014b9b4b65406f73ed5, type: 3}
+      propertyPath: seeTime
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4058351391681810728, guid: 5e1884d6a8343014b9b4b65406f73ed5, type: 3}
+      propertyPath: timeChangeView
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4058351391681810728, guid: 5e1884d6a8343014b9b4b65406f73ed5, type: 3}
       propertyPath: enemyAngleState
       value: 2
       objectReference: {fileID: 0}
@@ -486,9 +499,17 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6683871201436507769, guid: 5e1884d6a8343014b9b4b65406f73ed5, type: 3}
+      propertyPath: m_Size.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6683871201436507769, guid: 5e1884d6a8343014b9b4b65406f73ed5, type: 3}
+      propertyPath: m_Size.y
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6683871201436507769, guid: 5e1884d6a8343014b9b4b65406f73ed5, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 0644632aee2d87c47bed69e22e81f43c, type: 3}
+      objectReference: {fileID: 21300000, guid: b9798c9058244c64aaab93e8b6bb94dc, type: 3}
     - target: {fileID: 6683871201436507769, guid: 5e1884d6a8343014b9b4b65406f73ed5, type: 3}
       propertyPath: m_Color.a
       value: 1
@@ -10076,6 +10097,10 @@ PrefabInstance:
     - target: {fileID: 6683871201436507769, guid: 5e1884d6a8343014b9b4b65406f73ed5, type: 3}
       propertyPath: m_Color.g
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6683871201436507769, guid: 5e1884d6a8343014b9b4b65406f73ed5, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6683871201436507770, guid: 5e1884d6a8343014b9b4b65406f73ed5, type: 3}
       propertyPath: m_Name
@@ -24280,9 +24305,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e1a74f03a3c6754aa6f70563fc1faec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: gem
-  weight: 50
-  money: 100
 --- !u!212 &1084500926
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -24456,12 +24478,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d906f88e8b860cc41a73350f7a44fba3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 256
   maxWeight: 50
   currentWeight: 0
-  loot: 0
 --- !u!114 &1187507118
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24474,13 +24492,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f18c4f3b46bd242f3b81a0e40ae693ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 1187507123}
   fieldOfView: {fileID: 220045291}
   movementState: 1
+  animator: {fileID: 1187507123}
   movementAcceleration: 300
   baseMovementSpeed: 7
   linearDrag: 10
-  sneakingSpeedMultiplier: 0.33
+  sneakingSpeedDivider: 2
   runningSpeedMultiplier: 2.5
 --- !u!50 &1187507119
 Rigidbody2D:
@@ -24671,9 +24689,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e1a74f03a3c6754aa6f70563fc1faec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: duck
-  weight: 10
-  money: 10
 --- !u!212 &1389380196
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -24776,9 +24791,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   m_UseGeometry: 0
-  m_OverrideByGrid: 1
+  m_OverrideByGrid: 0
   m_UseMeshPrefab: {fileID: 0}
-  m_CompressBounds: 1
+  m_CompressBounds: 0
   m_OverrideVector: {x: 1, y: 1, z: 1}
   m_DefaultArea: 0
   m_IgnoreNavMeshAgent: 1
@@ -24797,13 +24812,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1538224850}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: -0.7071068}
   m_LocalPosition: {x: -0.8649652, y: -1.950149, z: -1657.4086}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 10
-  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 270, y: 0, z: 0}
 --- !u!1 &1541218968
 GameObject:
   m_ObjectHideFlags: 0
@@ -28559,9 +28574,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e1a74f03a3c6754aa6f70563fc1faec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: duck
-  weight: 10
-  money: 10
 --- !u!212 &2049586860
 SpriteRenderer:
   m_ObjectHideFlags: 0

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 /// <summary>
 /// This class handles moving the attached game object between waypoints
@@ -29,6 +30,8 @@ public class WaypointMover : MonoBehaviour
     private int currentTargetIndex;
     public bool canWalk=true;
 
+    NavMeshAgent enemy;
+
     [HideInInspector] 
     public Vector3 travelDirection;
 
@@ -36,6 +39,7 @@ public class WaypointMover : MonoBehaviour
     void Start()
     {
         InitializeInformation();
+        
     }
 
 
@@ -81,6 +85,12 @@ public class WaypointMover : MonoBehaviour
 
     void InitializeInformation()
     {
+
+        enemy = GetComponent<NavMeshAgent>();
+        enemy.updateRotation = false;
+        enemy.updateUpAxis = false;
+
+
         previousTarget = this.transform.position;
         currentTargetIndex = 0;
         if (waypoints.Count > 0)
@@ -115,20 +125,19 @@ public class WaypointMover : MonoBehaviour
         if (directionFromCurrentPositionToTarget.x == 0 || Mathf.Sign(directionFromCurrentPositionToTarget.x) != Mathf.Sign(travelDirection.x))
         {
             overX = true;
-            transform.position = new Vector3(currentTarget.x, transform.position.y, transform.position.z);
         }
         if (directionFromCurrentPositionToTarget.y == 0 || Mathf.Sign(directionFromCurrentPositionToTarget.y) != Mathf.Sign(travelDirection.y))
         {
             overY = true;
-            transform.position = new Vector3(transform.position.x, currentTarget.y, transform.position.z);
         }
         if (directionFromCurrentPositionToTarget.z == 0 || Mathf.Sign(directionFromCurrentPositionToTarget.z) != Mathf.Sign(travelDirection.z))
         {
             overZ = true;
-            transform.position = new Vector3(transform.position.x, transform.position.y, currentTarget.z);
         }
 
-        if (overX && overY && overZ)
+        enemy.SetDestination(new Vector3(currentTarget.x, currentTarget.y, currentTarget.z));
+
+        if (overX && overY || overZ)
         {
             BeginWait();
         }
