@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class ExitMenu : MonoBehaviour
+public class GameOverMenu : MonoBehaviour
 {
     public void OnClick_Yes()
     {
-        SceneManager.LoadScene("UI Heist Breakout");
+        SceneManager.LoadScene("MVP 2.0");
         MenuManager.Init();
     }
 
     public void OnClick_No()
     {
-        MenuManager.OpenMenu(Menu.PAUSE_MENU, gameObject);
+        SceneManager.LoadScene("UI Heist Breakout");
+        MenuManager.Init();
     }
-
 }
