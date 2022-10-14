@@ -1,14 +1,10 @@
 using UnityEngine;
 
-public class ItemAction : MonoBehaviour, IInteractable {
-    
+public class ItemAction : MonoBehaviour, IInteractable { // TODO RENAME FUNCTION TO FIELD_ITEM or smt
     // Private Variables
-    [Header("Item Values")]
-    [SerializeField] private int itemWeight;
-    
-    [Header("Player Interaction")]
-    [SerializeField] private string actionPrompt;
-    public string InteractionPrompt => actionPrompt;
+    [Header("Item")]
+    [SerializeField] private Item item;
+    public string InteractionPrompt => item.interactionPrompt == string.Empty ? "Pickup " + item.title  : item.interactionPrompt;
     
     public bool Interact(Interactor interactor) {
         return Loot(interactor);
@@ -21,7 +17,7 @@ public class ItemAction : MonoBehaviour, IInteractable {
             return false;
         }
 
-        if (!inventory.AddLoot(itemWeight: itemWeight)) {
+        if (!inventory.AddLoot(item: item)) {
             return false;
         }
 

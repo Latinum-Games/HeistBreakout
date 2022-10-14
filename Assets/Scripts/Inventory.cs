@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Inventory : MonoBehaviour {
@@ -5,16 +6,19 @@ public class Inventory : MonoBehaviour {
     [SerializeField] private int maxWeight = 50;
     [SerializeField] private int currentWeight = 0;
 
-    // TODO: Create Data Classes
-    // TODO: Create list of Loot
-    // TODO: Create List of Key Items
+    // Private Arguments
+    [SerializeField] private List<Item> itemList;
+    
+    // TODO: CREATE UI TO DISPLAY THE ITEMS
+    // TODO: CREATE A FUNCTION TO DROP THE ITEMS
 
-    public bool AddLoot(int itemWeight) {
-        if (currentWeight + itemWeight > maxWeight || currentWeight == maxWeight) {
+    public bool AddLoot(Item item) {
+        if (currentWeight + item.weight > maxWeight || currentWeight == maxWeight) {
             return false;
         }
-        
-        currentWeight += itemWeight;
+
+        itemList.Add(item);
+        currentWeight += item.weight;
         return true;
     }
 }

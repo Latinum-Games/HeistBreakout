@@ -35,8 +35,7 @@ public class  Interactor : MonoBehaviour {
                     interactionPromptUI.ShowInteractionPrompt(interactable.InteractionPrompt);
                 }
                 
-                // TODO: UPDATE TO THE NEW INPUT MANAGER
-                if (keyPress) { 
+                if (keyPress) { // ->
                     interactable.Interact(this);
                 }
             }

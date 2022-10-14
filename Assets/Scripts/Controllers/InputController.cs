@@ -2,15 +2,26 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class InputController : MonoBehaviour {
+    private enum InputMapType {
+        Player,
+        Menu
+    }
+    
+    // Foreign Components
+    [SerializeField] private InGameMenu inGameMenu;
+    
     // Components 
     private MovementV2 movementV2;
     private Interactor interactor;
 
     // Auto-generated Actions
     private PlayerInputActions playerInputActions;
+    
+    // Variables
+    private InputMapType currentInputMap;
 
     // Start is called before the first frame update
-    void Awake() {
+    private void Awake() {
         movementV2 = GetComponent<MovementV2>();
         interactor = GetComponent<Interactor>();
         playerInputActions = new PlayerInputActions();
@@ -18,8 +29,10 @@ public class InputController : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update() {
-        MoveCharacter();
+    private void Update() {
+        if (currentInputMap == InputMapType.Player) {
+            MoveCharacter();
+        }
     }
 
     // Subscribers
@@ -31,6 +44,22 @@ public class InputController : MonoBehaviour {
         playerInputActions.PlayerOverworld.Run.performed += Run;
         playerInputActions.PlayerOverworld.Run.canceled += Run;
         playerInputActions.PlayerOverworld.Interact.performed += Interact;
+        playerInputActions.PlayerOverworld.OpenMenu.performed += OpenMenu;
+        currentInputMap = InputMapType.Player;
+    }
+    
+    private void DisablePlayerOverworldMap() {
+        playerInputActions.PlayerOverworld.Disable();
+    }
+
+    private void SubscribeMenuMap() {
+        playerInputActions.MenuActions.Enable();
+        playerInputActions.MenuActions.ExitMenu.performed += CloseMenu;
+        currentInputMap = InputMapType.Menu;
+    }
+
+    private void DisableMenuMap() {
+        playerInputActions.MenuActions.Disable();
     }
 
     // Player Overworld Actions
@@ -50,6 +79,36 @@ public class InputController : MonoBehaviour {
     private void Interact(InputAction.CallbackContext context) {
         if (context.performed) {
             interactor.InteractAction(true);
+        }
+    }
+    
+    private void OpenMenu(InputAction.CallbackContext context) {
+        if (context.performed) {
+            DisablePlayerOverworldMap();
+            SubscribeMenuMap();
+
+            // Hide Character and HUD TODO: HIDE HUD 
+            var spriteRenderer = GetComponent<SpriteRenderer>();
+            spriteRenderer.color = new Color(1f, 1f, 1f, 0f);
+
+            
+            // Open Menu
+            inGameMenu.OpenMenu();
+        }
+    }
+    
+    // Menu Actions
+    private void CloseMenu(InputAction.CallbackContext context) {
+        if (context.performed) {
+            DisableMenuMap();
+            SubscribePlayerOverworldMap();
+            
+            // SHOW Character and HUD TODO: SHOW HUD 
+            var spriteRenderer = GetComponent<SpriteRenderer>();
+            spriteRenderer.color = new Color(1f, 1f, 1f, 1f);
+            
+            // Close Menu
+            inGameMenu.CloseMenu();
         }
     }
 }

@@ -3,17 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameOverMenu : MonoBehaviour
+public class RewardsMenu : MonoBehaviour
 {
-    public void OnClick_Yes()
+    public void OnClick_Play()
     {
-        SceneManager.LoadScene("MVP 2.0");
+        SceneManager.LoadScene("Test Pathfinding");
         MenuManager.Init();
     }
 
-    public void OnClick_No()
+    public void OnClick_Exit()
     {
         SceneManager.LoadScene("UI Heist Breakout");
         MenuManager.Init();
     }
+
 }
