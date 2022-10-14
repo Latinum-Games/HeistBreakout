@@ -8,10 +8,10 @@ public class  Interactor : MonoBehaviour {
     [SerializeField] private float interactionPointRadius = 0.5f;
     [SerializeField] private LayerMask interactableMask;
 
-    [Header("Intractable")]
-    private readonly Collider2D[] colliders = new Collider2D[3];
+    [Header("Interactable")]
     [SerializeField] private int numOfInteractablesFound;
     [SerializeField] private InteractionPromptUI interactionPromptUI;
+    private readonly Collider2D[] colliders = new Collider2D[3];
     private IInteractable interactable;
 
     private void Update() {
@@ -22,6 +22,11 @@ public class  Interactor : MonoBehaviour {
             interactableMask
         );
 
+        InteractAction();
+    }
+    
+    // Public Functions
+    public void InteractAction(bool keyPress = false) {
         if (numOfInteractablesFound > 0) {
             interactable = colliders[0].GetComponent<IInteractable>();
 
@@ -31,7 +36,7 @@ public class  Interactor : MonoBehaviour {
                 }
                 
                 // TODO: UPDATE TO THE NEW INPUT MANAGER
-                if (Input.GetKey(KeyCode.E)) { 
+                if (keyPress) { 
                     interactable.Interact(this);
                 }
             }

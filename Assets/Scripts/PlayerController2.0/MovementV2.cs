@@ -1,8 +1,5 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class MovementV2 : MonoBehaviour {
     public enum PlayerMovementState {
@@ -11,13 +8,10 @@ public class MovementV2 : MonoBehaviour {
         Running
     }
 
-
     [Header("Components")]
-    private Rigidbody2D rb2d;
-
     [SerializeField] private FieldOfView fieldOfView;
-    
-    [SerializeField] private PlayerMovementState movementState = PlayerMovementState.Walking;
+    [SerializeField] private PlayerMovementState movementState;
+    private Rigidbody2D rb2d;
     public Animator animator;
 
     [Header("Movement Variables")]
@@ -26,45 +20,30 @@ public class MovementV2 : MonoBehaviour {
     [SerializeField] private float linearDrag;
     [SerializeField] private float sneakingSpeedDivider = 2f;
     [SerializeField] private float runningSpeedMultiplier = 2.5f;
+    private Vector2 inputVector;
     private float horizontalDirection;
     private float verticalDirection;
 
     private void Start() {
+        inputVector = Vector2.zero;
+        movementState = PlayerMovementState.Walking;
+        animator.SetInteger("Movement", 2);
+        
         rb2d = GetComponent<Rigidbody2D>();
         rb2d.drag = linearDrag;
     }
 
     private void Update() {
-        horizontalDirection = GetInput().x;
-        verticalDirection = GetInput().y;
+        horizontalDirection = inputVector.x;
+        verticalDirection = inputVector.y;
         animator.SetFloat("Speed", Mathf.Abs(horizontalDirection) + Mathf.Abs(verticalDirection));
     }
 
     private void FixedUpdate() {
-        SwitchWalkingState();
         MoveCharacter();
         fieldOfView.SetOrigin(transform.position);
         rb2d.drag = linearDrag;
 
-    }
-
-    // Get input controllers
-    private static Vector2 GetInput() {
-        return new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-    }
-
-    // TODO: UPDATE TO THE NEW INPUT SYSTEM
-    private void SwitchWalkingState() {
-        if (Input.GetKey(KeyCode.LeftShift)) {
-            movementState = PlayerMovementState.Running;
-            animator.SetInteger("Movement", 3);
-        } else if (Input.GetKey(KeyCode.Space)) {
-            movementState = PlayerMovementState.Sneaking;
-            animator.SetInteger("Movement", 1);
-        } else {
-            movementState = PlayerMovementState.Walking;
-            animator.SetInteger("Movement", 2);
-        }
     }
 
     private void MoveCharacter() {
@@ -91,6 +70,27 @@ public class MovementV2 : MonoBehaviour {
     }
 
     // Public functions
+    public void SetInput(Vector2 vector2) {
+        inputVector = vector2;
+    }
+
+    public void SetMovementState(int state) {
+        switch (state) {
+            case 1: // 0 For Sneaking State
+                movementState = PlayerMovementState.Sneaking;
+                animator.SetInteger("Movement", 1);
+                break;
+            case 2: // 1 For Running State
+                movementState = PlayerMovementState.Walking;
+                animator.SetInteger("Movement", 2);
+                break;
+            case 3:
+                movementState = PlayerMovementState.Running;
+                animator.SetInteger("Movement", 3);
+                break;
+        }
+    }
+    
     public PlayerMovementState GetPlayerMovementState() {
         return movementState;
     }
