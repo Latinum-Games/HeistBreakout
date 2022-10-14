@@ -5,6 +5,7 @@ public class InputController : MonoBehaviour {
     // Components 
     private MovementV2 movementV2;
     private Interactor interactor;
+    private hitController hitController;
 
     // Auto-generated Actions
     private PlayerInputActions playerInputActions;
@@ -12,6 +13,7 @@ public class InputController : MonoBehaviour {
     // Start is called before the first frame update
     void Awake() {
         movementV2 = GetComponent<MovementV2>();
+        hitController= GetComponent<hitController>();
         interactor = GetComponent<Interactor>();
         playerInputActions = new PlayerInputActions();
         SubscribePlayerOverworldMap();
@@ -31,12 +33,18 @@ public class InputController : MonoBehaviour {
         playerInputActions.PlayerOverworld.Run.performed += Run;
         playerInputActions.PlayerOverworld.Run.canceled += Run;
         playerInputActions.PlayerOverworld.Interact.performed += Interact;
+        playerInputActions.PlayerOverworld.Hit.performed += SetHit;
     }
 
     // Player Overworld Actions
     private void MoveCharacter() {
         var inputVector = playerInputActions.PlayerOverworld.Move.ReadValue<Vector2>();
         movementV2.SetInput(inputVector);
+    }
+
+    private void SetHit(InputAction.CallbackContext context) {
+        
+        hitController.SetHit(context.performed);
     }
 
     private void Sneak(InputAction.CallbackContext context) {
