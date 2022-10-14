@@ -7,6 +7,7 @@ public class EnemyFieldOfView : MonoBehaviour
     public float radius = 5f;
     public float seeTime=5f;
     public float timer=0f;
+    public float timeChangeView = 2f;
     [Range(1,360)]private float angle =90f;
     public LayerMask targetLayer;
     public LayerMask obstructionLayer;
@@ -17,7 +18,13 @@ public class EnemyFieldOfView : MonoBehaviour
     private float directionAngleVert {get; set;}
     private bool noFirst {get; set;}
     private bool CanWalk;
+
     private AIChasing scriptChasing;
+    private WaypointMover scriptWaypoint;
+
+    private Vector2 enemyVel;
+    private Vector2 prevPos;
+
     public enum EnemyState {
         Patrolling,
         Alert,
@@ -32,7 +39,7 @@ public class EnemyFieldOfView : MonoBehaviour
         Down
     }
 
-    [SerializeField] private ActiveEnemyAngleState enemyAngleState = ActiveEnemyAngleState.Down;
+    [SerializeField] private ActiveEnemyAngleState enemyAngleState = ActiveEnemyAngleState.Up;
     [SerializeField] private EnemyState State = EnemyState.Patrolling;
     
     // Start is called before the first frame update
@@ -41,8 +48,17 @@ public class EnemyFieldOfView : MonoBehaviour
         scriptChasing = GetComponent<AIChasing>();
         scriptChasing.enabled = false;
         playerRef = GameObject.FindGameObjectWithTag("Player");
+
+        scriptWaypoint = GetComponent<WaypointMover>();
+        scriptWaypoint.enabled = true;
+
         
         //StartCoroutine(FOVCheck());
+    }
+
+    void FixedUpdate() {
+        enemyVel = (new Vector2 (transform.position.x - prevPos[0], transform.position.y- prevPos[1]))/Time.deltaTime;
+        prevPos = new Vector2 (transform.position.x, transform.position.y);
     }
 
     // Update is called once per frame
@@ -50,6 +66,54 @@ public class EnemyFieldOfView : MonoBehaviour
     {
         //MIRAR CONSTANTEMENTE 0-0
         FOV();
+
+        var velMagn = enemyVel.magnitude;
+        enemyVel = enemyVel.normalized;
+        var fwdDotProduct = Vector2.Dot(transform.up, enemyVel);
+        var rightDotProduct = Vector2.Dot(transform.right, enemyVel);
+        
+        //print(fwdDotProduct);
+        //print(rightDotProduct);
+        if(fwdDotProduct > 0){
+            print("I am moving forward");
+        }
+        else if(fwdDotProduct < 0){
+            print("I am moving backward");
+        }
+        if(rightDotProduct < 0){
+            print("I am moving left");
+        }
+        else if(rightDotProduct > 0){
+            print("I am moving right");
+        }
+
+        
+        if (State == EnemyState.Patrolling)
+        {
+            timer += Time.deltaTime;
+            if (timer > timeChangeView)
+            {
+                if (rightDotProduct > fwdDotProduct)
+                {
+                    if (rightDotProduct > 0)
+                    {
+                        enemyAngleState = ActiveEnemyAngleState.Right;
+                    }else{
+                        enemyAngleState = ActiveEnemyAngleState.Left;
+                    }
+                }else{
+                    if (fwdDotProduct > 0)
+                    {
+                        enemyAngleState = ActiveEnemyAngleState.Up;
+                    }else{
+                        enemyAngleState = ActiveEnemyAngleState.Down;
+                    }
+                }
+                timer = 0;
+            }
+            
+        }
+
         //TE VI
         if(CanSeePlayer && State==EnemyState.Patrolling)
         {
@@ -65,9 +129,10 @@ public class EnemyFieldOfView : MonoBehaviour
             if (timer>=seeTime)
             {Debug.Log("te vi 5 seg hehe te persiguire");
             
+            scriptWaypoint.enabled = false;
             scriptChasing.enabled = true;
             State= EnemyState.Persecution;
-            
+            timer=0;
             }
             else{
                 //timer=0;
@@ -80,6 +145,7 @@ public class EnemyFieldOfView : MonoBehaviour
         {
             GetComponent<WaypointMover>().canWalk=false;
             Debug.Log("te estoy persiguiendo jeje");
+            scriptWaypoint.enabled = false;
             scriptChasing.enabled = true;
         }
 
@@ -87,15 +153,17 @@ public class EnemyFieldOfView : MonoBehaviour
         //YA  NO TE VEO Y TE PERSEGUIA
         if (!CanSeePlayer && State==EnemyState.Persecution)
         {
-            scriptChasing.enabled = false;
+            
             Debug.Log("te perseguia y ya no te veo");
             timer += Time.deltaTime;
             if (timer>=seeTime)
             {
             
-            
+            scriptWaypoint.enabled = false;
+            scriptChasing.enabled = true;
+
             State= EnemyState.Alert;
-            
+            timer=0;
             }
             else{
                 //timer=0;
@@ -108,13 +176,14 @@ public class EnemyFieldOfView : MonoBehaviour
         if (!CanSeePlayer && State==EnemyState.Alert)
         {
             Debug.Log("te veia y ya no te veo");
-            scriptChasing.enabled = false;
+            
 
             timer += Time.deltaTime;
 
             if (timer>=seeTime)
             {
-           
+            scriptChasing.enabled = false;
+            scriptWaypoint.enabled = true;  
             State= EnemyState.Patrolling;
             GetComponent<WaypointMover>().canWalk=true;
             timer=0;
@@ -155,11 +224,11 @@ public class EnemyFieldOfView : MonoBehaviour
                 if (!noFirst){
                     if (enemyAngleState == ActiveEnemyAngleState.Right && directionAngleHort<angle/2){
                         CanSeePlayer = true;
-                    }else if (enemyAngleState == ActiveEnemyAngleState.Up && directionAngleVert > angle*1.5){
+                    }else if (enemyAngleState == ActiveEnemyAngleState.Down && directionAngleVert > angle*1.5){
                         CanSeePlayer = true;
                     }else if (enemyAngleState == ActiveEnemyAngleState.Left && directionAngleHort>angle*1.5){
                         CanSeePlayer = true;
-                    }else if (enemyAngleState == ActiveEnemyAngleState.Down && directionAngleVert<angle/2){
+                    }else if (enemyAngleState == ActiveEnemyAngleState.Up && directionAngleVert<angle/2){
                         CanSeePlayer = true;
                     }else{
                         CanSeePlayer = false;
@@ -174,10 +243,10 @@ public class EnemyFieldOfView : MonoBehaviour
             //si ya se vio y se mueve dentro del rango de visión del enemigo, el enemigo lo seguirá con la vista
             if(CanSeePlayer){
                 if(directionAngleVert<angle/2){
-                    enemyAngleState = ActiveEnemyAngleState.Down;
+                    enemyAngleState = ActiveEnemyAngleState.Up;
 
                 }else if (directionAngleVert > angle*1.5){
-                    enemyAngleState = ActiveEnemyAngleState.Up;
+                    enemyAngleState = ActiveEnemyAngleState.Down;
 
                 }else if(directionAngleHort<angle/2){
                     enemyAngleState = ActiveEnemyAngleState.Right;
@@ -219,6 +288,7 @@ public class EnemyFieldOfView : MonoBehaviour
 
             
         }
+
         private Vector2 DirectionFromAngle(float eulerY, float angleInDegrees)
         {
             angleInDegrees += eulerY;
@@ -247,5 +317,6 @@ public class EnemyFieldOfView : MonoBehaviour
                 return new Vector2(Mathf.Sin(angleInDegrees * Mathf.Deg2Rad),Mathf.Cos(angleInDegrees * Mathf.Deg2Rad));
 
             }
+
                 
         }
