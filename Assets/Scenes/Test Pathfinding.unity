@@ -219,7 +219,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   layerMask:
     serializedVersion: 2
-    m_Bits: 4096
+    m_Bits: 0
   fov: 360
   rayCount: 360
   viewDistance: 8
@@ -435,6 +435,10 @@ PrefabInstance:
       value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 4058351391681810728, guid: 5e1884d6a8343014b9b4b65406f73ed5, type: 3}
+      propertyPath: playerRef
+      value: 
+      objectReference: {fileID: 1187507116}
+    - target: {fileID: 4058351391681810728, guid: 5e1884d6a8343014b9b4b65406f73ed5, type: 3}
       propertyPath: timeChangeView
       value: 1
       objectReference: {fileID: 0}
@@ -444,7 +448,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4058351391681810728, guid: 5e1884d6a8343014b9b4b65406f73ed5, type: 3}
       propertyPath: targetLayer.m_Bits
-      value: 64
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 6532681264771786531, guid: 5e1884d6a8343014b9b4b65406f73ed5, type: 3}
       propertyPath: m_Enabled
@@ -564,7 +568,7 @@ GameObject:
   - component: {fileID: 445851875}
   - component: {fileID: 445851874}
   - component: {fileID: 445851876}
-  m_Layer: 9
+  m_Layer: 8
   m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9898,7 +9902,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 562341092}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.00013303757, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 645290932}
@@ -10130,7 +10134,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6532681264771786531, guid: 5e1884d6a8343014b9b4b65406f73ed5, type: 3}
+    - {fileID: 7270716068114071485, guid: 5e1884d6a8343014b9b4b65406f73ed5, type: 3}
+    - {fileID: 6683871201436507774, guid: 5e1884d6a8343014b9b4b65406f73ed5, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 5e1884d6a8343014b9b4b65406f73ed5, type: 3}
 --- !u!1 &841468760
 GameObject:
@@ -10144,7 +10151,7 @@ GameObject:
   - component: {fileID: 841468764}
   - component: {fileID: 841468763}
   - component: {fileID: 841468762}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: SoundRenderer
   m_TagString: Sound
   m_Icon: {fileID: 0}
@@ -22993,7 +23000,7 @@ GameObject:
   - component: {fileID: 1020815371}
   - component: {fileID: 1020815373}
   - component: {fileID: 1020815374}
-  m_Layer: 12
+  m_Layer: 8
   m_Name: Walls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24381,7 +24388,7 @@ GameObject:
   - component: {fileID: 1180804098}
   - component: {fileID: 1180804100}
   - component: {fileID: 1180804099}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: SoundCollider
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -24459,7 +24466,8 @@ GameObject:
   - component: {fileID: 1187507118}
   - component: {fileID: 1187507117}
   - component: {fileID: 1187507123}
-  m_Layer: 6
+  - component: {fileID: 1187507124}
+  m_Layer: 3
   m_Name: PlayerController2.0
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -24632,6 +24640,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1187507124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1187507116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cebdbd1f40e7914db56ce560fbf9f55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1389380193
 GameObject:
   m_ObjectHideFlags: 0
@@ -24966,7 +24986,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1541218968}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.3858266, y: 0, z: -10}
+  m_LocalPosition: {x: -7.3045406, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 562341093}
