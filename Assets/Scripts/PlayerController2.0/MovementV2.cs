@@ -28,11 +28,11 @@ public class MovementV2 : MonoBehaviour {
     [SerializeField] private float sneakingSpeedDivider = 2f;
     [SerializeField] private float runningSpeedMultiplier = 2.5f;
     private Vector2 inputVector;
-    private float horizontalDirection;
-    private float verticalDirection;
+    public float horizontalDirection;
+    public float verticalDirection;
     private Vector2 dirVec;
     private float angleVec;
-    private bool isMoving =false;
+    
 
     public enum PlayerLookState{
         Up,
@@ -40,11 +40,6 @@ public class MovementV2 : MonoBehaviour {
         Left,
         Right
     }
-    [Header("Hitboxes")]
-    public GameObject upHit;
-    public GameObject downHit;
-    public GameObject leftHit;
-    public GameObject rightHit;
     
     public bool up;
     public bool down;
@@ -72,12 +67,7 @@ private void Awake()
         horizontalDirection = inputVector.x;
         verticalDirection = inputVector.y;
         animator.SetFloat("Speed", Mathf.Abs(horizontalDirection) + Mathf.Abs(verticalDirection));
-        if(checkMove())
-        {Hitboxer();}
-        
-        
-        
-        
+
     }
 
     private void FixedUpdate() {
@@ -89,67 +79,7 @@ private void Awake()
 
     
     
-    private bool checkMove()
-    {
-        if(verticalDirection==0 && horizontalDirection==0 )
-        isMoving=false;
-        else
-        isMoving=true;
-
-        return isMoving;
-    }
-    private void Hitboxer()
-    {if(lookState== PlayerLookState.Up)
-        {
-            upHit.SetActive(true);
-            downHit.SetActive(false);
-            leftHit.SetActive(false);
-            rightHit.SetActive(false);
-            up=true;
-            down=false;
-            left=false;
-            right=false;
-            
-        }
-        else if(lookState== PlayerLookState.Down)
-        {
-            upHit.SetActive(false);
-            downHit.SetActive(true);
-            leftHit.SetActive(false);
-            rightHit.SetActive(false);
-            up=false;
-            down=true;
-            left=false;
-            right=false;
-        }
-        else if(lookState== PlayerLookState.Right)
-        {
-            upHit.SetActive(false);
-            downHit.SetActive(false);
-            leftHit.SetActive(false);
-            rightHit.SetActive(true);
-            up=false;
-            down=false;
-            left=false;
-            right=true;
-        }
-        else if(lookState== PlayerLookState.Left)
-        {
-            upHit.SetActive(false);
-            downHit.SetActive(false);
-            leftHit.SetActive(true);
-            rightHit.SetActive(false);
-            up=false;
-            down=false;
-            left=true;
-            right=false;
-        }
-        else{
-            upHit.SetActive(false);
-            downHit.SetActive(false);
-            leftHit.SetActive(false);
-            rightHit.SetActive(false);
-        }}
+    
 
     private void MoveCharacter() {
         var velocity = rb2d.velocity;
@@ -162,18 +92,34 @@ private void Awake()
         if(angleVec==90)
         {
         lookState= PlayerLookState.Right;
+        up=false;
+        down=false;
+        left=false;
+        right=true;
         }
         else if(angleVec==180)
         {
         lookState= PlayerLookState.Down;
+        up=false;
+        down=true;
+        left=false;
+        right=false;
         }
         else if(angleVec==270)
         {
         lookState= PlayerLookState.Left;
+        up=false;
+        down=false;
+        left=true;
+        right=false;
         }
         else if(angleVec==0)
         {
         lookState= PlayerLookState.Up;
+        up=true;
+        down=false;
+        left=false;
+        right=false;
         }
 
 

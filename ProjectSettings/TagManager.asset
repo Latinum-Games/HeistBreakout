@@ -8,6 +8,7 @@ TagManager:
   - Body
   - Collectable
   - Wall
+  - hit
   layers:
   - Default
   - TransparentFX
