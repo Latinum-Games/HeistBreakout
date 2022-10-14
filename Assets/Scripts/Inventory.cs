@@ -16,7 +16,7 @@ public class Inventory : MonoBehaviour {
         if (currentWeight + item.weight > maxWeight || currentWeight == maxWeight) {
             return false;
         }
-        
+
         itemList.Add(item);
         currentWeight += item.weight;
         return true;
