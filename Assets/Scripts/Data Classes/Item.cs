@@ -1,17 +1,34 @@
 using System;
+using UnityEngine;
 
 [Serializable]
 public class Item {
+    
+    // Main Item Classification
     public enum ItemType {
         KeyItem,
         Treasure
     }
 
+    // Specific Item Classification
+    public enum ItemSprite {
+        Duck
+    }
+
     // Attributes
-    public string title;
-    public ItemType type;
-    public int weight;
+    public string title = "";
+    public ItemType type = ItemType.Treasure;
+    public ItemSprite itemSprite = ItemSprite.Duck;
+    public int weight = 0;
 
     // Interaction Values
-    public string interactionPrompt;
+    public string interactionPrompt = "";
+    
+    // Sprite Resources
+    public Sprite GetSprite() {
+        switch (itemSprite) {
+            default:
+                case ItemSprite.Duck: return ItemAssets.Instance.duck;
+        }
+    }
 }

@@ -1,11 +1,19 @@
+using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ItemAction : MonoBehaviour, IInteractable { // TODO RENAME FUNCTION TO FIELD_ITEM or smt
     // Private Variables
     [Header("Item")]
     [SerializeField] private Item item;
+    [SerializeField] private Sprite sprite;
     public string InteractionPrompt => item.interactionPrompt == string.Empty ? "Pickup " + item.title  : item.interactionPrompt;
-    
+
+    private void Start() {
+        sprite = item.GetSprite();
+        gameObject.GetComponent<SpriteRenderer>().sprite = item.GetSprite();
+    }
+
     public bool Interact(Interactor interactor) {
         return Loot(interactor);
     }
