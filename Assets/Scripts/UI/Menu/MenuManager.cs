@@ -3,27 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public static class MenuManager
-{
-
+public static class MenuManager {
     [SerializeField] public static bool IsInitialised { get; private set;}
     public static GameObject mainMenu, optionsMenu, exitMenu, pauseMenu, shopMenu, rewardMenu, gameOverMenu, lobbyMenu, museumMenu;
     private static string currentScene;
 
-    public static void Init()
-    {
+    public static void Init() {
         GameObject canvas = GameObject.Find("Canvas");
         currentScene = SceneManager.GetActiveScene().name;
 
-        if (currentScene == "UI Heist Breakout")
-        {
+        if (currentScene == "UI Heist Breakout") {
             mainMenu = canvas.transform.Find("Title screen").gameObject;
             shopMenu = canvas.transform.Find("Shop").gameObject;
             lobbyMenu = canvas.transform.Find("Lobby").gameObject;
             museumMenu = canvas.transform.Find("My Museum").gameObject;
 
-        } else if(currentScene == "Interfaces 2")
-        {
+        } else if(currentScene == "Interfaces 2") {
             exitMenu = canvas.transform.Find("Exit menu").gameObject;
             optionsMenu = canvas.transform.Find("Options menu").gameObject;
             pauseMenu = canvas.transform.Find("Pause menu").gameObject;
@@ -34,14 +29,11 @@ public static class MenuManager
         IsInitialised = true;
     }
 
-    public static void OpenMenu(Menu menu, GameObject callingMenu)
-    {
+    public static void OpenMenu(Menu menu, GameObject callingMenu) {
         if (!IsInitialised)
             Init();
 
-        switch (menu)
-        {
-                
+        switch (menu) {
             case Menu.MAIN_MENU:
                 mainMenu.SetActive(true);
                 break;
@@ -69,11 +61,8 @@ public static class MenuManager
             case Menu.MUSEUM_MENU:
                 museumMenu.SetActive(true);
                 break;
-                
-
         }
 
         callingMenu.SetActive(false);
     }
-
 }

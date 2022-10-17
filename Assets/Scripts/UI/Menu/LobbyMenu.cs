@@ -3,11 +3,8 @@ using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
 
-public class LobbyMenu : MonoBehaviour
-{
-    public void OnClick_Play()
-    {
-
+public class LobbyMenu : MonoBehaviour {
+    public void OnClick_Play() {
         SceneManager.LoadScene("Test Pathfinding");
         MenuManager.Init();
     }

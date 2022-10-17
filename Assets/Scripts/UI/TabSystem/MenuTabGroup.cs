@@ -13,7 +13,7 @@ public class MenuTabGroup : MonoBehaviour {
     public Color hoverColor;
     public Color selectedColor;
     
-    private MenuTabButton selectedTab;
+    [SerializeField] private MenuTabButton selectedTab;
     public List<GameObject> objectsToSwap; // TODO: OPTIMIZE THE WAY THAT THE ITEMS ARE ORGANIZED
 
     private void Start() {
