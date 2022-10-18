@@ -19,6 +19,7 @@ public class MovementV2 : MonoBehaviour {
     [Header("States")]
     [SerializeField] public PlayerMovementState movementState;
     [SerializeField] public PlayerLookState lookState;
+    [SerializeField] public PlayerLookState lastLookState;
 
 
     [Header("Movement Variables")]
@@ -38,15 +39,9 @@ public class MovementV2 : MonoBehaviour {
         Up,
         Down,
         Left,
-        Right
+        Right,
+        Idle
     }
-    
-    public bool up;
-    public bool down;
-    public bool left;
-    public bool right;
-    
-    
     
 
 private void Awake()
@@ -67,6 +62,7 @@ private void Awake()
         horizontalDirection = inputVector.x;
         verticalDirection = inputVector.y;
         animator.SetFloat("Speed", Mathf.Abs(horizontalDirection) + Mathf.Abs(verticalDirection));
+        
 
     }
 
@@ -84,42 +80,29 @@ private void Awake()
     private void MoveCharacter() {
         var velocity = rb2d.velocity;
         rb2d.AddForce(new Vector2(horizontalDirection, verticalDirection) * movementAcceleration);
-        dirVec =new Vector2(horizontalDirection, verticalDirection);
-        angleVec =Angle(dirVec);
+        
         
 
-        //SET ANGLE STATE DEPENDING IN ANGLE DIRECTION IN CLOSED SECTION
-        if(angleVec==90)
+    
+        if(horizontalDirection==1 && verticalDirection==0)
         {
         lookState= PlayerLookState.Right;
-        up=false;
-        down=false;
-        left=false;
-        right=true;
         }
-        else if(angleVec==180)
+        else if(horizontalDirection==0 && verticalDirection==-1)
         {
         lookState= PlayerLookState.Down;
-        up=false;
-        down=true;
-        left=false;
-        right=false;
         }
-        else if(angleVec==270)
+        else if(horizontalDirection==-1 && verticalDirection==0)
         {
         lookState= PlayerLookState.Left;
-        up=false;
-        down=false;
-        left=true;
-        right=false;
         }
-        else if(angleVec==0)
+        else if(horizontalDirection==0 && verticalDirection==1)
         {
         lookState= PlayerLookState.Up;
-        up=true;
-        down=false;
-        left=false;
-        right=false;
+        }
+        else if(horizontalDirection==0 && verticalDirection==0)
+        {
+            lastLookState=lookState;
         }
 
 
@@ -140,6 +123,8 @@ private void Awake()
         if (Mathf.Abs(velocity.y) > currentMaxMovementSpeed) {
             rb2d.velocity = new Vector2(velocity.x, Mathf.Sign(velocity.y) * currentMaxMovementSpeed).normalized;
         }
+
+        
     }
 
     // Public functions
@@ -147,17 +132,6 @@ private void Awake()
     public void SetInput(Vector2 vector2) {
         inputVector = vector2;
     }
-    public static float Angle(Vector2 vector2)
-{
-    if (vector2.x < 0)
-    {
-         return 360 - (Mathf.Atan2(vector2.x, vector2.y) * Mathf.Rad2Deg * Mathf.Sign(vector2.x));;
-    }
-    else
-    {
-         return Mathf.Atan2(vector2.x, vector2.y) * Mathf.Rad2Deg;
-    }
-}
 
     public void SetMovementState(int state) {
         switch (state) {
@@ -186,6 +160,10 @@ private void Awake()
 
     public float GetVerticalDirection() {
         return verticalDirection;
+    }
+    public PlayerLookState GetPlayerLookState()
+    {
+        return lookState;
     }
     
 }

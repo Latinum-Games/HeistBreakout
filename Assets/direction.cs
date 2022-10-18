@@ -34,50 +34,38 @@ public class direction : MonoBehaviour
         return isMoving;
     }
     private void Hitboxer()
-    {if(movementV2.up)
+    {if(movementV2.GetPlayerLookState()== MovementV2.PlayerLookState.Up)
         {
             upHit.SetActive(true);
             downHit.SetActive(false);
             leftHit.SetActive(false);
             rightHit.SetActive(false);
-            movementV2.up=true;
-            movementV2.down=false;
-            movementV2.left=false;
-            movementV2.right=false;
+            //movementV2.lookState= MovementV2.PlayerLookState.Up;
             
         }
-        else if(movementV2.down)
+        else if(movementV2.GetPlayerLookState()== MovementV2.PlayerLookState.Down)
         {
             upHit.SetActive(false);
             downHit.SetActive(true);
             leftHit.SetActive(false);
             rightHit.SetActive(false);
-            movementV2.up=false;
-            movementV2.down=true;
-            movementV2.left=false;
-            movementV2.right=false;
+            //movementV2.lookState= MovementV2.PlayerLookState.Down;
         }
-        else if(movementV2.right)
+        else if(movementV2.GetPlayerLookState()== MovementV2.PlayerLookState.Right)
         {
             upHit.SetActive(false);
             downHit.SetActive(false);
             leftHit.SetActive(false);
             rightHit.SetActive(true);
-            movementV2.up=false;
-            movementV2.down=false;
-            movementV2.left=false;
-            movementV2.right=true;
+            //movementV2.lookState= MovementV2.PlayerLookState.Right;
         }
-        else if(movementV2.left)
+        else if(movementV2.GetPlayerLookState()== MovementV2.PlayerLookState.Left)
         {
             upHit.SetActive(false);
             downHit.SetActive(false);
             leftHit.SetActive(true);
             rightHit.SetActive(false);
-            movementV2.up=false;
-            movementV2.down=false;
-            movementV2.left=true;
-            movementV2.right=false;
+            //movementV2.lookState= MovementV2.PlayerLookState.Left;
         }
         else{
             upHit.SetActive(false);

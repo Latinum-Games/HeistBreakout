@@ -9,7 +9,9 @@ public class hitController : MonoBehaviour
     public GameObject leftbox;
     public GameObject rightbox;
     public bool canHit=false;
+    public float hitTime=1f;
     private MovementV2 movementV2;
+    public float counter;
 
     // Start is called before the first frame update
     void Start()
@@ -22,108 +24,98 @@ public class hitController : MonoBehaviour
     {
         if(canHit)
         {
-        hitting();
-        
-        
-        }
-    }
-    public void hitting()
-    {
-        if (movementV2.up && canHit) 
+            
+        if (movementV2.GetPlayerLookState()== MovementV2.PlayerLookState.Left && canHit) 
             {
-                
-                StartCoroutine(upHit());
-                
-             
-                
-            }
-            if (movementV2.down && canHit)
-            {
-                
-                StartCoroutine(downHit());
-               
-            }
-            if (movementV2.left && canHit)
-            {
-                
-                StartCoroutine(leftHit());
-             
-            }
-            if (movementV2.right && canHit)
-            {
-                
-                StartCoroutine(rightHit());
-                
-            }
-                
-                //new WaitForSeconds(5);
+                Debug.Log("pegue");
+                upbox.SetActive(false);
+                downbox.SetActive(false);
+                leftbox.SetActive(true);
+                rightbox.SetActive(false);
 
+                counter += Time.deltaTime;
+
+                if( counter > hitTime)
+                {
+                    Debug.Log("nopegue");
+                    upbox.SetActive(false);
+                    downbox.SetActive(false);
+                    leftbox.SetActive(false);
+                    rightbox.SetActive(false);
+                    counter=0;
+                    canHit=false;
+                }
+            }
+        if (movementV2.GetPlayerLookState()== MovementV2.PlayerLookState.Down && canHit)
+            {
+                Debug.Log("pegue");
+                upbox.SetActive(false);
+                downbox.SetActive(true);
+                leftbox.SetActive(false);
+                rightbox.SetActive(false);
+
+                counter += Time.deltaTime;
+
+                if( counter > hitTime)
+                {
+                    Debug.Log("nopegue");
+                    upbox.SetActive(false);
+                    downbox.SetActive(false);
+                    leftbox.SetActive(false);
+                    rightbox.SetActive(false);
+                    counter=0;
+                    canHit=false;
+                }
+            }
+        if (movementV2.GetPlayerLookState()== MovementV2.PlayerLookState.Up && canHit)
+            {
+                Debug.Log("pegue");
+                upbox.SetActive(true);
+                downbox.SetActive(false);
+                leftbox.SetActive(false);
+                rightbox.SetActive(false);
+
+                counter += Time.deltaTime;
+
+                if( counter > hitTime)
+                {
+                    Debug.Log("nopegue");
+                    upbox.SetActive(false);
+                    downbox.SetActive(false);
+                    leftbox.SetActive(false);
+                    rightbox.SetActive(false);
+                    counter=0;
+                    canHit=false;
+                }
+            }
+        if (movementV2.GetPlayerLookState()== MovementV2.PlayerLookState.Right && canHit)
+            {
+                Debug.Log("pegue");
+                upbox.SetActive(false);
+                downbox.SetActive(false);
+                leftbox.SetActive(false);
+                rightbox.SetActive(true);
+
+                counter += Time.deltaTime;
+
+                if( counter > hitTime)
+                {
+                    Debug.Log("nopegue");
+                    upbox.SetActive(false);
+                    downbox.SetActive(false);
+                    leftbox.SetActive(false);
+                    rightbox.SetActive(false);
+                    counter=0;
+                    canHit=false;
+                }
+            }
+        }
+        
     }
     public void SetHit(bool hit =false)
     {
         canHit= hit;
         Debug.Log(canHit);
-
-
+    }
 }
-IEnumerator leftHit()
-{
-    upbox.SetActive(false);
-    downbox.SetActive(false);
-    leftbox.SetActive(true);
-    rightbox.SetActive(false);
-    yield return new WaitForSeconds(2);
-    upbox.SetActive(false);
-    downbox.SetActive(false);
-    leftbox.SetActive(false);
-    rightbox.SetActive(false);
-    canHit=false;
-    
 
-}
-IEnumerator rightHit()
-{
-    upbox.SetActive(false);
-    downbox.SetActive(false);
-    leftbox.SetActive(false);
-    rightbox.SetActive(true);
-    yield return new WaitForSeconds(2);
-    upbox.SetActive(false);
-    downbox.SetActive(false);
-    leftbox.SetActive(false);
-    rightbox.SetActive(false);
-    canHit=false;
-    
-
-}
-IEnumerator upHit()
-{
-    upbox.SetActive(true);
-    downbox.SetActive(false);
-    leftbox.SetActive(false);
-    rightbox.SetActive(false);
-    yield return new WaitForSeconds(2);
-    upbox.SetActive(false);
-    downbox.SetActive(false);
-    leftbox.SetActive(false);
-    rightbox.SetActive(false);
-    canHit=false;
-    
-
-}
-IEnumerator downHit()
-{
-    upbox.SetActive(false);
-    downbox.SetActive(true);
-    leftbox.SetActive(false);
-    rightbox.SetActive(false);
-    yield return new WaitForSeconds(2);
-    upbox.SetActive(false);
-    downbox.SetActive(false);
-    leftbox.SetActive(false);
-    rightbox.SetActive(false);
-    canHit=false;
-    
-
-}
-}
