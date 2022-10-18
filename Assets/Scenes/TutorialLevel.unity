@@ -123,6 +123,50 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &237401745
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 237401747}
+  - component: {fileID: 237401746}
+  m_Layer: 0
+  m_Name: ItemResources
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &237401746
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 237401745}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8110fdb7f641c4d73a8dde141b008f12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  duck: {fileID: 21300000, guid: 231b2d8055f2f114d97e0bbcf9ef1058, type: 3}
+--- !u!4 &237401747
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 237401745}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4.5600796, y: -4.7491417, z: -124.73124}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &253599924
 GameObject:
   m_ObjectHideFlags: 0
@@ -615,6 +659,7 @@ MonoBehaviour:
     itemSprite: 0
     weight: 0
     interactionPrompt: 
+  sprite: {fileID: 0}
 --- !u!1 &469414221
 GameObject:
   m_ObjectHideFlags: 0
@@ -26809,7 +26854,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1608222396}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.5040703, y: -6.275968, z: -10}
+  m_LocalPosition: {x: -9.552927, y: -8.405968, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1928158073}

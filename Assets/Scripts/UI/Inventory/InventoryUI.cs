@@ -36,7 +36,8 @@ public class InventoryUI : MonoBehaviour {
             
             itemSlotRectTransform.gameObject.SetActive(true);
             itemSlotRectTransform.anchoredPosition = new Vector2((x * itemSlotCellSize) + offsetX, (y * -itemSlotCellSize) - offsetY);
-            // itemSlotRectTransform.GetComponent<Image>().sprite = item.GetSprite();
+            var sprite = item.GetSprite();
+            itemSlotRectTransform.GetComponent<Image>().sprite = sprite;
             x++;
 
             // TODO: UPDATE DYNAMICALLY THE INVENTORY

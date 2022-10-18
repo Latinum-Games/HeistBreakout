@@ -16,13 +16,13 @@ public class Item {
     }
 
     // Attributes
-    public string title = "";
+    public string title = "DEFAULT ITEM";
     public ItemType type = ItemType.Treasure;
     public ItemSprite itemSprite = ItemSprite.Duck;
     public int weight = 0;
 
     // Interaction Values
-    public string interactionPrompt = "";
+    public string interactionPrompt = "DEFAULT ITEM PROMPT";
     
     // Sprite Resources
     public Sprite GetSprite() {
