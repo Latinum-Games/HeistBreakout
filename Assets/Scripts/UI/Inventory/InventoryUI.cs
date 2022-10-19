@@ -17,10 +17,19 @@ public class InventoryUI : MonoBehaviour {
 
     public void SetInventory(Inventory inventory) {
         this.inventory = inventory;
-        RefreshItemItems();
+        RefreshInventoryItems();
     }
 
-    private void RefreshItemItems() {
+    public void OnInventoryChange() {
+        RefreshInventoryItems();
+    }
+    
+    private void RefreshInventoryItems() {
+        foreach (Transform child in itemSlotContainer) {
+            if (child == itemSlotTemplate) continue;
+            Destroy(child.gameObject);
+        }
+        
         // Initial Coordinates Relative to Container
         var x = 0;
         var y = 0;
@@ -49,5 +58,17 @@ public class InventoryUI : MonoBehaviour {
         }
     }
     
+    public void OpenInventoryUI() {
+        foreach (Transform child in itemSlotContainer) {
+            if (child == itemSlotTemplate) continue;
+            // 1
+            LeanTween.cancel(child.gameObject);
+            child.transform.rotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
+            child.transform.localScale = Vector3.one;
 
+            // 2
+            LeanTween.rotateZ(child.gameObject, 30.0f, 0.5f).setEasePunch();
+            LeanTween.scaleX(child.gameObject, 1.2f, 0.2f).setEasePunch();
+        }
+    }
 }

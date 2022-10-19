@@ -43,7 +43,12 @@ public class MenuTabGroup : MonoBehaviour {
     }
 
     public void OnTabSelected(MenuTabButton button) {
+        if (selectedTab != null) {
+            selectedTab.Deselect();
+        }
+        
         selectedTab = button;
+        selectedTab.Select();
         ResetTabs();
         button.background.color = selectedColor;
 
