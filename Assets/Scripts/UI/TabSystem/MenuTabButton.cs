@@ -4,7 +4,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(Image))]
-public class MenuTabButton : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, IPointerExitHandler {
+public class MenuTabButton : MonoBehaviour, ISelectHandler, IDeselectHandler,  IPointerEnterHandler, IPointerClickHandler, IPointerExitHandler {
 
     [SerializeField] private MenuTabGroup menuTabGroup;
     public Image background;
@@ -34,5 +34,16 @@ public class MenuTabButton : MonoBehaviour, IPointerEnterHandler, IPointerClickH
     private void Start() {
         background = GetComponent<Image>();
         menuTabGroup.Subscribe(this);
+    }
+
+    // Keyboard Strokes
+    public void OnSelect(BaseEventData eventData) {
+        Debug.Log("Selected");
+        menuTabGroup.OnTabEnter(this);
+    }
+
+    public void OnDeselect(BaseEventData eventData) {
+        Debug.Log("Deselected");
+        menuTabGroup.OnTabExit(this);
     }
 }

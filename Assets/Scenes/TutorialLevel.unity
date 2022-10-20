@@ -152,7 +152,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8110fdb7f641c4d73a8dde141b008f12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ring: {fileID: 0}
+  harp: {fileID: 0}
+  staff: {fileID: 0}
+  necklace: {fileID: 0}
+  goblet: {fileID: 0}
+  crown: {fileID: 0}
+  diamond: {fileID: 0}
+  emerald: {fileID: 0}
+  egg: {fileID: 0}
+  jar: {fileID: 0}
+  faceMask: {fileID: 0}
+  mask: {fileID: 0}
+  globe: {fileID: 0}
   duck: {fileID: 21300000, guid: 231b2d8055f2f114d97e0bbcf9ef1058, type: 3}
+  clock: {fileID: 0}
+  ruby: {fileID: 0}
+  sapphire: {fileID: 0}
 --- !u!4 &237401747
 Transform:
   m_ObjectHideFlags: 0
@@ -1455,7 +1471,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 1484842860}
+  m_FirstSelected: {fileID: 0}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
 --- !u!4 &868140376
@@ -26429,6 +26445,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba8aadc17743ed544bf1f5f193f166aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  eventSystem: {fileID: 868140375}
 --- !u!1 &1484842860
 GameObject:
   m_ObjectHideFlags: 0
@@ -26917,7 +26934,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1608222396}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.715189, y: -8.405968, z: -10}
+  m_LocalPosition: {x: -8.280779, y: -8.405968, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1928158073}
@@ -27187,11 +27204,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item:
-    title: 
+    title: Zafiro
     type: 0
-    itemSprite: 0
+    itemSprite: 16
     weight: 0
-    interactionPrompt: 
+    interactionPrompt: Jaja moriste
   sprite: {fileID: 0}
 --- !u!61 &1760219858
 BoxCollider2D:
@@ -27316,11 +27333,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item:
-    title: 
+    title: Mascara
     type: 0
-    itemSprite: 0
+    itemSprite: 10
     weight: 0
-    interactionPrompt: 
+    interactionPrompt: Jaja mascara
   sprite: {fileID: 0}
 --- !u!61 &1824908987
 BoxCollider2D:

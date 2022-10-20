@@ -15,28 +15,6 @@ public class Inventory : MonoBehaviour {
     [SerializeField] private InventoryUI inventoryUI;
 
     private void Awake() {
-        // this.AddLoot(new Item());
-        // this.AddLoot(new Item());
-        // this.AddLoot(new Item());
-        // this.AddLoot(new Item());
-        // this.AddLoot(new Item());
-        // this.AddLoot(new Item());
-        // this.AddLoot(new Item());
-        // this.AddLoot(new Item());
-        // this.AddLoot(new Item());
-        // this.AddLoot(new Item());
-        // this.AddLoot(new Item());
-        // this.AddLoot(new Item());
-        // this.AddLoot(new Item());
-        // this.AddLoot(new Item());
-        // this.AddLoot(new Item());
-        // this.AddLoot(new Item());
-        // this.AddLoot(new Item());
-        // this.AddLoot(new Item());
-        // this.AddLoot(new Item());
-        // this.AddLoot(new Item());
-        
-
         inventoryUI.SetInventory(this);
     }
 

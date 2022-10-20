@@ -1,9 +1,16 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class InGameMenu : MonoBehaviour {
+
+    // Public Event System for Navigation
+    public EventSystem eventSystem;
+
+    private void Awake() {
+        eventSystem.firstSelectedGameObject = GameObject.Find("TabArea/InventoryTab");
+    }
+
     private void Start() {
         transform.localScale = Vector2.zero;
     }
