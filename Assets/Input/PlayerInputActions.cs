@@ -71,6 +71,15 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Hit"",
+                    ""type"": ""Button"",
+                    ""id"": ""88578f05-605e-408f-97b2-f8b34a309343"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -170,6 +179,17 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""OpenMenu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6da9cc1d-a333-4ceb-9a5c-aa54dc3c237f"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Hit"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -721,6 +741,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         m_PlayerOverworld_Sneak = m_PlayerOverworld.FindAction("Sneak", throwIfNotFound: true);
         m_PlayerOverworld_Run = m_PlayerOverworld.FindAction("Run", throwIfNotFound: true);
         m_PlayerOverworld_OpenMenu = m_PlayerOverworld.FindAction("OpenMenu", throwIfNotFound: true);
+        m_PlayerOverworld_Hit = m_PlayerOverworld.FindAction("Hit", throwIfNotFound: true);
         // MenuActions
         m_MenuActions = asset.FindActionMap("MenuActions", throwIfNotFound: true);
         m_MenuActions_ExitMenu = m_MenuActions.FindAction("ExitMenu", throwIfNotFound: true);
@@ -798,6 +819,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerOverworld_Sneak;
     private readonly InputAction m_PlayerOverworld_Run;
     private readonly InputAction m_PlayerOverworld_OpenMenu;
+    private readonly InputAction m_PlayerOverworld_Hit;
     public struct PlayerOverworldActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -807,6 +829,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         public InputAction @Sneak => m_Wrapper.m_PlayerOverworld_Sneak;
         public InputAction @Run => m_Wrapper.m_PlayerOverworld_Run;
         public InputAction @OpenMenu => m_Wrapper.m_PlayerOverworld_OpenMenu;
+        public InputAction @Hit => m_Wrapper.m_PlayerOverworld_Hit;
         public InputActionMap Get() { return m_Wrapper.m_PlayerOverworld; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -831,6 +854,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @OpenMenu.started -= m_Wrapper.m_PlayerOverworldActionsCallbackInterface.OnOpenMenu;
                 @OpenMenu.performed -= m_Wrapper.m_PlayerOverworldActionsCallbackInterface.OnOpenMenu;
                 @OpenMenu.canceled -= m_Wrapper.m_PlayerOverworldActionsCallbackInterface.OnOpenMenu;
+                @Hit.started -= m_Wrapper.m_PlayerOverworldActionsCallbackInterface.OnHit;
+                @Hit.performed -= m_Wrapper.m_PlayerOverworldActionsCallbackInterface.OnHit;
+                @Hit.canceled -= m_Wrapper.m_PlayerOverworldActionsCallbackInterface.OnHit;
             }
             m_Wrapper.m_PlayerOverworldActionsCallbackInterface = instance;
             if (instance != null)
@@ -850,6 +876,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @OpenMenu.started += instance.OnOpenMenu;
                 @OpenMenu.performed += instance.OnOpenMenu;
                 @OpenMenu.canceled += instance.OnOpenMenu;
+                @Hit.started += instance.OnHit;
+                @Hit.performed += instance.OnHit;
+                @Hit.canceled += instance.OnHit;
             }
         }
     }
@@ -974,6 +1003,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         void OnSneak(InputAction.CallbackContext context);
         void OnRun(InputAction.CallbackContext context);
         void OnOpenMenu(InputAction.CallbackContext context);
+        void OnHit(InputAction.CallbackContext context);
     }
     public interface IMenuActionsActions
     {

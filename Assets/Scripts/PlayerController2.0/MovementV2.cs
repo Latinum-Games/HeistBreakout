@@ -1,7 +1,10 @@
 using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
+
 
 public class MovementV2 : MonoBehaviour {
+    
     public enum PlayerMovementState {
         Sneaking,
         Walking,
@@ -10,9 +13,14 @@ public class MovementV2 : MonoBehaviour {
 
     [Header("Components")]
     [SerializeField] private FieldOfView fieldOfView;
-    [SerializeField] private PlayerMovementState movementState;
     private Rigidbody2D rb2d;
     public Animator animator;
+
+    [Header("States")]
+    [SerializeField] public PlayerMovementState movementState;
+    [SerializeField] public PlayerLookState lookState;
+    [SerializeField] public PlayerLookState lastLookState;
+
 
     [Header("Movement Variables")]
     [SerializeField] private float movementAcceleration;
@@ -21,12 +29,29 @@ public class MovementV2 : MonoBehaviour {
     [SerializeField] private float sneakingSpeedDivider = 2f;
     [SerializeField] private float runningSpeedMultiplier = 2.5f;
     private Vector2 inputVector;
-    private float horizontalDirection;
-    private float verticalDirection;
+    public float horizontalDirection;
+    public float verticalDirection;
+    private Vector2 dirVec;
+    private float angleVec;
+    
 
+    public enum PlayerLookState{
+        Up,
+        Down,
+        Left,
+        Right,
+        Idle
+    }
+    
+
+private void Awake()
+{
+    
+}
     private void Start() {
         inputVector = Vector2.zero;
         movementState = PlayerMovementState.Walking;
+        lookState = PlayerLookState.Up;
         animator.SetInteger("Movement", 2);
         
         rb2d = GetComponent<Rigidbody2D>();
@@ -37,6 +62,8 @@ public class MovementV2 : MonoBehaviour {
         horizontalDirection = inputVector.x;
         verticalDirection = inputVector.y;
         animator.SetFloat("Speed", Mathf.Abs(horizontalDirection) + Mathf.Abs(verticalDirection));
+        
+
     }
 
     private void FixedUpdate() {
@@ -46,9 +73,38 @@ public class MovementV2 : MonoBehaviour {
 
     }
 
+    
+    
+    
+
     private void MoveCharacter() {
         var velocity = rb2d.velocity;
         rb2d.AddForce(new Vector2(horizontalDirection, verticalDirection) * movementAcceleration);
+        
+        
+
+    
+        if(horizontalDirection==1 && verticalDirection==0)
+        {
+        lookState= PlayerLookState.Right;
+        }
+        else if(horizontalDirection==0 && verticalDirection==-1)
+        {
+        lookState= PlayerLookState.Down;
+        }
+        else if(horizontalDirection==-1 && verticalDirection==0)
+        {
+        lookState= PlayerLookState.Left;
+        }
+        else if(horizontalDirection==0 && verticalDirection==1)
+        {
+        lookState= PlayerLookState.Up;
+        }
+        else if(horizontalDirection==0 && verticalDirection==0)
+        {
+            lastLookState=lookState;
+        }
+
 
         // TODO ADD THE MOVEMENT ACCELERATION TO THE MOVEMENT SPEED CALCULATIONS FOR THE STATES
         var currentMaxMovementSpeed = movementState switch { 
@@ -67,9 +123,12 @@ public class MovementV2 : MonoBehaviour {
         if (Mathf.Abs(velocity.y) > currentMaxMovementSpeed) {
             rb2d.velocity = new Vector2(velocity.x, Mathf.Sign(velocity.y) * currentMaxMovementSpeed).normalized;
         }
+
+        
     }
 
     // Public functions
+    
     public void SetInput(Vector2 vector2) {
         inputVector = vector2;
     }
@@ -102,4 +161,9 @@ public class MovementV2 : MonoBehaviour {
     public float GetVerticalDirection() {
         return verticalDirection;
     }
+    public PlayerLookState GetPlayerLookState()
+    {
+        return lookState;
+    }
+    
 }
