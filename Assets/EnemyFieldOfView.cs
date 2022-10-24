@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 public class EnemyFieldOfView : MonoBehaviour
 {
@@ -8,7 +11,7 @@ public class EnemyFieldOfView : MonoBehaviour
     public float seeTime=5f;
     public float timer=0f;
     public float timeChangeView = 2f;
-    [Range(1,360)]private float angle =90f;
+    [Range(1,360)]public float angle =90f;
     public LayerMask targetLayer;
     public LayerMask obstructionLayer;
     public GameObject playerRef;
@@ -24,6 +27,12 @@ public class EnemyFieldOfView : MonoBehaviour
 
     private Vector2 enemyVel;
     private Vector2 prevPos;
+
+    [Header("Hitboxes")]
+    public GameObject upHit;
+    public GameObject downHit;
+    public GameObject leftHit;
+    public GameObject rightHit;
 
     public enum EnemyState {
         Patrolling,
@@ -264,8 +273,36 @@ public class EnemyFieldOfView : MonoBehaviour
             }else{
                 CanSeePlayer=false;
             }
+
+            if(enemyAngleState == ActiveEnemyAngleState.Up)
+            {
+                upHit.SetActive(true);
+                downHit.SetActive(false);
+                leftHit.SetActive(false);
+                rightHit.SetActive(false);
+            }else if(enemyAngleState == ActiveEnemyAngleState.Left)
+            {
+                upHit.SetActive(false);
+                downHit.SetActive(false);
+                leftHit.SetActive(true);
+                rightHit.SetActive(false);
+            }else if(enemyAngleState == ActiveEnemyAngleState.Down)
+            {
+                upHit.SetActive(false);
+                downHit.SetActive(true);
+                leftHit.SetActive(false);
+                rightHit.SetActive(false);
+            }else if(enemyAngleState == ActiveEnemyAngleState.Right)
+            {
+                upHit.SetActive(false);
+                downHit.SetActive(false);
+                leftHit.SetActive(false);
+                rightHit.SetActive(true);
+            }
+
         }
 
+/*
         private void OnDrawGizmos() {
             
                 Gizmos.color=Color.white;
@@ -288,8 +325,9 @@ public class EnemyFieldOfView : MonoBehaviour
 
             
         }
+        */
 
-        private Vector2 DirectionFromAngle(float eulerY, float angleInDegrees)
+        public Vector2 DirectionFromAngle(float eulerY, float angleInDegrees)
         {
             angleInDegrees += eulerY;
             
@@ -320,3 +358,37 @@ public class EnemyFieldOfView : MonoBehaviour
 
                 
         }
+
+#if UNITY_EDITOR
+[CustomEditor(typeof(EnemyFieldOfView))]
+public class HandlesDemoEditor : Editor 
+{
+    public void OnSceneGUI() 
+    {
+        var linkedObject = target as EnemyFieldOfView;
+
+        UnityEditor.Handles.color = Color.white;
+        UnityEditor.Handles.DrawWireDisc(linkedObject.transform.position,Vector3.forward,linkedObject.radius);
+
+        Vector3 angle01 = linkedObject.DirectionFromAngle(-linkedObject.transform.eulerAngles.z,-linkedObject.angle/2);
+        Vector3 angle02 = linkedObject.DirectionFromAngle(linkedObject.transform.eulerAngles.z,linkedObject.angle/2);
+        UnityEditor.Handles.color = Color.yellow;
+        UnityEditor.Handles.DrawLine(linkedObject.transform.position,linkedObject.transform.position + angle01 * linkedObject.radius);
+        UnityEditor.Handles.DrawLine(linkedObject.transform.position,linkedObject.transform.position + angle02 * linkedObject.radius);
+
+        if(linkedObject.CanSeePlayer)
+            {
+                UnityEditor.Handles.color =Color.green;
+                UnityEditor.Handles.DrawLine(linkedObject.transform.position,linkedObject.playerRef.transform.position);
+                
+            }
+    }
+    
+    }
+
+
+#endif
+
+
+            
+        
