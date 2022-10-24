@@ -15,6 +15,7 @@ public class InventoryUI : MonoBehaviour {
     }
 
     public void Start() {
+        // TODO ADD CHECKER TO LOAD ALL THE RESOURCES BEFOREHAND, check if not null
         RefreshInventoryItems();
     }
 
