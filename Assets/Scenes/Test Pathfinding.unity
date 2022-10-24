@@ -135,7 +135,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 208766775}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e0aaba9736e463445882b5ca6aa45d97, type: 3}
   m_Name: 
@@ -175,9 +175,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0621ceb017bbaf4c9875393435dc0a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waypoints: []
-  moveSpeed: 1
-  waitTime: 3
+  waypoints:
+  - {fileID: 2049586861}
+  - {fileID: 334675543}
+  - {fileID: 1389380197}
+  - {fileID: 1084500927}
+  moveSpeed: 2
+  waitTime: 1
   stopped: 0
   canWalk: 1
   travelDirection: {x: 0, y: 0, z: 0}
@@ -215,7 +219,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   layerMask:
     serializedVersion: 2
-    m_Bits: 4096
+    m_Bits: 0
   fov: 360
   rayCount: 360
   viewDistance: 8
@@ -350,9 +354,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e1a74f03a3c6754aa6f70563fc1faec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: gem
-  weight: 50
-  money: 100
 --- !u!212 &334675542
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -426,12 +427,28 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 4058351391681810728, guid: 5e1884d6a8343014b9b4b65406f73ed5, type: 3}
+      propertyPath: timer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4058351391681810728, guid: 5e1884d6a8343014b9b4b65406f73ed5, type: 3}
+      propertyPath: seeTime
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4058351391681810728, guid: 5e1884d6a8343014b9b4b65406f73ed5, type: 3}
+      propertyPath: playerRef
+      value: 
+      objectReference: {fileID: 1187507116}
+    - target: {fileID: 4058351391681810728, guid: 5e1884d6a8343014b9b4b65406f73ed5, type: 3}
+      propertyPath: timeChangeView
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4058351391681810728, guid: 5e1884d6a8343014b9b4b65406f73ed5, type: 3}
       propertyPath: enemyAngleState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4058351391681810728, guid: 5e1884d6a8343014b9b4b65406f73ed5, type: 3}
       propertyPath: targetLayer.m_Bits
-      value: 64
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 6532681264771786531, guid: 5e1884d6a8343014b9b4b65406f73ed5, type: 3}
       propertyPath: m_Enabled
@@ -486,9 +503,17 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6683871201436507769, guid: 5e1884d6a8343014b9b4b65406f73ed5, type: 3}
+      propertyPath: m_Size.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6683871201436507769, guid: 5e1884d6a8343014b9b4b65406f73ed5, type: 3}
+      propertyPath: m_Size.y
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6683871201436507769, guid: 5e1884d6a8343014b9b4b65406f73ed5, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 0644632aee2d87c47bed69e22e81f43c, type: 3}
+      objectReference: {fileID: 21300000, guid: b9798c9058244c64aaab93e8b6bb94dc, type: 3}
     - target: {fileID: 6683871201436507769, guid: 5e1884d6a8343014b9b4b65406f73ed5, type: 3}
       propertyPath: m_Color.a
       value: 1
@@ -543,7 +568,7 @@ GameObject:
   - component: {fileID: 445851875}
   - component: {fileID: 445851874}
   - component: {fileID: 445851876}
-  m_Layer: 9
+  m_Layer: 8
   m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9877,7 +9902,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 562341092}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.00013303757, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 645290932}
@@ -10077,6 +10102,10 @@ PrefabInstance:
       propertyPath: m_Color.g
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6683871201436507769, guid: 5e1884d6a8343014b9b4b65406f73ed5, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6683871201436507770, guid: 5e1884d6a8343014b9b4b65406f73ed5, type: 3}
       propertyPath: m_Name
       value: Enemy (2)
@@ -10105,7 +10134,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6532681264771786531, guid: 5e1884d6a8343014b9b4b65406f73ed5, type: 3}
+    - {fileID: 7270716068114071485, guid: 5e1884d6a8343014b9b4b65406f73ed5, type: 3}
+    - {fileID: 6683871201436507774, guid: 5e1884d6a8343014b9b4b65406f73ed5, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 5e1884d6a8343014b9b4b65406f73ed5, type: 3}
 --- !u!1 &841468760
 GameObject:
@@ -10119,7 +10151,7 @@ GameObject:
   - component: {fileID: 841468764}
   - component: {fileID: 841468763}
   - component: {fileID: 841468762}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: SoundRenderer
   m_TagString: Sound
   m_Icon: {fileID: 0}
@@ -10213,7 +10245,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 694040831
   m_SortingLayer: 1
-  m_SortingOrder: 1
+  m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
   m_Color: {r: 0.9716981, g: 0, b: 0.83067816, a: 0.45490196}
   m_FlipX: 0
@@ -22968,7 +23000,7 @@ GameObject:
   - component: {fileID: 1020815371}
   - component: {fileID: 1020815373}
   - component: {fileID: 1020815374}
-  m_Layer: 12
+  m_Layer: 8
   m_Name: Walls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24280,9 +24312,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e1a74f03a3c6754aa6f70563fc1faec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: gem
-  weight: 50
-  money: 100
 --- !u!212 &1084500926
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -24359,7 +24388,7 @@ GameObject:
   - component: {fileID: 1180804098}
   - component: {fileID: 1180804100}
   - component: {fileID: 1180804099}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: SoundCollider
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -24437,7 +24466,8 @@ GameObject:
   - component: {fileID: 1187507118}
   - component: {fileID: 1187507117}
   - component: {fileID: 1187507123}
-  m_Layer: 6
+  - component: {fileID: 1187507124}
+  m_Layer: 3
   m_Name: PlayerController2.0
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -24456,12 +24486,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d906f88e8b860cc41a73350f7a44fba3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 256
   maxWeight: 50
   currentWeight: 0
-  loot: 0
+  itemList: []
 --- !u!114 &1187507118
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24474,13 +24501,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f18c4f3b46bd242f3b81a0e40ae693ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 1187507123}
   fieldOfView: {fileID: 220045291}
   movementState: 1
+  animator: {fileID: 1187507123}
   movementAcceleration: 300
   baseMovementSpeed: 7
   linearDrag: 10
-  sneakingSpeedMultiplier: 0.33
+  sneakingSpeedDivider: 2
   runningSpeedMultiplier: 2.5
 --- !u!50 &1187507119
 Rigidbody2D:
@@ -24614,6 +24641,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1187507124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1187507116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cebdbd1f40e7914db56ce560fbf9f55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inGameMenu: {fileID: 0}
 --- !u!1 &1389380193
 GameObject:
   m_ObjectHideFlags: 0
@@ -24671,9 +24711,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e1a74f03a3c6754aa6f70563fc1faec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: duck
-  weight: 10
-  money: 10
 --- !u!212 &1389380196
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -24776,9 +24813,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   m_UseGeometry: 0
-  m_OverrideByGrid: 1
+  m_OverrideByGrid: 0
   m_UseMeshPrefab: {fileID: 0}
-  m_CompressBounds: 1
+  m_CompressBounds: 0
   m_OverrideVector: {x: 1, y: 1, z: 1}
   m_DefaultArea: 0
   m_IgnoreNavMeshAgent: 1
@@ -24797,13 +24834,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1538224850}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: -0.7071068}
   m_LocalPosition: {x: -0.8649652, y: -1.950149, z: -1657.4086}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 10
-  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 270, y: 0, z: 0}
 --- !u!1 &1541218968
 GameObject:
   m_ObjectHideFlags: 0
@@ -24951,7 +24988,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1541218968}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.3858266, y: 0, z: -10}
+  m_LocalPosition: {x: -7.2859154, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 562341093}
@@ -28559,9 +28596,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e1a74f03a3c6754aa6f70563fc1faec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: duck
-  weight: 10
-  money: 10
 --- !u!212 &2049586860
 SpriteRenderer:
   m_ObjectHideFlags: 0
