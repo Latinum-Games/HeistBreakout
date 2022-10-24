@@ -14,11 +14,11 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Test MVP 1.0.unity
     guid: e1c6313375529b740bc8e240fa146d5a
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/Scenes/Test Pathfinding.unity
     guid: 4bdf037d379ac364eaedaa3e6df04e1b
+  - enabled: 1
+    path: Assets/Scenes/TutorialLevel.unity
+    guid: 7a14fa8a053394ef6aec6ee46e42cdb1
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 8f4d95a40463d4c448101b96d0beaff1, type: 2}

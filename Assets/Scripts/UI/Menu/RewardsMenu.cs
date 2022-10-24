@@ -5,14 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class RewardsMenu : MonoBehaviour
 {
-    public void OnClick_Play()
-    {
+    public void OnClick_Play() {
         SceneManager.LoadScene("Test Pathfinding");
         MenuManager.Init();
     }
 
-    public void OnClick_Exit()
-    {
+    public void OnClick_Exit() {
         SceneManager.LoadScene("UI Heist Breakout");
         MenuManager.Init();
     }

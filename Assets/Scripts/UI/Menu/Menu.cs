@@ -1,5 +1,4 @@
-public enum Menu
-{
+public enum Menu {
     MAIN_MENU,
     OPTIONS_MENU,
     EXIT_MENU,
