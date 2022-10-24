@@ -11,7 +11,7 @@ public class Item {
     }
 
     // Specific Item Classification
-    public enum ItemSprite {
+    public enum ItemEntity {
         Ring,
         Harp,
         Staff,
@@ -34,34 +34,42 @@ public class Item {
     // Attributes
     public string title = "DEFAULT ITEM";
     public ItemType type = ItemType.Treasure;
-    public ItemSprite itemSprite = ItemSprite.Duck;
-    public int weight = 0;
+    public ItemEntity entity = ItemEntity.Duck;
+    public int weight = 1;
+    public int amount = 1;
 
     // Interaction Values
     public string interactionPrompt = "DEFAULT ITEM PROMPT";
     
     // Sprite Resources
     public Sprite GetSprite() {
-        switch (itemSprite) {
+        switch (entity) {
             default:
             // Treasure Sprites
-            case ItemSprite.Ring: return ItemAssets.Instance.ring;
-            case ItemSprite.Harp: return ItemAssets.Instance.harp;
-            case ItemSprite.Staff: return ItemAssets.Instance.staff;
-            case ItemSprite.Necklace: return ItemAssets.Instance.necklace;
-            case ItemSprite.Goblet: return ItemAssets.Instance.goblet;
-            case ItemSprite.Crown: return ItemAssets.Instance.crown;
-            case ItemSprite.Diamond: return ItemAssets.Instance.diamond;
-            case ItemSprite.Emerald: return ItemAssets.Instance.emerald;
-            case ItemSprite.Egg: return ItemAssets.Instance.egg;
-            case ItemSprite.Jar: return ItemAssets.Instance.jar;
-            case ItemSprite.FaceMask: return ItemAssets.Instance.faceMask;
-            case ItemSprite.Mask: return ItemAssets.Instance.mask;
-            case ItemSprite.Globe: return ItemAssets.Instance.globe;
-            case ItemSprite.Duck: return ItemAssets.Instance.duck;
-            case ItemSprite.Clock: return ItemAssets.Instance.clock;
-            case ItemSprite.Ruby: return ItemAssets.Instance.ruby;
-            case ItemSprite.Sapphire: return ItemAssets.Instance.sapphire;
+            case ItemEntity.Ring: return ItemAssets.Instance.ring;
+            case ItemEntity.Harp: return ItemAssets.Instance.harp;
+            case ItemEntity.Staff: return ItemAssets.Instance.staff;
+            case ItemEntity.Necklace: return ItemAssets.Instance.necklace;
+            case ItemEntity.Goblet: return ItemAssets.Instance.goblet;
+            case ItemEntity.Crown: return ItemAssets.Instance.crown;
+            case ItemEntity.Diamond: return ItemAssets.Instance.diamond;
+            case ItemEntity.Emerald: return ItemAssets.Instance.emerald;
+            case ItemEntity.Egg: return ItemAssets.Instance.egg;
+            case ItemEntity.Jar: return ItemAssets.Instance.jar;
+            case ItemEntity.FaceMask: return ItemAssets.Instance.faceMask;
+            case ItemEntity.Mask: return ItemAssets.Instance.mask;
+            case ItemEntity.Globe: return ItemAssets.Instance.globe;
+            case ItemEntity.Duck: return ItemAssets.Instance.duck;
+            case ItemEntity.Clock: return ItemAssets.Instance.clock;
+            case ItemEntity.Ruby: return ItemAssets.Instance.ruby;
+            case ItemEntity.Sapphire: return ItemAssets.Instance.sapphire;
         }
     }
+    
+    // Is Stackable
+    public bool IsStackable() {
+        return type == ItemType.Treasure;
+    }
+    
+    
 }

@@ -15,12 +15,6 @@ public class FieldItem : MonoBehaviour, IInteractable { // TODO RENAME FUNCTION 
         sprite = item.GetSprite();
         Vector3 boxCollider2D = gameObject.GetComponent<BoxCollider2D>().size;
         gameObject.GetComponent<SpriteRenderer>().sprite = sprite;
-
-        // Vector2 S = gameObject.GetComponent<BoxCollider2D>().size;
-        // var spriteBounds = gameObject.GetComponent<SpriteRenderer>().sprite.bounds;
-        // spriteBounds.size = S;
-        // gameObject.GetComponent<BoxCollider2D>().offset = new Vector2 ((S.x / 2), (S.x / 2));
-        // gameObject.GetComponentInChildren<SpriteRenderer>().sprite = sprite;
     }
 
     public bool Interact(Interactor interactor) {

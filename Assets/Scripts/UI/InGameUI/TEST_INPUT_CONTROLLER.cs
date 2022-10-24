@@ -35,7 +35,6 @@ public class TEST_INPUT_CONTROLLER : MonoBehaviour {
     
     public void OpenMenu(InputAction.CallbackContext callback) {
         if (callback.performed) {
-            Debug.Log("open menu");
             DisablePlayerOverworld();
             EnableMenu();
             
@@ -45,7 +44,6 @@ public class TEST_INPUT_CONTROLLER : MonoBehaviour {
     
     public void CloseMenu(InputAction.CallbackContext callback) {
         if (callback.performed) {
-            Debug.Log("close menu");
             DisableMenu();
             EnablePlayerOverworld();
             

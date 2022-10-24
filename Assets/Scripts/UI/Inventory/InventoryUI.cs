@@ -1,6 +1,5 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,6 +12,10 @@ public class InventoryUI : MonoBehaviour {
     public void Awake() {
         itemSlotContainer = transform.Find("ItemSlotContainer");
         itemSlotTemplate = transform.Find("ItemSlotContainer/ItemSlotTemplate");
+    }
+
+    public void Start() {
+        RefreshInventoryItems();
     }
 
     public void SetInventory(Inventory inventory) {
@@ -35,7 +38,7 @@ public class InventoryUI : MonoBehaviour {
         var y = 0;
         
         // Size of Item Frame
-        var itemSlotCellSize = 110f;
+        var itemSlotCellSize = 100f;
         var offsetX = 20f;
         var offsetY = 20f;
 
@@ -43,32 +46,47 @@ public class InventoryUI : MonoBehaviour {
             var itemSlotRectTransform =
                 Instantiate(itemSlotTemplate, itemSlotContainer).GetComponent<RectTransform>();
             
+            // Instantiate Element in UI
+            // TODO: UPDATE VIEW TO AN SCROLL VIEW
             itemSlotRectTransform.gameObject.SetActive(true);
             itemSlotRectTransform.anchoredPosition = new Vector2((x * itemSlotCellSize) + offsetX, (y * -itemSlotCellSize) - offsetY);
+            
+            // Set Sprite
             var sprite = item.GetSprite();
             itemSlotRectTransform.GetComponent<Image>().sprite = sprite;
+            
+            // Set Amount Label
+            var quantityLabel = itemSlotRectTransform.Find("QuantityLabel").GetComponent<TextMeshProUGUI>();
+            quantityLabel.SetText(item.amount > 1 ? item.amount.ToString() : "");
+
+            // On Select Animations
+            itemSlotRectTransform.GetComponent<ButtonEventHandlers>().onSelectAction.AddListener(delegate {
+                OnSelectButton(itemSlotRectTransform.gameObject);
+            });
+            
+            itemSlotRectTransform.GetComponent<ButtonEventHandlers>().onDeselectAction.AddListener(delegate {
+                OnDeselectButton(itemSlotRectTransform.gameObject);
+            });
+
             x++;
 
-            // TODO: UPDATE DYNAMICALLY THE INVENTORY
-
-            if (x >= 6) {
+            // Row delimiter
+            if (x >= 5) {
                 x = 0;
                 y++;
             }
         }
     }
     
-    public void OpenInventoryUI() {
-        foreach (Transform child in itemSlotContainer) {
-            if (child == itemSlotTemplate) continue;
-            // 1
-            LeanTween.cancel(child.gameObject);
-            child.transform.rotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
-            child.transform.localScale = Vector3.one;
-
-            // 2
-            LeanTween.rotateZ(child.gameObject, 30.0f, 0.5f).setEasePunch();
-            LeanTween.scaleX(child.gameObject, 1.2f, 0.2f).setEasePunch();
-        }
+    // TODO: REMOVE ITEM
+    
+    private void OnSelectButton(GameObject target) {
+        LeanTween.cancel(target);
+        LeanTween.scale(target, new Vector3(1.1f, 1.1f, 1.1f), 0.5f).setEaseOutElastic();
+    }
+    
+    private void OnDeselectButton(GameObject target) {
+        LeanTween.cancel(target);
+        LeanTween.scale(target, Vector3.one, 0.5f).setEaseOutElastic();
     }
 }

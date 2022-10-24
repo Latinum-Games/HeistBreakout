@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,12 +5,10 @@ public class Inventory : MonoBehaviour {
     [Header("Weight Variables")]
     [SerializeField] private int maxWeight = 50;
     [SerializeField] private int currentWeight = 0;
-    // Private Arguments
-    [SerializeField] private List<Item> itemList;
     
-    // TODO: CREATE UI TO DISPLAY THE ITEMS
-    // TODO: CREATE A FUNCTION TO DROP THE ITEMS
-    // TODO: MIGRATE ALL THE FUNCTIONS TO A PLAYER PARENT CODE THAT UNIFIES ALL THE INDIVIDUAL CODES INTO A SINGLE INSTANCE?
+    // Private Arguments
+    [Header("Foreign Components")]
+    [SerializeField] private List<Item> itemList;
     [SerializeField] private InventoryUI inventoryUI;
 
     private void Awake() {
@@ -23,7 +20,24 @@ public class Inventory : MonoBehaviour {
             return false;
         }
 
-        itemList.Add(item);
+        if (item.IsStackable()) {
+            var isItemInInventory = false;
+
+            foreach (var inventoryItem in itemList) {
+                if (inventoryItem.entity == item.entity) {
+                    inventoryItem.amount += item.amount;
+                    isItemInInventory = true;
+                }
+            }
+
+            if (!isItemInInventory) {
+                itemList.Add(item);
+            }
+        }
+        else {
+            itemList.Add(item);
+        }
+        
         currentWeight += item.weight;
         return true;
     }
