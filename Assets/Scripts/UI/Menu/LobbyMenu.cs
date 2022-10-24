@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class LobbyMenu : MonoBehaviour {
     public void OnClick_Play() {
-        SceneManager.LoadScene("TutorialLevel");
+        SceneManager.LoadScene("VrMission1");
         MenuManager.Init();
     }
 }
