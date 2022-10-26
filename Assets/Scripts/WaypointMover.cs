@@ -125,14 +125,17 @@ public class WaypointMover : MonoBehaviour
         if (directionFromCurrentPositionToTarget.x == 0 || Mathf.Sign(directionFromCurrentPositionToTarget.x) != Mathf.Sign(travelDirection.x))
         {
             overX = true;
+            Debug.Log("uwu overX");
         }
         if (directionFromCurrentPositionToTarget.y == 0 || Mathf.Sign(directionFromCurrentPositionToTarget.y) != Mathf.Sign(travelDirection.y))
         {
             overY = true;
+            Debug.Log("uwu overY");
         }
         if (directionFromCurrentPositionToTarget.z == 0 || Mathf.Sign(directionFromCurrentPositionToTarget.z) != Mathf.Sign(travelDirection.z))
         {
             overZ = true;
+            Debug.Log("uwu overZ");
         }
 
         enemy.SetDestination(new Vector3(currentTarget.x, currentTarget.y, currentTarget.z));
@@ -148,5 +151,6 @@ public class WaypointMover : MonoBehaviour
     {
         stopped = true;
         timeToStartMovingAgain = Time.time + waitTime;
+        Debug.Log("uwu waiting");
     }
 }
