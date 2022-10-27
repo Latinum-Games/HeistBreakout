@@ -9,11 +9,14 @@ public class VrMissionManager : MonoBehaviour {
     // Foreign Game Systems
     [Header("Foreign Managers")] 
     [SerializeField] private InputController inputController;
-    
+
     // Brief Mission Variables
     [Header("Mission Brief Data")] 
     [SerializeField] private GameObject missionBriefModal;
     [SerializeField] private GameObject startMissionButton;
+    
+    // Finish MIssion Data
+    [SerializeField] private GameObject missionFailedModal;
 
     // Stopwatch Variables
     [Header("Stopwatch")] 
@@ -53,12 +56,22 @@ public class VrMissionManager : MonoBehaviour {
         // Add listener to button
         startMissionButton.GetComponent<Button>().onClick.AddListener(StartVRMission);
         
+        // Add listener to enemies
+        foreach (var child in enemies.GetComponentsInChildren<EnemyFieldOfView>()) {
+            // Add Lose condition to the player 
+            child.onDetection.AddListener(LoseGame);
+        }
+        
         // Set modal to activate
         StartCoroutine(InitialCountdown());
     }
 
     private void Update() {
         UpdateTimer();
+
+        if (currentTime <= 0f) {
+            LoseGame();
+        }
     }
     
     // Mission Brief Modal Functions
@@ -102,6 +115,25 @@ public class VrMissionManager : MonoBehaviour {
         isTimerActive = false;
     }
     
+    // GAME CONDITIONS
+    
+    // Lose Condition
+    private void LoseGame() {
+        // Switch Controller Map
+        inputController.DisablePlayerOverworldMap();
+        inputController.PartialSubscribeMenuMap();
+        
+        // Disable Enemies
+        enemies.SetActive(false);
+        
+        // Stop Timer
+        StopTimer();
+        
+        // Open Mission Failed Modal
+        LeanTween.cancel(missionFailedModal);
+        LeanTween.scale(missionFailedModal, new Vector3(1f, 1f, 1f), 0.5f).setEaseOutElastic();
+    }
+
     // Coroutines
     IEnumerator InitialCountdown() {
         yield return new WaitForSeconds(0.7f);

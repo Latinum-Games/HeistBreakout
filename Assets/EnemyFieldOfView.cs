@@ -1,14 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
 
-public class EnemyFieldOfView : MonoBehaviour
-{
+public class EnemyFieldOfView : MonoBehaviour {
+    
+    // Custom Event
+    public UnityEvent onDetection;
+
     public float radius = 5f;
-    public float seeTime=5f;
+    public float seeTime= 5f;
     public float timer=0f;
     public float timeChangeView = 2f;
     [Range(1,360)]public float angle =90f;
@@ -136,12 +140,14 @@ public class EnemyFieldOfView : MonoBehaviour
         {
             timer += Time.deltaTime;
             if (timer>=seeTime)
-            {Debug.Log("te vi 5 seg hehe te persiguire");
+            {
+                // Debug.Log("te vi 5 seg hehe te persiguire");
             
-            scriptWaypoint.enabled = false;
-            scriptChasing.enabled = true;
-            State= EnemyState.Persecution;
-            timer=0;
+                onDetection.Invoke();
+                scriptWaypoint.enabled = false;
+                scriptChasing.enabled = true;
+                State= EnemyState.Persecution;
+                timer=0;
             }
             else{
                 //timer=0;
@@ -153,7 +159,7 @@ public class EnemyFieldOfView : MonoBehaviour
         if (CanSeePlayer && State==EnemyState.Persecution)
         {
             GetComponent<WaypointMover>().canWalk=false;
-            Debug.Log("te estoy persiguiendo jeje");
+            // Debug.Log("te estoy persiguiendo jeje");
             scriptWaypoint.enabled = false;
             scriptChasing.enabled = true;
         }
@@ -163,16 +169,16 @@ public class EnemyFieldOfView : MonoBehaviour
         if (!CanSeePlayer && State==EnemyState.Persecution)
         {
             
-            Debug.Log("te perseguia y ya no te veo");
+            // Debug.Log("te perseguia y ya no te veo");
             timer += Time.deltaTime;
             if (timer>=seeTime)
             {
             
-            scriptWaypoint.enabled = false;
-            scriptChasing.enabled = true;
+                scriptWaypoint.enabled = false;
+                scriptChasing.enabled = true;
 
-            State= EnemyState.Alert;
-            timer=0;
+                State= EnemyState.Alert;
+                timer=0;
             }
             else{
                 //timer=0;
@@ -182,20 +188,18 @@ public class EnemyFieldOfView : MonoBehaviour
         }
 
         //YA NO TE VEO Y ESTABA OBSERVANDO
-        if (!CanSeePlayer && State==EnemyState.Alert)
-        {
-            Debug.Log("te veia y ya no te veo");
+        if (!CanSeePlayer && State==EnemyState.Alert) {
+            // Debug.Log("te veia y ya no te veo");
             
-
             timer += Time.deltaTime;
 
             if (timer>=seeTime)
             {
-            scriptChasing.enabled = false;
-            scriptWaypoint.enabled = true;  
-            State= EnemyState.Patrolling;
-            GetComponent<WaypointMover>().canWalk=true;
-            timer=0;
+                scriptChasing.enabled = false;
+                scriptWaypoint.enabled = true;  
+                State= EnemyState.Patrolling;
+                GetComponent<WaypointMover>().canWalk=true;
+                timer=0;
             }
             else{
                 //timer=0;
@@ -270,37 +274,37 @@ public class EnemyFieldOfView : MonoBehaviour
                 noFirst = false;
             }
 
-            }else{
-                CanSeePlayer=false;
-            }
-
-            if(enemyAngleState == ActiveEnemyAngleState.Up)
-            {
-                upHit.SetActive(true);
-                downHit.SetActive(false);
-                leftHit.SetActive(false);
-                rightHit.SetActive(false);
-            }else if(enemyAngleState == ActiveEnemyAngleState.Left)
-            {
-                upHit.SetActive(false);
-                downHit.SetActive(false);
-                leftHit.SetActive(true);
-                rightHit.SetActive(false);
-            }else if(enemyAngleState == ActiveEnemyAngleState.Down)
-            {
-                upHit.SetActive(false);
-                downHit.SetActive(true);
-                leftHit.SetActive(false);
-                rightHit.SetActive(false);
-            }else if(enemyAngleState == ActiveEnemyAngleState.Right)
-            {
-                upHit.SetActive(false);
-                downHit.SetActive(false);
-                leftHit.SetActive(false);
-                rightHit.SetActive(true);
-            }
-
+        }else{
+            CanSeePlayer=false;
         }
+
+        if(enemyAngleState == ActiveEnemyAngleState.Up)
+        {
+            upHit.SetActive(true);
+            downHit.SetActive(false);
+            leftHit.SetActive(false);
+            rightHit.SetActive(false);
+        }else if(enemyAngleState == ActiveEnemyAngleState.Left)
+        {
+            upHit.SetActive(false);
+            downHit.SetActive(false);
+            leftHit.SetActive(true);
+            rightHit.SetActive(false);
+        }else if(enemyAngleState == ActiveEnemyAngleState.Down)
+        {
+            upHit.SetActive(false);
+            downHit.SetActive(true);
+            leftHit.SetActive(false);
+            rightHit.SetActive(false);
+        }else if(enemyAngleState == ActiveEnemyAngleState.Right)
+        {
+            upHit.SetActive(false);
+            downHit.SetActive(false);
+            leftHit.SetActive(false);
+            rightHit.SetActive(true);
+        }
+
+    }
 
 /*
         private void OnDrawGizmos() {
@@ -327,34 +331,34 @@ public class EnemyFieldOfView : MonoBehaviour
         }
         */
 
-        public Vector2 DirectionFromAngle(float eulerY, float angleInDegrees)
-        {
-            angleInDegrees += eulerY;
+    public Vector2 DirectionFromAngle(float eulerY, float angleInDegrees)
+    {
+        angleInDegrees += eulerY;
             
-            if (enemyAngleState == ActiveEnemyAngleState.Right)
-            {
-                //derecha
-                return new Vector2(Mathf.Cos(angleInDegrees * Mathf.Deg2Rad),Mathf.Sin(angleInDegrees * Mathf.Deg2Rad));
+        if (enemyAngleState == ActiveEnemyAngleState.Right)
+        {
+            //derecha
+            return new Vector2(Mathf.Cos(angleInDegrees * Mathf.Deg2Rad),Mathf.Sin(angleInDegrees * Mathf.Deg2Rad));
                 
-            }else if (enemyAngleState == ActiveEnemyAngleState.Up){
+        }else if (enemyAngleState == ActiveEnemyAngleState.Up){
 
-                //arriba
-                return new Vector2(Mathf.Sin(angleInDegrees * Mathf.Deg2Rad),Mathf.Cos(angleInDegrees * Mathf.Deg2Rad));
+            //arriba
+            return new Vector2(Mathf.Sin(angleInDegrees * Mathf.Deg2Rad),Mathf.Cos(angleInDegrees * Mathf.Deg2Rad));
 
-            }else if (enemyAngleState == ActiveEnemyAngleState.Left){
+        }else if (enemyAngleState == ActiveEnemyAngleState.Left){
 
-                //izquierda
-                return new Vector2(-Mathf.Cos(angleInDegrees * Mathf.Deg2Rad),Mathf.Sin(angleInDegrees * Mathf.Deg2Rad));
+            //izquierda
+            return new Vector2(-Mathf.Cos(angleInDegrees * Mathf.Deg2Rad),Mathf.Sin(angleInDegrees * Mathf.Deg2Rad));
 
-            }else if (enemyAngleState == ActiveEnemyAngleState.Down){
+        }else if (enemyAngleState == ActiveEnemyAngleState.Down){
 
-                //abajo
-                return new Vector2(Mathf.Sin(angleInDegrees * Mathf.Deg2Rad),-Mathf.Cos(angleInDegrees * Mathf.Deg2Rad));
+            //abajo
+            return new Vector2(Mathf.Sin(angleInDegrees * Mathf.Deg2Rad),-Mathf.Cos(angleInDegrees * Mathf.Deg2Rad));
 
-            }
-                return new Vector2(Mathf.Sin(angleInDegrees * Mathf.Deg2Rad),Mathf.Cos(angleInDegrees * Mathf.Deg2Rad));
+        }
+        return new Vector2(Mathf.Sin(angleInDegrees * Mathf.Deg2Rad),Mathf.Cos(angleInDegrees * Mathf.Deg2Rad));
 
-            }
+    }
 
                 
         }
@@ -377,11 +381,11 @@ public class HandlesDemoEditor : Editor
         UnityEditor.Handles.DrawLine(linkedObject.transform.position,linkedObject.transform.position + angle02 * linkedObject.radius);
 
         if(linkedObject.CanSeePlayer)
-            {
-                UnityEditor.Handles.color =Color.green;
-                UnityEditor.Handles.DrawLine(linkedObject.transform.position,linkedObject.playerRef.transform.position);
+        {
+            UnityEditor.Handles.color =Color.green;
+            UnityEditor.Handles.DrawLine(linkedObject.transform.position,linkedObject.playerRef.transform.position);
                 
-            }
+        }
     }
     
     }

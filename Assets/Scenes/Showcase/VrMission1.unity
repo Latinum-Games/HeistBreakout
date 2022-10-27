@@ -354,9 +354,25 @@ PrefabInstance:
       value: Enemy4
       objectReference: {fileID: 0}
     - target: {fileID: 6172568571774968220, guid: 373c330f6c0c2b245a00653b90a0cb60, type: 3}
+      propertyPath: seeTime
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6172568571774968220, guid: 373c330f6c0c2b245a00653b90a0cb60, type: 3}
       propertyPath: playerRef
       value: 
       objectReference: {fileID: 513389250}
+    - target: {fileID: 6172568571774968220, guid: 373c330f6c0c2b245a00653b90a0cb60, type: 3}
+      propertyPath: onDetection.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6172568571774968220, guid: 373c330f6c0c2b245a00653b90a0cb60, type: 3}
+      propertyPath: onDetection.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6172568571774968220, guid: 373c330f6c0c2b245a00653b90a0cb60, type: 3}
+      propertyPath: onDetection.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7925059357611706317, guid: 373c330f6c0c2b245a00653b90a0cb60, type: 3}
       propertyPath: waypoints.Array.size
       value: 4
@@ -12039,8 +12055,9 @@ MonoBehaviour:
   inputController: {fileID: 513389251}
   missionBriefModal: {fileID: 280704403}
   startMissionButton: {fileID: 221976943}
+  missionFailedModal: {fileID: 452901993}
   currentTime: 0
-  startMinutes: 5
+  startMinutes: 2
   startSeconds: 30
   timerLabel: {fileID: 1882895344}
   isTimerActive: 0
@@ -13410,6 +13427,10 @@ PrefabInstance:
       value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 6172568571774968220, guid: 373c330f6c0c2b245a00653b90a0cb60, type: 3}
+      propertyPath: seeTime
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6172568571774968220, guid: 373c330f6c0c2b245a00653b90a0cb60, type: 3}
       propertyPath: playerRef
       value: 
       objectReference: {fileID: 513389250}
@@ -14103,6 +14124,10 @@ PrefabInstance:
     - target: {fileID: 3547312646814248654, guid: 373c330f6c0c2b245a00653b90a0cb60, type: 3}
       propertyPath: m_Name
       value: Enemy2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6172568571774968220, guid: 373c330f6c0c2b245a00653b90a0cb60, type: 3}
+      propertyPath: seeTime
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 6172568571774968220, guid: 373c330f6c0c2b245a00653b90a0cb60, type: 3}
       propertyPath: playerRef
@@ -14926,6 +14951,10 @@ PrefabInstance:
     - target: {fileID: 3547312646814248654, guid: 373c330f6c0c2b245a00653b90a0cb60, type: 3}
       propertyPath: m_Name
       value: Enemy3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6172568571774968220, guid: 373c330f6c0c2b245a00653b90a0cb60, type: 3}
+      propertyPath: seeTime
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 6172568571774968220, guid: 373c330f6c0c2b245a00653b90a0cb60, type: 3}
       propertyPath: playerRef
