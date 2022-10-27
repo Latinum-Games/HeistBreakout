@@ -34,13 +34,19 @@ public class VrMissionManager : MonoBehaviour {
     [SerializeField] private int countdownTimer;
     [SerializeField] private GameObject countdownLabel;
 
+    //All enemies in scene
+    [Header("Enemies in map")]
+    [SerializeField] private GameObject enemies;
+
     private void Awake() {
         // Subscribe partial controller to just enable UI controls and not pause menu controls
         inputController.PartialSubscribeMenuMap();
         currentTime = (startMinutes * 60) + startSeconds;
+
     }
 
     private void Start() {
+
         // Set Timer Text Mesh Pro Component
         timerLabelText = timerLabel.GetComponentInChildren<TextMeshProUGUI>();
         
@@ -130,6 +136,7 @@ public class VrMissionManager : MonoBehaviour {
         LeanTween.cancel(countdownLabel);
         LeanTween.scale(countdownLabel, new Vector3(0f, 0f, 0f), 0.6f).setEaseOutBounce().setOnComplete(() => {
             StartTimer();
+            enemies.SetActive(true);
             countdownLabel.SetActive(false); 
         });
     }

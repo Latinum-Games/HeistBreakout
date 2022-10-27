@@ -122,17 +122,17 @@ public class WaypointMover : MonoBehaviour
 
         Vector3 directionFromCurrentPositionToTarget = currentTarget - transform.position;
 
-        if (directionFromCurrentPositionToTarget.x <= 0.1 && directionFromCurrentPositionToTarget.x >= -0.1 || Mathf.Sign(directionFromCurrentPositionToTarget.x) != Mathf.Sign(travelDirection.x))
+        if (directionFromCurrentPositionToTarget.x == 0 || Mathf.Sign(directionFromCurrentPositionToTarget.x) != Mathf.Sign(travelDirection.x))
         {
             overX = true;
             Debug.Log("uwu overX");
         }
-        if (directionFromCurrentPositionToTarget.y <= 0.1 && directionFromCurrentPositionToTarget.y >= -0.1 || Mathf.Sign(directionFromCurrentPositionToTarget.y) != Mathf.Sign(travelDirection.y))
+        if (directionFromCurrentPositionToTarget.y == 0 || Mathf.Sign(directionFromCurrentPositionToTarget.y) != Mathf.Sign(travelDirection.y))
         {
             overY = true;
             Debug.Log("uwu overY");
         }
-        if (directionFromCurrentPositionToTarget.z <= 0.1 && directionFromCurrentPositionToTarget.z >= -0.1 || Mathf.Sign(directionFromCurrentPositionToTarget.z) != Mathf.Sign(travelDirection.z))
+        if (directionFromCurrentPositionToTarget.z == 0 || Mathf.Sign(directionFromCurrentPositionToTarget.z) != Mathf.Sign(travelDirection.z))
         {
             overZ = true;
             Debug.Log("uwu overZ");
