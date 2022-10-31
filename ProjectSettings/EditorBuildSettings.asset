@@ -14,10 +14,10 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Test MVP 1.0.unity
     guid: e1c6313375529b740bc8e240fa146d5a
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Test Pathfinding.unity
     guid: 4bdf037d379ac364eaedaa3e6df04e1b
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/TutorialLevel.unity
     guid: 7a14fa8a053394ef6aec6ee46e42cdb1
   - enabled: 1

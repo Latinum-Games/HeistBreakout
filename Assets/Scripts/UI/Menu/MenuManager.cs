@@ -4,19 +4,21 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public static class MenuManager {
-    [SerializeField] public static bool IsInitialised { get; private set;}
+    [SerializeField] public static bool IsInitialised { get; set;}
     public static GameObject mainMenu, optionsMenu, exitMenu, pauseMenu, shopMenu, rewardMenu, gameOverMenu, lobbyMenu, museumMenu;
     private static string currentScene;
 
     public static void Init() {
+        
         GameObject canvas = GameObject.Find("Canvas");
         currentScene = SceneManager.GetActiveScene().name;
+        Debug.Log(SceneManager.GetActiveScene().name);
 
         if (currentScene == "UI Heist Breakout") {
-            mainMenu = canvas.transform.Find("Title screen").gameObject;
-            shopMenu = canvas.transform.Find("Shop").gameObject;
-            lobbyMenu = canvas.transform.Find("Lobby").gameObject;
-            museumMenu = canvas.transform.Find("My Museum").gameObject;
+        mainMenu = canvas.transform.Find("Title screen").gameObject;
+        shopMenu = canvas.transform.Find("Shop").gameObject;
+        lobbyMenu = canvas.transform.Find("Lobby").gameObject;
+        museumMenu = canvas.transform.Find("My Museum").gameObject;
 
         } else if(currentScene == "Interfaces 2") {
             exitMenu = canvas.transform.Find("Exit menu").gameObject;
@@ -31,8 +33,8 @@ public static class MenuManager {
 
     public static void OpenMenu(Menu menu, GameObject callingMenu) {
         if (!IsInitialised)
-            Init();
-
+        	Init();
+        
         switch (menu) {
             case Menu.MAIN_MENU:
                 mainMenu.SetActive(true);
@@ -63,6 +65,7 @@ public static class MenuManager {
                 break;
         }
 
+        
         callingMenu.SetActive(false);
     }
 }

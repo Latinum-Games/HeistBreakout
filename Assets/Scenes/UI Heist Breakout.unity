@@ -2363,7 +2363,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: baebdd1a1ee64a84ba81aabf6f8cd821, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Premio: {fileID: 603685749}
+  epicPity: 10
+  legendaryPity: 20
+  rewardLabel: {fileID: 603685749}
 --- !u!222 &1608377280
 CanvasRenderer:
   m_ObjectHideFlags: 0
