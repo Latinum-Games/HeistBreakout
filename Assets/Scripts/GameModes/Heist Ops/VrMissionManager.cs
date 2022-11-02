@@ -40,6 +40,11 @@ public class VrMissionManager : MonoBehaviour {
     //All enemies in scene
     [Header("Enemies in map")]
     [SerializeField] private GameObject enemies;
+    
+    // TEMPORARY WIN CONDITION
+    [Header("Player Inventory REMOVE AFTER SHOWCASE")] 
+    [SerializeField] private Inventory playerInventory;
+    [SerializeField] private GameObject extractionPoint;
 
     private void Awake() {
         // Subscribe partial controller to just enable UI controls and not pause menu controls
@@ -62,15 +67,20 @@ public class VrMissionManager : MonoBehaviour {
             child.onDetection.AddListener(LoseGame);
         }
         
+        // Add listener to extraction point
+        extractionPoint.GetComponent<ExtractionPoint>().onExtraction.AddListener(WinGame);
+        
         // Set modal to activate
         StartCoroutine(InitialCountdown());
     }
 
     private void Update() {
         UpdateTimer();
-
-        if (currentTime <= 0f) {
-            LoseGame();
+        
+        // TODO: REMOVE AFTER SHOWCASE
+        if (playerInventory.GetInventoryItemCount() >= 4) {
+            // ACTIVATE EXTRACTION POINT
+            extractionPoint.SetActive(true);
         }
     }
     
@@ -91,10 +101,10 @@ public class VrMissionManager : MonoBehaviour {
             score = Mathf.RoundToInt((currentTime * 100) * scoreMultiplier);
             currentTime -= Time.deltaTime;
             if (currentTime <= 0) {
-                StopTimer(); 
+                StopTimer();
                 
-                // TODO: LOSE CONDITION + REASON?
-                
+                // If time runs out, lose condition
+                LoseGame();
             }
         }
 
@@ -106,7 +116,7 @@ public class VrMissionManager : MonoBehaviour {
         // Start Timer Animation
         LeanTween.cancel(timerLabel);
         var timerLabelRt = timerLabel.GetComponent <RectTransform>();
-        LeanTween.move(timerLabel, timerLabelRt.position - new Vector3(0, 70, 0), 0.5f).setEaseInOutExpo();
+        LeanTween.move(timerLabel, timerLabelRt.position + new Vector3(0, -65, 0), 0.5f).setEaseInOutExpo();
 
         isTimerActive = true;
     }
@@ -117,18 +127,35 @@ public class VrMissionManager : MonoBehaviour {
     
     // GAME CONDITIONS
     
-    // Lose Condition
-    private void LoseGame() {
+    // Win condition
+    private void WinGame() {
         // Switch Controller Map
         inputController.DisablePlayerOverworldMap();
         inputController.PartialSubscribeMenuMap();
         
         // Disable Enemies
         enemies.SetActive(false);
-        
+
         // Stop Timer
         StopTimer();
         
+        // Open Mission Failed Modal TODO: UPDATE THE MODAL FOR THE WIN CONDITION
+        LeanTween.cancel(missionFailedModal);
+        LeanTween.scale(missionFailedModal, new Vector3(1f, 1f, 1f), 0.5f).setEaseOutElastic();
+    }
+    
+    // Lose Condition
+    private void LoseGame() {
+        // Switch Controller Map
+        inputController.DisablePlayerOverworldMap();
+        inputController.PartialSubscribeMenuMap();
+
+        // Disable Enemies
+        enemies.SetActive(false);
+
+        // Stop Timer
+        StopTimer();
+
         // Open Mission Failed Modal
         LeanTween.cancel(missionFailedModal);
         LeanTween.scale(missionFailedModal, new Vector3(1f, 1f, 1f), 0.5f).setEaseOutElastic();

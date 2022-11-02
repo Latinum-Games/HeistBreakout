@@ -49,4 +49,9 @@ public class Inventory : MonoBehaviour {
     public void RefreshInventory() {
         inventoryUI.OnInventoryChange();
     }
+    
+    // REMOVE TEMPORARY PUBLIC METHOD
+    public int GetInventoryItemCount() {
+        return itemList.Count;
+    }
 }
