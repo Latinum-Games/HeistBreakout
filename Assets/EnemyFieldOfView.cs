@@ -9,35 +9,35 @@ using UnityEditor;
 public class EnemyFieldOfView : MonoBehaviour {
     
     // Custom Event
+    [Header("Events")]
     public UnityEvent onDetection;
 
-    public float radius = 5f;
+    [Header("Timers")]
     public float seeTime= 5f;
     public float timer=0f;
     public float timeChangeView = 2f;
+    
+    [Header("View range properties")]
+    public float radius = 5f;
     [Range(1,360)]public float angle =90f;
+
+    [Header("Layers")]
     public LayerMask targetLayer;
     public LayerMask obstructionLayer;
+
+    [Header("Player reference")]
     public GameObject playerRef;
-    public bool CanSeePlayer {get; private set;}
-    private Vector2 directionToTarget {get; set;}
-    private float directionAngleHort {get; set;}
-    private float directionAngleVert {get; set;}
-    private bool noFirst {get; set;}
-    private bool CanWalk;
 
-    private AIChasing scriptChasing;
-    private WaypointMover scriptWaypoint;
-
-    private Vector2 enemyVel;
-    private Vector2 prevPos;
-
-    [Header("Hitboxes")]
-    public GameObject upHit;
-    public GameObject downHit;
-    public GameObject leftHit;
-    public GameObject rightHit;
-
+    //[Header("Enemy properties")]
+    [SerializeField] public bool CanSeePlayer {get; private set;}
+    [SerializeField] private Vector2 directionToTarget {get; set;}
+    [SerializeField] private float directionAngleHort {get; set;}
+    [SerializeField] private float directionAngleVert {get; set;}
+    [SerializeField] private bool noFirst {get; set;}
+    [SerializeField] private bool CanWalk;
+    [SerializeField] private Vector2 enemyVel;
+    [SerializeField] private Vector2 prevPos;
+    
     public enum EnemyState {
         Patrolling,
         Alert,
@@ -52,24 +52,39 @@ public class EnemyFieldOfView : MonoBehaviour {
         Down
     }
 
+    
     [SerializeField] private ActiveEnemyAngleState enemyAngleState = ActiveEnemyAngleState.Up;
     [SerializeField] private EnemyState State = EnemyState.Patrolling;
+
+    [Header("Movement scripts AI")]
+    private AIChasing scriptChasing;
+    private WaypointMover scriptWaypoint;
+
+    [Header("Hitboxes ")]
+    public GameObject upHit;
+    public GameObject downHit;
+    public GameObject leftHit;
+    public GameObject rightHit;
+
+    
     
     // Start is called before the first frame update
     void Start()
     {
+        //Takes AI chasing script and disables it
         scriptChasing = GetComponent<AIChasing>();
         scriptChasing.enabled = false;
+        //Takes player reference gameobject
         playerRef = GameObject.FindGameObjectWithTag("Player");
-
+        //Takes Waypointer script and enables it
         scriptWaypoint = GetComponent<WaypointMover>();
         scriptWaypoint.enabled = true;
-
         
-        //StartCoroutine(FOVCheck());
     }
 
     void FixedUpdate() {
+        
+        //Calculates enemy velocity based in the previous position
         enemyVel = (new Vector2 (transform.position.x - prevPos[0], transform.position.y- prevPos[1]))/Time.deltaTime;
         prevPos = new Vector2 (transform.position.x, transform.position.y);
     }
@@ -77,9 +92,10 @@ public class EnemyFieldOfView : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        //MIRAR CONSTANTEMENTE 0-0
+        //Look constantly O-O
         FOV();
-
+        
+        //Calculates the magnitude of enemy velocity and takes the 
         var velMagn = enemyVel.magnitude;
         enemyVel = enemyVel.normalized;
         var fwdDotProduct = Vector2.Dot(transform.up, enemyVel);
@@ -210,15 +226,7 @@ public class EnemyFieldOfView : MonoBehaviour {
 
 
     }
-    //private IEnumerator FOVCheck()
-    //{
-        //WaitForSeconds wait =new WaitForSeconds(0.2f);
-        //while(true)
-        //{
-            //yield return wait;
-          //  FOV();
-        //}
-    //}
+
     private void FOV()
     {
         Collider2D[] rangeCheck =Physics2D.OverlapCircleAll(transform.position,radius,targetLayer); 

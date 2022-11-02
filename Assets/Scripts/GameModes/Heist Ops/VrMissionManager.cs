@@ -41,6 +41,9 @@ public class VrMissionManager : MonoBehaviour {
     [Header("Enemies in map")]
     [SerializeField] private GameObject enemies;
     
+    [Header("Player in map")]
+    [SerializeField] private GameObject player;
+    
     // TEMPORARY WIN CONDITION
     [Header("Player Inventory REMOVE AFTER SHOWCASE")] 
     [SerializeField] private Inventory playerInventory;
@@ -116,7 +119,7 @@ public class VrMissionManager : MonoBehaviour {
         // Start Timer Animation
         LeanTween.cancel(timerLabel);
         var timerLabelRt = timerLabel.GetComponent <RectTransform>();
-        LeanTween.move(timerLabel, timerLabelRt.position + new Vector3(0, -65, 0), 0.5f).setEaseInOutExpo();
+        LeanTween.move(timerLabel, timerLabelRt.position + new Vector3(0, -115, 0), 0.5f).setEaseInOutExpo();
 
         isTimerActive = true;
     }
@@ -135,6 +138,7 @@ public class VrMissionManager : MonoBehaviour {
         
         // Disable Enemies
         enemies.SetActive(false);
+        player.SetActive(false);
 
         // Stop Timer
         StopTimer();
@@ -152,6 +156,7 @@ public class VrMissionManager : MonoBehaviour {
 
         // Disable Enemies
         enemies.SetActive(false);
+        player.SetActive(false);
 
         // Stop Timer
         StopTimer();

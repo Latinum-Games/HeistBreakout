@@ -2619,6 +2619,7 @@ GameObject:
   - component: {fileID: 1046219893}
   - component: {fileID: 1046219892}
   - component: {fileID: 1046219891}
+  - component: {fileID: 1046219894}
   m_Layer: 5
   m_Name: ExitButton
   m_TagString: Untagged
@@ -2690,9 +2691,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1274944547}
-        m_TargetAssemblyTypeName: SimonSays, Assembly-CSharp
-        m_MethodName: ClosePanel
+      - m_Target: {fileID: 1046219894}
+        m_TargetAssemblyTypeName: ParcheTemporal, Assembly-CSharp
+        m_MethodName: OnClick_ReturnMainMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2740,6 +2741,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1046219889}
   m_CullTransparentMesh: 1
+--- !u!114 &1046219894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1046219889}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87b1872f75d710a44a19c1612bc6a2d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1093090408
 GameObject:
   m_ObjectHideFlags: 0
