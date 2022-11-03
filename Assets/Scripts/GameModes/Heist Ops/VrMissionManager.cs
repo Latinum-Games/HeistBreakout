@@ -48,6 +48,7 @@ public class VrMissionManager : MonoBehaviour {
     [Header("Player Inventory REMOVE AFTER SHOWCASE")] 
     [SerializeField] private Inventory playerInventory;
     [SerializeField] private GameObject extractionPoint;
+    [SerializeField] private GameObject controlsLabel;
 
     private void Awake() {
         // Subscribe partial controller to just enable UI controls and not pause menu controls
@@ -119,9 +120,16 @@ public class VrMissionManager : MonoBehaviour {
         // Start Timer Animation
         LeanTween.cancel(timerLabel);
         var timerLabelRt = timerLabel.GetComponent <RectTransform>();
-        LeanTween.move(timerLabel, timerLabelRt.position + new Vector3(0, -115, 0), 0.5f).setEaseInOutExpo();
-
+        LeanTween.move(timerLabel, timerLabelRt.position + new Vector3(0, -Screen.height, 0), 0.3f).setEaseInOutExpo();
+        
+        // TODO: REMOVE AFTER DEMO
+        LeanTween.cancel(controlsLabel);
+        var controlsLabelRt = controlsLabel.GetComponent<RectTransform>();
+        LeanTween.move(controlsLabel, controlsLabelRt.position + new Vector3(-Screen.width, 0, 0), 0.3f).setEaseInOutExpo();
+        
         isTimerActive = true;
+
+
     }
 
     private void StopTimer() {
@@ -160,6 +168,11 @@ public class VrMissionManager : MonoBehaviour {
 
         // Stop Timer
         StopTimer();
+        
+        // TODO: REMOVE AFTER DEMO
+        LeanTween.cancel(controlsLabel);
+        var controlsLabelRt = controlsLabel.GetComponent<RectTransform>();
+        LeanTween.move(controlsLabel, controlsLabelRt.position + new Vector3(Screen.width, 0, 0), 0.3f).setEaseInOutExpo();
 
         // Open Mission Failed Modal
         LeanTween.cancel(missionFailedModal);
