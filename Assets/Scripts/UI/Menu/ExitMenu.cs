@@ -8,7 +8,6 @@ public class ExitMenu : MonoBehaviour
     public void OnClick_Yes()
     {
         StartCoroutine("Load");
-        //TODO: Revisar carga 
     }
 
     public void OnClick_No()
