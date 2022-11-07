@@ -7,13 +7,25 @@ public class ExitMenu : MonoBehaviour
 {
     public void OnClick_Yes()
     {
-        SceneManager.LoadScene("UI Heist Breakout");
-        MenuManager.Init();
+        StartCoroutine("Load");
     }
 
     public void OnClick_No()
     {
         MenuManager.OpenMenu(Menu.PAUSE_MENU, gameObject);
+    }
+
+    private IEnumerator Load()
+    {
+        MenuManager.IsInitialised = false;
+        AsyncOperation sceneLoading = SceneManager.LoadSceneAsync("UI Heist Breakout", LoadSceneMode.Single);
+        while (!sceneLoading.isDone)
+        {
+            yield return null;
+        }
+        
+        MenuManager.OpenMenu(Menu.MAIN_MENU, gameObject);
+        
     }
 
 }

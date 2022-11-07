@@ -27,7 +27,6 @@ public class InputController : MonoBehaviour {
         hitController= GetComponent<hitController>();
         interactor = GetComponent<Interactor>();
         playerInputActions = new PlayerInputActions();
-        SubscribePlayerOverworldMap();
     }
 
     // Update is called once per frame
@@ -39,7 +38,7 @@ public class InputController : MonoBehaviour {
 
     // Subscribers
     // NOTE: Subscribe only the inputs that does not require an update each frame
-    private void SubscribePlayerOverworldMap() {
+    public void SubscribePlayerOverworldMap() {
         playerInputActions.PlayerOverworld.Enable();
         playerInputActions.PlayerOverworld.Sneak.performed += Sneak;
         playerInputActions.PlayerOverworld.Sneak.canceled += Sneak;
@@ -51,17 +50,22 @@ public class InputController : MonoBehaviour {
         currentInputMap = InputMapType.Player;
     }
     
-    private void DisablePlayerOverworldMap() {
+    public void DisablePlayerOverworldMap() {
         playerInputActions.PlayerOverworld.Disable();
     }
 
-    private void SubscribeMenuMap() {
+    public void PartialSubscribeMenuMap() {
+        playerInputActions.MenuActions.Enable();
+        currentInputMap = InputMapType.Menu;
+    }
+
+    public void SubscribeMenuMap() {
         playerInputActions.MenuActions.Enable();
         playerInputActions.MenuActions.ExitMenu.performed += CloseMenu;
         currentInputMap = InputMapType.Menu;
     }
 
-    private void DisableMenuMap() {
+    public void DisableMenuMap() {
         playerInputActions.MenuActions.Disable();
     }
 
