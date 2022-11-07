@@ -8,6 +8,7 @@ using UnityEngine.AI;
 /// </summary>
 public class WaypointMover : MonoBehaviour
 {
+    //Initializes the points to patroll,the speed of movement and the time to wait
     [Header("Settings")]
     [Tooltip("A list of transforms to move between")]
     public List<Transform> waypoints;
@@ -25,11 +26,13 @@ public class WaypointMover : MonoBehaviour
     // The previous waypoint or the starting position
     private Vector3 previousTarget;
 
+    // The current waypoint 
     private Vector3 currentTarget;
 
     private int currentTargetIndex;
     public bool canWalk=true;
 
+    //The AI part of the enemy
     NavMeshAgent enemy;
 
     [HideInInspector] 
@@ -39,7 +42,6 @@ public class WaypointMover : MonoBehaviour
     void Start()
     {
         InitializeInformation();
-        
     }
 
 
@@ -52,7 +54,7 @@ public class WaypointMover : MonoBehaviour
         
     }
 
-
+    //Changes the waypointer to move based in the movement state
     void ProcessMovementState()
     {
         if (stopped)
@@ -65,7 +67,7 @@ public class WaypointMover : MonoBehaviour
         }
     }
 
-
+    //Changes the waypointer to move based in the time
     void StartCheck()
     {
         if (Time.time >= timeToStartMovingAgain)
@@ -82,15 +84,15 @@ public class WaypointMover : MonoBehaviour
         }
     }
 
-
+    //Initialization of the route starting in first point
     void InitializeInformation()
     {
-
+        //Initializes NavMesh of agent
         enemy = GetComponent<NavMeshAgent>();
         enemy.updateRotation = false;
         enemy.updateUpAxis = false;
-
-
+        
+        //Initializes first waypoint
         previousTarget = this.transform.position;
         currentTargetIndex = 0;
         if (waypoints.Count > 0)
@@ -102,17 +104,17 @@ public class WaypointMover : MonoBehaviour
             waypoints.Add(this.transform);        
             currentTarget = previousTarget;
         }
-        
         CalculateTravelInformation();
     }
 
 
+    //Changes the travel direction
     void CalculateTravelInformation()
     {
         travelDirection = (currentTarget - previousTarget).normalized;
     }
 
-
+    //Moves to the selected waypoint
     void Travel()
     {
         transform.Translate(travelDirection * moveSpeed * Time.deltaTime);
@@ -125,19 +127,17 @@ public class WaypointMover : MonoBehaviour
         if (directionFromCurrentPositionToTarget.x == 0 || Mathf.Sign(directionFromCurrentPositionToTarget.x) != Mathf.Sign(travelDirection.x))
         {
             overX = true;
-            // Debug.Log("uwu overX");
         }
         if (directionFromCurrentPositionToTarget.y == 0 || Mathf.Sign(directionFromCurrentPositionToTarget.y) != Mathf.Sign(travelDirection.y))
         {
             overY = true;
-            // Debug.Log("uwu overY");
         }
         if (directionFromCurrentPositionToTarget.z == 0 || Mathf.Sign(directionFromCurrentPositionToTarget.z) != Mathf.Sign(travelDirection.z))
         {
             overZ = true;
-            // Debug.Log("uwu overZ");
         }
 
+        //AI navmesh destination setter for the target
         enemy.SetDestination(new Vector3(currentTarget.x, currentTarget.y, currentTarget.z));
 
         if (overX && overY || overZ)
@@ -145,12 +145,11 @@ public class WaypointMover : MonoBehaviour
             BeginWait();
         }
     }
-
-
+    
+    //Starts wait time
     void BeginWait()
     {
         stopped = true;
         timeToStartMovingAgain = Time.time + waitTime;
-        Debug.Log("uwu waiting");
     }
 }

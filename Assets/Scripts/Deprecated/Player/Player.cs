@@ -8,7 +8,6 @@ public class Player : MonoBehaviour {
     [SerializeField] private FieldOfView fieldOfView;
 
     [SerializeField] private float playerSpeed = 2.0f;
-    //[SerializeField]
     //private float inputSmoothDamp  = .3f;
     [SerializeField] private float smoothInputSpeed = .2f;
 
