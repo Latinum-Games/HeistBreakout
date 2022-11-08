@@ -6,17 +6,23 @@ using UnityEngine.UI;
 public class SimonSays : MonoBehaviour
 {
     //UI elements
+    //Initialization of element arrays and panel
     [SerializeField] private GameObject [] buttons;
     [SerializeField] private GameObject [] lightArray;
     [SerializeField] private GameObject [] rowLights;
     [SerializeField] private int[] lightOrder;
     [SerializeField] private GameObject simonSaysGamePanel;
 
+    //Initialization of level, number of clicks and number of total clicks for sequence
     private int level = 0;
     private int buttonsclicked = 0;
     private int colorOrderRunCount = 0;
+    
+    //Initialization of win conditions
     private bool passed = false;
     private bool won = false;
+    
+    //Initialization of colors (Red, Green, Invisible and white)
     private Color32 red = new Color32(255, 39, 0, 255);
     private Color32 green = new Color32(4, 204, 0, 255);
     private Color32 invisible = new Color32(4, 204, 0, 0);

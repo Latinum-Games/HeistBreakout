@@ -5,8 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class RewardsMenu : MonoBehaviour
 {
+    //
     public void OnClick_Play() {
-        SceneManager.LoadScene("Test Pathfinding");
+        string scene = SceneManager.GetActiveScene().name;
+        SceneManager.LoadScene(scene);
         MenuManager.Init();
     }
 

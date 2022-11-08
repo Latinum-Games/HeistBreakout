@@ -2,15 +2,19 @@ using UnityEngine;
 using TMPro;
 
 public class Gachapon : MonoBehaviour {
+    
+    //Pity counter targets
     [Header("Gacha Pity")]
     [SerializeField] private int epicPity = 10;
     [SerializeField] private int legendaryPity = 20;
     // TODO: SAVE PITY COUNTER GLOBALLY
     
+    //Pity counters
     private int epicCounter = 1;
     private int legendaryCounter = 1;
     private string reward;
 
+    //Reward text for UI
     public TextMeshProUGUI rewardLabel;
 
     // Initialize Label

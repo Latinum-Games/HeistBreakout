@@ -41,6 +41,7 @@ public class VrMissionManager : MonoBehaviour {
     [Header("Enemies in map")]
     [SerializeField] private GameObject enemies;
     
+    //Player reference in scene
     [Header("Player in map")]
     [SerializeField] private GameObject player;
     
@@ -90,7 +91,7 @@ public class VrMissionManager : MonoBehaviour {
     
     // Mission Brief Modal Functions
     private void StartVRMission() {
-        // Close Modal Animaation
+        // Close Modal Animation
         LeanTween.cancel(missionBriefModal);
         LeanTween.scale(missionBriefModal, new Vector3(0f, 0f, 0f), 0.6f).setEaseOutBounce().setOnComplete(() => {
             
@@ -128,11 +129,11 @@ public class VrMissionManager : MonoBehaviour {
         LeanTween.move(controlsLabel, controlsLabelRt.position + new Vector3(-Screen.width, 0, 0), 0.3f).setEaseInOutExpo();
         
         isTimerActive = true;
-
-
+        
     }
 
     private void StopTimer() {
+        // Deactivates Timer
         isTimerActive = false;
     }
     
@@ -144,9 +145,8 @@ public class VrMissionManager : MonoBehaviour {
         inputController.DisablePlayerOverworldMap();
         inputController.PartialSubscribeMenuMap();
         
-        // Disable Enemies
-        enemies.SetActive(false);
-        player.SetActive(false);
+        // Disable Enemies and Player
+        CharactersDeactivation();
 
         // Stop Timer
         StopTimer();
@@ -162,9 +162,8 @@ public class VrMissionManager : MonoBehaviour {
         inputController.DisablePlayerOverworldMap();
         inputController.PartialSubscribeMenuMap();
 
-        // Disable Enemies
-        enemies.SetActive(false);
-        player.SetActive(false);
+        // Disable Enemies and Player
+        CharactersDeactivation();
 
         // Stop Timer
         StopTimer();
@@ -216,5 +215,11 @@ public class VrMissionManager : MonoBehaviour {
             enemies.SetActive(true);
             countdownLabel.SetActive(false); 
         });
+    }
+
+    //Deactivation of Enemies and Player
+    private void CharactersDeactivation() {
+        enemies.SetActive(false);
+        player.SetActive(false);
     }
 }

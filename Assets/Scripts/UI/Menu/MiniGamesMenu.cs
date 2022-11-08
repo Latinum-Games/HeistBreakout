@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class ParcheTemporal : MonoBehaviour
+public class MiniGamesMenu : MonoBehaviour
 {
+    //Loading of Minigames menu
     public void OnClick_Minigames() {
         SceneManager.LoadScene("SimonSaysMinigame");
     }
     
+    //Loading of Main Menu
     public void OnClick_ReturnMainMenu() {
         StartCoroutine("Load");
     }

@@ -5,10 +5,12 @@ using UnityEngine.UI;
 
 public class InventoryUI : MonoBehaviour {
 
+    //UI elements
     private Inventory inventory;
     [SerializeField] private Transform itemSlotContainer;
     [SerializeField] private Transform itemSlotTemplate;
 
+    //ItemSlots initializers
     public void Awake() {
         itemSlotContainer = transform.Find("ItemSlotContainer");
         itemSlotTemplate = transform.Find("ItemSlotContainer/ItemSlotTemplate");
@@ -16,18 +18,22 @@ public class InventoryUI : MonoBehaviour {
 
     public void Start() {
         // TODO ADD CHECKER TO LOAD ALL THE RESOURCES BEFOREHAND, check if not null
+        //Initializes the items
         RefreshInventoryItems();
     }
 
+    //Assignment of the inventory
     public void SetInventory(Inventory inventory) {
         this.inventory = inventory;
         RefreshInventoryItems();
     }
 
+    //Inventory update on change
     public void OnInventoryChange() {
         RefreshInventoryItems();
     }
     
+    //UI representation of inventory based in objects picked up
     private void RefreshInventoryItems() {
         if (itemSlotContainer != null) {
 
@@ -85,11 +91,13 @@ public class InventoryUI : MonoBehaviour {
     
     // TODO: REMOVE ITEM
     
+    //UI Animation based in button selection
     private void OnSelectButton(GameObject target) {
         LeanTween.cancel(target);
         LeanTween.scale(target, new Vector3(1.1f, 1.1f, 1.1f), 0.5f).setEaseOutElastic();
     }
     
+    //UI Animation based in button deselection
     private void OnDeselectButton(GameObject target) {
         LeanTween.cancel(target);
         LeanTween.scale(target, Vector3.one, 0.5f).setEaseOutElastic();
