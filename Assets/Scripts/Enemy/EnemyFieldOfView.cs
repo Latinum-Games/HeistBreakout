@@ -64,7 +64,7 @@ public class EnemyFieldOfView : MonoBehaviour {
     
     //Initial states for seeing up and patrolling
     [SerializeField] private ActiveEnemyAngleState enemyAngleState = ActiveEnemyAngleState.Up;
-    [SerializeField] private EnemyState State = EnemyState.Patrolling;
+    [SerializeField] public EnemyState State = EnemyState.Patrolling;
 
     //Initializes movement mechanics for enemy based in view
     [Header("Movement scripts AI")]
@@ -111,29 +111,31 @@ public class EnemyFieldOfView : MonoBehaviour {
         var fwdDotProduct = Vector2.Dot(transform.up, enemyVel);
         var rightDotProduct = Vector2.Dot(transform.right, enemyVel);
 
-        //STATE: Patrolling
+        
         //Changes where the enemy sees depending on his movement
+        if (rightDotProduct > fwdDotProduct)
+        {
+            if (rightDotProduct > 0)
+            {
+                enemyAngleState = ActiveEnemyAngleState.Right;
+            }else{
+                enemyAngleState = ActiveEnemyAngleState.Left;
+            }
+        }else{
+            if (fwdDotProduct > 0)
+            {
+                enemyAngleState = ActiveEnemyAngleState.Up;
+            }else{
+                enemyAngleState = ActiveEnemyAngleState.Down;
+            }
+        }
+        
+        //STATE: Patrolling
         if (State == EnemyState.Patrolling)
         {
             timer += Time.deltaTime;
             if (timer > timeChangeView)
             {
-                if (rightDotProduct > fwdDotProduct)
-                {
-                    if (rightDotProduct > 0)
-                    {
-                        enemyAngleState = ActiveEnemyAngleState.Right;
-                    }else{
-                        enemyAngleState = ActiveEnemyAngleState.Left;
-                    }
-                }else{
-                    if (fwdDotProduct > 0)
-                    {
-                        enemyAngleState = ActiveEnemyAngleState.Up;
-                    }else{
-                        enemyAngleState = ActiveEnemyAngleState.Down;
-                    }
-                }
                 timer = 0;
             }
             
@@ -181,6 +183,7 @@ public class EnemyFieldOfView : MonoBehaviour {
         if (State == EnemyState.Persecution) {
             if (CanSeePlayer)
             {
+                onDetection.Invoke();
                 GetComponent<WaypointMover>().canWalk=false;
                 scriptWaypoint.enabled = false;
                 scriptChasing.enabled = true;
