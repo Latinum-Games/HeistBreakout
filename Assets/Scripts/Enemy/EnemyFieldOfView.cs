@@ -43,7 +43,7 @@ public class EnemyFieldOfView : MonoBehaviour {
     
     [Header("Enemy properties")]
     [SerializeField] private bool CanWalk;
-    [SerializeField] private Vector2 enemyVel;
+    [SerializeField] public Vector2 enemyVel;
     [SerializeField] private Vector2 prevPos;
     
     //Initializes the enemy states for attention
