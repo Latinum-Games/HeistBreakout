@@ -5,45 +5,44 @@ using UnityEngine.UI;
 
 public class SimonSays : MonoBehaviour
 {
-    [SerializeField] GameObject [] buttons;
-    [SerializeField] GameObject [] lightArray;
-    [SerializeField] GameObject [] rowLights;
-    [SerializeField] int[] lightOrder;
-    [SerializeField] GameObject simonSaysGamePanel;
+    //UI elements
+    //Initialization of element arrays and panel
+    [SerializeField] private GameObject [] buttons;
+    [SerializeField] private GameObject [] lightArray;
+    [SerializeField] private GameObject [] rowLights;
+    [SerializeField] private int[] lightOrder;
+    [SerializeField] private GameObject simonSaysGamePanel;
 
-    int level = 0;
-    int buttonsclicked = 0;
-    int colorOrderRunCount = 0;
-    bool passed = false;
-    bool won = false;
-    Color32 red = new Color32(255, 39, 0, 255);
-    Color32 green = new Color32(4, 204, 0, 255);
-    Color32 invisible = new Color32(4, 204, 0, 0);
-    Color32 white = new Color32(255, 255, 255, 255);
+    //Initialization of level, number of clicks and number of total clicks for sequence
+    private int level = 0;
+    private int buttonsclicked = 0;
+    private int colorOrderRunCount = 0;
+    
+    //Initialization of win conditions
+    private bool passed = false;
+    private bool won = false;
+    
+    //Initialization of colors (Red, Green, Invisible and white)
+    private Color32 red = new Color32(255, 39, 0, 255);
+    private Color32 green = new Color32(4, 204, 0, 255);
+    private Color32 invisible = new Color32(4, 204, 0, 0);
+    private Color32 white = new Color32(255, 255, 255, 255);
     public float lightspeed;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    //Starts when elements gets enabled
+    //Initialization of lights
     private void OnEnable()
     {
         level = 0;
         buttonsclicked = 0;
         colorOrderRunCount = -1;
         won = false;
+        
         for (int i = 0; i < lightOrder.Length; i++)
         {
             lightOrder[i] = (Random.Range(0, 8));
         }
+        
         for (int i = 0; i < rowLights.Length; i++)
         {
             rowLights[i].GetComponent<RawImage>().color = white;
@@ -54,6 +53,7 @@ public class SimonSays : MonoBehaviour
         StartCoroutine(ColorOrder());
     }
 
+    //Initialization of click order
     public void ButtonClickOrder(int button)
     {
         buttonsclicked++;
@@ -67,31 +67,35 @@ public class SimonSays : MonoBehaviour
             passed = false;
             StartCoroutine(ColorBlink(red));
         }
+        
         if (buttonsclicked == level && passed == true && buttonsclicked != 5)
         {
             level++;
             passed = false;
             StartCoroutine(ColorOrder());
         }
+        
         if (buttonsclicked == level && passed == true && buttonsclicked == 5)
         {
             level++;
             won = true;
             StartCoroutine(ColorBlink(green));
         }
-
     }
 
+    //Closes panel 
     public void ClosePanel()
     {
         simonSaysGamePanel.SetActive(false);
     }
 
+    //Opens panel
     public void OpenPanel()
     {
         simonSaysGamePanel.SetActive(true);
     }
 
+    //Color blinking depending on successful or erroneous order selection
     IEnumerator ColorBlink(Color32 colorToBlink)
     {
         DisableInteractuableButtons();
@@ -121,7 +125,7 @@ public class SimonSays : MonoBehaviour
             yield return new WaitForSeconds(.5f);
         }
 
-        if (won == true)
+        if (won)
         {
             ClosePanel();
         }
@@ -129,7 +133,8 @@ public class SimonSays : MonoBehaviour
         OnEnable();
     }
 
-        IEnumerator ColorOrder()
+    //Puts color order to appear for player to follow
+    IEnumerator ColorOrder()
     {
         buttonsclicked = 0;
         colorOrderRunCount++;
@@ -150,6 +155,7 @@ public class SimonSays : MonoBehaviour
         EnableInteractuableButtons();
     }
     
+    //Disable of buttons
     void DisableInteractuableButtons()
         {
             for(int i = 0; i < buttons.Length; i++)
@@ -158,6 +164,7 @@ public class SimonSays : MonoBehaviour
             }
         }
 
+    //Enable of buttons
     void EnableInteractuableButtons()
         {
             for(int i = 0; i < buttons.Length; i++)
@@ -167,5 +174,3 @@ public class SimonSays : MonoBehaviour
         }
 
 }
-
-

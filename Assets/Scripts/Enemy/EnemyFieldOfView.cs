@@ -9,26 +9,32 @@ using UnityEditor;
 public class EnemyFieldOfView : MonoBehaviour {
     
     // Custom Event
+    //Initializes based on detection
     [Header("Events")]
     public UnityEvent onDetection;
 
+    //Initializes timers based for see time and changes in view
     [Header("Timers")]
     public float seeTime= 5f;
     public float timer=0f;
     public float timeChangeView = 2f;
     
+    //Initializes the view range limit
     [Header("View range properties")]
     public float radius = 5f;
     [Range(1,360)]public float angle =90f;
 
+    //Initializes the layers 
     [Header("Layers")]
     public LayerMask targetLayer;
     public LayerMask obstructionLayer;
 
+    //Initializes the player reference
     [Header("Player reference")]
     public GameObject playerRef;
 
     //Enemy properties
+    //Initializes states, direction angles, velocity, position, etc
     [SerializeField] public bool CanSeePlayer {get; private set;}
     [SerializeField] private Vector2 directionToTarget {get; set;}
     [SerializeField] private float directionAngleHort {get; set;}
@@ -37,9 +43,10 @@ public class EnemyFieldOfView : MonoBehaviour {
     
     [Header("Enemy properties")]
     [SerializeField] private bool CanWalk;
-    [SerializeField] private Vector2 enemyVel;
+    [SerializeField] public Vector2 enemyVel;
     [SerializeField] private Vector2 prevPos;
     
+    //Initializes the enemy states for attention
     public enum EnemyState {
         Patrolling,
         Alert,
@@ -47,6 +54,7 @@ public class EnemyFieldOfView : MonoBehaviour {
         Hit
     }
 
+    //Initializes the enemy see state
     private enum ActiveEnemyAngleState {
         Left,
         Right, 
@@ -54,20 +62,21 @@ public class EnemyFieldOfView : MonoBehaviour {
         Down
     }
     
+    //Initial states for seeing up and patrolling
     [SerializeField] private ActiveEnemyAngleState enemyAngleState = ActiveEnemyAngleState.Up;
-    [SerializeField] private EnemyState State = EnemyState.Patrolling;
+    [SerializeField] public EnemyState State = EnemyState.Patrolling;
 
+    //Initializes movement mechanics for enemy based in view
     [Header("Movement scripts AI")]
     private AIChasing scriptChasing;
     private WaypointMover scriptWaypoint;
 
+    //Initializes hitboxes direction for enemy visual indicators
     [Header("Hitboxes ")]
     public GameObject upHit;
     public GameObject downHit;
     public GameObject leftHit;
     public GameObject rightHit;
-
-    
     
     // Start is called before the first frame update
     void Start()
@@ -101,110 +110,96 @@ public class EnemyFieldOfView : MonoBehaviour {
         enemyVel = enemyVel.normalized;
         var fwdDotProduct = Vector2.Dot(transform.up, enemyVel);
         var rightDotProduct = Vector2.Dot(transform.right, enemyVel);
+
         
-        //Test movement
-        /*
-        if(fwdDotProduct > 0){
-            print("I am moving forward");
+        //Changes where the enemy sees depending on his movement
+        if (rightDotProduct > fwdDotProduct)
+        {
+            if (rightDotProduct > 0)
+            {
+                enemyAngleState = ActiveEnemyAngleState.Right;
+            }else{
+                enemyAngleState = ActiveEnemyAngleState.Left;
+            }
+        }else{
+            if (fwdDotProduct > 0)
+            {
+                enemyAngleState = ActiveEnemyAngleState.Up;
+            }else{
+                enemyAngleState = ActiveEnemyAngleState.Down;
+            }
         }
-        else if(fwdDotProduct < 0){
-            print("I am moving backward");
-        }
-        if(rightDotProduct < 0){
-            print("I am moving left");
-        }
-        else if(rightDotProduct > 0){
-            print("I am moving right");
-        }
-        */
         
         //STATE: Patrolling
-        //Changes where the enemy sees depending on his movement
         if (State == EnemyState.Patrolling)
         {
             timer += Time.deltaTime;
             if (timer > timeChangeView)
             {
-                if (rightDotProduct > fwdDotProduct)
-                {
-                    if (rightDotProduct > 0)
-                    {
-                        enemyAngleState = ActiveEnemyAngleState.Right;
-                    }else{
-                        enemyAngleState = ActiveEnemyAngleState.Left;
-                    }
-                }else{
-                    if (fwdDotProduct > 0)
-                    {
-                        enemyAngleState = ActiveEnemyAngleState.Up;
-                    }else{
-                        enemyAngleState = ActiveEnemyAngleState.Down;
-                    }
-                }
                 timer = 0;
             }
             
+            //When seen
+            if(CanSeePlayer)
+            {
+                State = EnemyState.Alert;
+            }
         }
-
         
-        //When seen
-        if(CanSeePlayer && State==EnemyState.Patrolling)
-        {
-            State= EnemyState.Alert;
-        }
-
-
-
         //STATE: Alert
         //If enemy sees x seconds the player, this will start chasing
-        if (CanSeePlayer && State==EnemyState.Alert)
-        {
-            timer += Time.deltaTime;
-            if (timer>=seeTime)
+        if (State == EnemyState.Alert) {
+            if (CanSeePlayer)
             {
-                onDetection.Invoke();
-                scriptWaypoint.enabled = false;
-                scriptChasing.enabled = true;
-                State= EnemyState.Persecution;
-                timer=0;
+                timer += Time.deltaTime;
+                if (timer>=seeTime)
+                {
+                    onDetection.Invoke();
+                    scriptWaypoint.enabled = false;
+                    scriptChasing.enabled = true;
+                    State= EnemyState.Persecution;
+                    timer=0;
+                }
+            }
+            
+            //If enemy has lost sight of player,this will stop chasing
+            if (!CanSeePlayer) {
+
+                timer += Time.deltaTime;
+
+                if (timer>=seeTime)
+                {
+                    scriptChasing.enabled = false;
+                    scriptWaypoint.enabled = true;  
+                    State= EnemyState.Patrolling;
+                    GetComponent<WaypointMover>().canWalk=true;
+                    timer=0;
+                }
             }
         }
-        
-        //If enemy has lost sight of player,this will stop chasing
-        if (!CanSeePlayer && State==EnemyState.Alert) {
 
-            timer += Time.deltaTime;
-
-            if (timer>=seeTime)
-            {
-                scriptChasing.enabled = false;
-                scriptWaypoint.enabled = true;  
-                State= EnemyState.Patrolling;
-                GetComponent<WaypointMover>().canWalk=true;
-                timer=0;
-            }
-        }
-        
         //STATE: Persecution
         //Enemy is chasing the player and stops patrolling
-        if (CanSeePlayer && State==EnemyState.Persecution)
-        {
-            GetComponent<WaypointMover>().canWalk=false;
-            scriptWaypoint.enabled = false;
-            scriptChasing.enabled = true;
-        }
-        
-        //Enemy lost sight of player when chasing
-        if (!CanSeePlayer && State==EnemyState.Persecution)
-        {
-            timer += Time.deltaTime;
-            if (timer>=seeTime)
+        if (State == EnemyState.Persecution) {
+            if (CanSeePlayer)
             {
+                onDetection.Invoke();
+                GetComponent<WaypointMover>().canWalk=false;
                 scriptWaypoint.enabled = false;
                 scriptChasing.enabled = true;
+            }
+            //Enemy lost sight of player when chasing
+            if (!CanSeePlayer)
+            {
+                timer += Time.deltaTime;
+                if (timer>=seeTime)
+                {
+                    scriptWaypoint.enabled = false;
+                    scriptChasing.enabled = true;
 
-                State= EnemyState.Alert;
-                timer=0;
+                    State= EnemyState.Alert;
+                    timer=0;
+                }
             }
         }
     }
@@ -243,7 +238,6 @@ public class EnemyFieldOfView : MonoBehaviour {
                     }
                     noFirst = true;
                 }
-
             }else{
                 CanSeePlayer = false;
             }
@@ -274,34 +268,28 @@ public class EnemyFieldOfView : MonoBehaviour {
         }
 
         //Visual indicator of the active angle of the enemy
-        if(enemyAngleState == ActiveEnemyAngleState.Up)
-        {
-            upHit.SetActive(true);
-            downHit.SetActive(false);
-            leftHit.SetActive(false);
-            rightHit.SetActive(false);
-        }else if(enemyAngleState == ActiveEnemyAngleState.Left)
-        {
-            upHit.SetActive(false);
-            downHit.SetActive(false);
+        SetActiveHitBox(enemyAngleState);
+        
+    }
+    //Sets the active box depending on the enemy look state
+    private void SetActiveHitBox(ActiveEnemyAngleState activeHitbox) {
+        upHit.SetActive(false);
+        downHit.SetActive(false);
+        leftHit.SetActive(false);
+        rightHit.SetActive(false);
+        
+        if (activeHitbox == ActiveEnemyAngleState.Left) {
             leftHit.SetActive(true);
-            rightHit.SetActive(false);
-        }else if(enemyAngleState == ActiveEnemyAngleState.Down)
-        {
-            upHit.SetActive(false);
+        } else if (activeHitbox == ActiveEnemyAngleState.Down) {
             downHit.SetActive(true);
-            leftHit.SetActive(false);
-            rightHit.SetActive(false);
-        }else if(enemyAngleState == ActiveEnemyAngleState.Right)
-        {
-            upHit.SetActive(false);
-            downHit.SetActive(false);
-            leftHit.SetActive(false);
+        } else if (activeHitbox == ActiveEnemyAngleState.Right) {
             rightHit.SetActive(true);
+        }else if (activeHitbox == ActiveEnemyAngleState.Up) {
+            upHit.SetActive(true);
         }
     }
 
-    //Change of view in the enemy depending on the active angle state
+    //Change of view in the enemy depending on the active angle state view
     public Vector2 DirectionFromAngle(float eulerY, float angleInDegrees)
     {
         angleInDegrees += eulerY;
@@ -350,10 +338,8 @@ public class HandlesDemoEditor : Editor
         {
             UnityEditor.Handles.color =Color.green;
             UnityEditor.Handles.DrawLine(linkedObject.transform.position,linkedObject.playerRef.transform.position);
-                
         }
     }
-    
-    }
+}
 
 #endif

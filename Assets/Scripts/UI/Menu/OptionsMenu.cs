@@ -16,6 +16,7 @@ public class OptionsMenu : MonoBehaviour
         //load sound
     }
 
+    //Returns to pause menu
     public void OnClick_Return() {
         MenuManager.OpenMenu(Menu.PAUSE_MENU, gameObject);
     }

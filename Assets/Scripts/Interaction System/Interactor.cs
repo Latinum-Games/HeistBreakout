@@ -3,6 +3,7 @@ using UnityEngine;
 public class  Interactor : MonoBehaviour {
 
     // Private
+    //Interaction variables
     [Header("Player Interaction Area")]
     [SerializeField] private Transform interactionPoint;
     [SerializeField] private float interactionPointRadius = 0.5f;
@@ -27,6 +28,7 @@ public class  Interactor : MonoBehaviour {
     
     // Public Functions
     public void InteractAction(bool keyPress = false) {
+        //Interaction enabled if items are detected near player
         if (numOfInteractablesFound > 0) {
             interactable = colliders[0].GetComponent<IInteractable>();
 
@@ -46,6 +48,7 @@ public class  Interactor : MonoBehaviour {
     }
 
     private void OnDrawGizmos() {
+        //Red circle representation for interactable items in map
          Gizmos.color = Color.red;
          Gizmos.DrawWireSphere(interactionPoint.position, interactionPointRadius);
     }

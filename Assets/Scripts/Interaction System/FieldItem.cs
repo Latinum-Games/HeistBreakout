@@ -12,15 +12,18 @@ public class FieldItem : MonoBehaviour, IInteractable { // TODO RENAME FUNCTION 
     public string InteractionPrompt => item.interactionPrompt == string.Empty ? "Pickup " + item.title  : item.interactionPrompt;
 
     private void Start() {
+        //Initializer for item sprites and box colliders
         sprite = item.GetSprite();
         Vector3 boxCollider2D = gameObject.GetComponent<BoxCollider2D>().size;
         gameObject.GetComponent<SpriteRenderer>().sprite = sprite;
     }
 
+    //Interaction with items in map
     public bool Interact(Interactor interactor) {
         return Loot(interactor);
     }
     
+    //Adding item to loot depending in the item presence
     private bool Loot(Interactor interactor) {
         var inventory = interactor.GetComponent<Inventory>();
 
