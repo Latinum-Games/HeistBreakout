@@ -4,27 +4,5 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/Menus.unity
-    guid: b7b01ec344acf60409e8d58486a94385
-  - enabled: 1
-    path: Assets/Scenes/Menus/UI Heist Breakout.unity
-    guid: 980bb38f4329a6b489a4e472f3e6da3d
-  - enabled: 0
-    path: Assets/Scenes/Testing/Test MVP 1.0.unity
-    guid: e1c6313375529b740bc8e240fa146d5a
-  - enabled: 0
-    path: Assets/Scenes/Testing/Test Pathfinding.unity
-    guid: 4bdf037d379ac364eaedaa3e6df04e1b
-  - enabled: 0
-    path: Assets/Scenes/TutorialLevel.unity
-    guid: 7a14fa8a053394ef6aec6ee46e42cdb1
-  - enabled: 1
-    path: Assets/Scenes/Showcase/VrMission1.unity
-    guid: 2f2551fff4e8a7f4794c04e23f8be681
-  - enabled: 1
-    path: Assets/Scenes/Mini Games/SimonSaysMinigame.unity
-    guid: fad981fe44709784786542b56422708c
-  m_configObjects:
-    com.unity.input.settings: {fileID: 11400000, guid: 8f4d95a40463d4c448101b96d0beaff1, type: 2}
+  m_Scenes: []
+  m_configObjects: {}
