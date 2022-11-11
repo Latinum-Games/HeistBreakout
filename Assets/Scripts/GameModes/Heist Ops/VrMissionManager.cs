@@ -6,6 +6,11 @@ using UnityEngine.UI;
 
 public class VrMissionManager : MonoBehaviour {
     
+    // TODO: IMPROVE MAP OBJECTIVE ITEMS COUNT, MOVE COUNT FROM PLAYER TO MANAGER
+    // TODO: UPDATE COUNTDOWN TIMER MODAL INFO
+    // TODO: UPDATE TO A GENERAL WIN/LOSE CONDITION MODAL FOR END MISSION DATA
+    // TODO: DISPLAY SCORE AT THE END OF THE LEVEL IN MODAL
+    
     // Foreign Game Systems
     [Header("Foreign Managers")] 
     [SerializeField] private InputController inputController;
@@ -15,17 +20,18 @@ public class VrMissionManager : MonoBehaviour {
     [SerializeField] private GameObject missionBriefModal;
     [SerializeField] private GameObject startMissionButton;
     
-    // Finish MIssion Data
-    [SerializeField] private GameObject missionFailedModal;
+    // Finish Mission Data
+    [SerializeField] private GameObject missionFailedModal; 
 
     // Stopwatch Variables
-    [Header("Stopwatch")] 
-    public float currentTime;
+    [Header("Stopwatch")]
     [SerializeField] private int startMinutes;
     [SerializeField] private int startSeconds;
     [SerializeField] private GameObject timerLabel;
+    [SerializeField] private GameObject timerLabelPosition;
     private TextMeshProUGUI timerLabelText;
-    [SerializeField] private bool isTimerActive;
+    public float currentTime;
+    private bool isTimerActive;
 
     // Score and Objectives Variables
     [Header("Score and Objectives")] 
@@ -36,6 +42,7 @@ public class VrMissionManager : MonoBehaviour {
     [Header("Countdown to Start")] 
     [SerializeField] private int countdownTimer;
     [SerializeField] private GameObject countdownLabel;
+    
 
     //All enemies in scene
     [Header("Enemies in map")]
@@ -49,7 +56,6 @@ public class VrMissionManager : MonoBehaviour {
     [Header("Player Inventory REMOVE AFTER SHOWCASE")] 
     [SerializeField] private Inventory playerInventory;
     [SerializeField] private GameObject extractionPoint;
-    [SerializeField] private GameObject controlsLabel;
 
     private void Awake() {
         // Subscribe partial controller to just enable UI controls and not pause menu controls
@@ -120,16 +126,8 @@ public class VrMissionManager : MonoBehaviour {
     private void StartTimer() {
         // Start Timer Animation
         LeanTween.cancel(timerLabel);
-        var timerLabelRt = timerLabel.GetComponent <RectTransform>();
-        LeanTween.move(timerLabel, timerLabelRt.position + new Vector3(0, -Screen.height, 0), 0.3f).setEaseInOutExpo();
-        
-        // TODO: REMOVE AFTER DEMO
-        LeanTween.cancel(controlsLabel);
-        var controlsLabelRt = controlsLabel.GetComponent<RectTransform>();
-        LeanTween.move(controlsLabel, controlsLabelRt.position + new Vector3(-Screen.width, 0, 0), 0.3f).setEaseInOutExpo();
-        
+        LeanTween.move(timerLabel, timerLabelPosition.transform.position, 0.3f).setEaseInOutExpo();
         isTimerActive = true;
-        
     }
 
     private void StopTimer() {
@@ -167,11 +165,6 @@ public class VrMissionManager : MonoBehaviour {
 
         // Stop Timer
         StopTimer();
-        
-        // TODO: REMOVE AFTER DEMO
-        LeanTween.cancel(controlsLabel);
-        var controlsLabelRt = controlsLabel.GetComponent<RectTransform>();
-        LeanTween.move(controlsLabel, controlsLabelRt.position + new Vector3(Screen.width, 0, 0), 0.3f).setEaseInOutExpo();
 
         // Open Mission Failed Modal
         LeanTween.cancel(missionFailedModal);

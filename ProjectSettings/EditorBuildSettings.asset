@@ -4,5 +4,20 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Menus/UI Heist Breakout.unity
+    guid: 980bb38f4329a6b489a4e472f3e6da3d
+  - enabled: 1
+    path: Assets/Scenes/Showcase/VrMission1.unity
+    guid: 2f2551fff4e8a7f4794c04e23f8be681
+  - enabled: 1
+    path: Assets/Multiplayer/Scenes/SceneGamePlay.unity
+    guid: 17cd3244a5139074bb0676386ecee046
+  - enabled: 1
+    path: Assets/Multiplayer/Scenes/SceneMainMenu.unity
+    guid: 0e8b060943d89c64baacd8e7762e2c74
+  - enabled: 1
+    path: Assets/Scenes/Mini Games/SimonSaysMinigame.unity
+    guid: fad981fe44709784786542b56422708c
   m_configObjects: {}

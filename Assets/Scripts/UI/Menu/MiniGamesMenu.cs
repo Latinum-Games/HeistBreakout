@@ -25,6 +25,5 @@ public class MiniGamesMenu : MonoBehaviour
         }
         
         MenuManager.OpenMenu(Menu.MAIN_MENU, gameObject);
-        
     }
 }

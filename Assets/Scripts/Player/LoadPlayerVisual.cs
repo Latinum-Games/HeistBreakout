@@ -8,6 +8,7 @@ public class LoadPlayerVisual : MonoBehaviour {
     // Start is called before the first frame update
     void Start() {
         //CharacterSelection.instance.characterController
+
         _animator.runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>("Sprites/CharacterControllers/" + CharacterSelection.instance.characterController);
         _animator.SetInteger("Movement", 2);
     }
