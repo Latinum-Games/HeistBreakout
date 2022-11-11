@@ -15,5 +15,6 @@ public class OptionsUI : MonoBehaviour {
     //Loads main menu 
     private void ExitToMainMenu() {
         SceneManager.LoadScene("UI Heist Breakout");
+        MenuManager.IsInitialised = false;
     }
 }
