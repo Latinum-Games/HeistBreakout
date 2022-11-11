@@ -4,19 +4,24 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public static class MenuManager {
-    [SerializeField] public static bool IsInitialised { get; private set;}
+    //Initializer for menus at global level
+    [SerializeField] public static bool IsInitialised { get; set;}
+    //Initializer of menus
     public static GameObject mainMenu, optionsMenu, exitMenu, pauseMenu, shopMenu, rewardMenu, gameOverMenu, lobbyMenu, museumMenu;
+    //Current scene
     private static string currentScene;
 
     public static void Init() {
+        //Canvas initializer with respective scene
         GameObject canvas = GameObject.Find("Canvas");
         currentScene = SceneManager.GetActiveScene().name;
 
+        //Menu initializer depending on main menu or in game menu
         if (currentScene == "UI Heist Breakout") {
-            mainMenu = canvas.transform.Find("Title screen").gameObject;
-            shopMenu = canvas.transform.Find("Shop").gameObject;
-            lobbyMenu = canvas.transform.Find("Lobby").gameObject;
-            museumMenu = canvas.transform.Find("My Museum").gameObject;
+        mainMenu = canvas.transform.Find("Title screen").gameObject;
+        shopMenu = canvas.transform.Find("Shop").gameObject;
+        lobbyMenu = canvas.transform.Find("Lobby").gameObject;
+        museumMenu = canvas.transform.Find("My Museum").gameObject;
 
         } else if(currentScene == "Interfaces 2") {
             exitMenu = canvas.transform.Find("Exit menu").gameObject;
@@ -25,14 +30,16 @@ public static class MenuManager {
             rewardMenu = canvas.transform.Find("Rewards menu").gameObject;
             gameOverMenu = canvas.transform.Find("Game Over menu").gameObject;
         }
-        
+        //Blocked menu changes
         IsInitialised = true;
     }
 
     public static void OpenMenu(Menu menu, GameObject callingMenu) {
+        //Checker for menu initialization
         if (!IsInitialised)
-            Init();
-
+        	Init();
+        
+        //All menu cases
         switch (menu) {
             case Menu.MAIN_MENU:
                 mainMenu.SetActive(true);
@@ -62,7 +69,6 @@ public static class MenuManager {
                 museumMenu.SetActive(true);
                 break;
         }
-
         callingMenu.SetActive(false);
     }
 }
