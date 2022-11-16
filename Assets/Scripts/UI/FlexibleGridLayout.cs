@@ -43,7 +43,7 @@ using UnityEngine;
          var parentHeight = rectTransform.rect.height;
 
          var cellWidth = (parentWidth / (float)columns) - ((spacing.x / (float)columns) * (columns - 1)) - (padding.left / (float)columns) - (padding.right / (float)columns);
-         var cellHeight = (parentHeight / (float)rows) - ((spacing.y / (float)rows) * (columns - 1)) - (padding.top / (float)rows) - (padding.bottom / (float)rows);
+         var cellHeight = (parentHeight / (float)rows) - ((spacing.y / (float)rows) * (rows - 1)) - (padding.top / (float)rows) - (padding.bottom / (float)rows);
 
          cellSize.x = fitX ? cellWidth : cellSize.x;
          cellSize.y = fitY ? cellHeight : cellSize.y;
