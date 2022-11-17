@@ -25,7 +25,8 @@ public class MainMenu : MonoBehaviour {
         SetTileListeners();
         
         // Display Intro Menu Animation
-        StartCoroutine(UIDelay());
+        // StartCoroutine(UIDelay());
+        MainMenu_OpenAnimation();
     }
     
     private void SetTileListeners() {
@@ -69,11 +70,13 @@ public class MainMenu : MonoBehaviour {
         var tile = GameObject.Find("GridLayout/HeistOpsTile/Tile");
         
         // UI Positions
-        var heistOpsTileInPosition = GameObject.Find("UIPositions/HeistOpsTileIn");
+        var heistOpsTileInPosition = GameObject.Find("GridLayout/HeistOpsTile/PositionIn");
         
         // Tween Animation
-        LeanTween.cancel(tile);
-        LeanTween.move(tile, heistOpsTileInPosition.transform.position, 0.3f).setEaseOutExpo();
+        LeanTween.delayedCall(tile, 1f, () => {
+            LeanTween.cancel(tile);
+            LeanTween.move(tile, heistOpsTileInPosition.transform.position, 0.3f).setEaseOutExpo();
+        });
     }
 
     private void MainMenu_CloseAnimation() {
@@ -81,7 +84,7 @@ public class MainMenu : MonoBehaviour {
         var tile = GameObject.Find("GridLayout/HeistOpsTile/Tile");
         
         // UI Positions
-        var heistOpsTileOutPosition = GameObject.Find("UIPositions/HeistOpsTileOut");
+        var heistOpsTileOutPosition = GameObject.Find("GridLayout/HeistOpsTile/PositionOut");
         
         // Tween Animation
         LeanTween.cancel(tile);
@@ -125,8 +128,8 @@ public class MainMenu : MonoBehaviour {
         selectedContent.SetActive(false);
     }
 
-    IEnumerator UIDelay() {
-        yield return new WaitForSeconds(1f);
-        MainMenu_OpenAnimation();
-    }
+    // IEnumerator UIDelay() {
+    //     yield return new WaitForSeconds(1f);
+    //     MainMenu_OpenAnimation();
+    // }
 }
