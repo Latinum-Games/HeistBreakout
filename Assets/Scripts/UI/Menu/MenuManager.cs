@@ -18,10 +18,10 @@ public static class MenuManager {
 
         //Menu initializer depending on main menu or in game menu
         if (currentScene == "UI Heist Breakout") {
-        mainMenu = canvas.transform.Find("Title screen").gameObject;
-        shopMenu = canvas.transform.Find("Shop").gameObject;
-        lobbyMenu = canvas.transform.Find("Lobby").gameObject;
-        museumMenu = canvas.transform.Find("My Museum").gameObject;
+            mainMenu = canvas.transform.Find("TitleScreen").gameObject;
+            shopMenu = canvas.transform.Find("Shop").gameObject;
+            lobbyMenu = canvas.transform.Find("Lobby").gameObject;
+            museumMenu = canvas.transform.Find("My Museum").gameObject;
 
         } else if(currentScene == "Interfaces 2") {
             exitMenu = canvas.transform.Find("Exit menu").gameObject;
