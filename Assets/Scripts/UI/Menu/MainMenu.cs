@@ -167,6 +167,7 @@ public class MainMenu : MonoBehaviour {
 
     public void OnClick_Multiplayer() {
         // TODO: MAKE TRANSITION
+        MainMenu_CloseAnimation(() => { MenuManager.OpenMenu(Menu.LOBBY_MENU_MULTI, gameObject); });
     }
     
     //Museum menu load

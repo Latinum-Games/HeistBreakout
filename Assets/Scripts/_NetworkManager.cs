@@ -70,5 +70,13 @@ public class _NetworkManager : MonoBehaviourPunCallbacks
     {
         PhotonNetwork.LoadLevel(_nameScene);
     }
+    
+    /// <summary>
+    /// Abandonar la red del servidor
+    /// </summary>
+    [PunRPC]
+    public void DisconnectPlayer() {
+        PhotonNetwork.Disconnect();
+    }
 
 }
