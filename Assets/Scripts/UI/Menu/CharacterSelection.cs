@@ -1,11 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.UI;
 using Button = UnityEngine.UIElements.Button;
 
-public class CharacterSelection : MonoBehaviour {
+public class CharacterSelection : MonoBehaviourPunCallbacks {
 
     public static CharacterSelection instance;
 
