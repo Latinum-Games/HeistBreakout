@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class AIChasing : MonoBehaviour
+public class AIChasingMulti : MonoBehaviourPunCallbacks
 {
     //Takes player position
     [SerializeField] public Transform player;
@@ -23,6 +24,13 @@ public class AIChasing : MonoBehaviour
     void Update()
     {
         //Determine path to follow for chase
+        photonView.RPC("ChasePlayer", RpcTarget.All);
+        
+    }
+    
+    [PunRPC]
+    private void ChasePlayer() {
         enemy.SetDestination(player.position);
+        Debug.Log("Siguiendo");
     }
 }

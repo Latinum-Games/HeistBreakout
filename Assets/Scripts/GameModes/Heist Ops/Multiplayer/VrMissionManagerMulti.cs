@@ -95,6 +95,12 @@ public class VrMissionManagerMulti : MonoBehaviourPunCallbacks {
             child.onDetection.AddListener(LoseMultiMission);
         }
         
+        //Add player reference to enemies
+        foreach (AIChasingMulti child in enemies.GetComponentsInChildren<AIChasingMulti>()) {
+            // Add Lose condition to the player 
+            child.player = playerObj.transform;
+        }
+        
         // Add listener to extraction point
         extractionPoint.GetComponent<ExtractionPoint>().onExtraction.AddListener(WinMultiMission);
         
@@ -258,7 +264,8 @@ public class VrMissionManagerMulti : MonoBehaviourPunCallbacks {
         inputController = playerObj.GetComponent<InputControllerMulti>();
         player = playerObj;
         //playerInventory = playerObj.GetComponent<Inventory>();
-        playerObj.GetComponent<MovementV2Multi>().fieldOfView = fovObj.GetComponent<FieldOfView>();
+        if(photonView.IsMine || !photonView.IsMine)
+            playerObj.GetComponent<MovementV2Multi>().fieldOfView = fovObj.GetComponent<FieldOfView>();
 
         playerCamera.Follow = playerObj.transform;
 

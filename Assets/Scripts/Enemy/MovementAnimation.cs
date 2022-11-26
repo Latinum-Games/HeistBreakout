@@ -13,10 +13,10 @@ public class MovementAnimation : MonoBehaviour
     //Initializes components of view, rigidbody and animator
     [Header("Components")]
     public Animator animator;
-    private EnemyFieldOfView scriptFOV;
+    private EnemyFieldOfViewMulti scriptFOV;
 
     private void Start() {
-        scriptFOV = GetComponent<EnemyFieldOfView>();
+        scriptFOV = GetComponent<EnemyFieldOfViewMulti>();
         animator.SetInteger("Movement", 2);
     }
 
