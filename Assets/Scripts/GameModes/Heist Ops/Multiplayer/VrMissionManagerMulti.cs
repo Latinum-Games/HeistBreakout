@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using Cinemachine;
 using Photon.Pun;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
@@ -46,6 +48,9 @@ public class VrMissionManagerMulti : MonoBehaviourPunCallbacks {
     [SerializeField] private int countdownTimer;
     [SerializeField] private GameObject countdownLabel;
     
+    // Map inventory
+    [Header("Map Inventory")] 
+    [SerializeField] private InventoryMulti mapInventory;
 
     //All enemies in scene
     [Header("Enemies in map")]
@@ -104,12 +109,12 @@ public class VrMissionManagerMulti : MonoBehaviourPunCallbacks {
 
     private void Update() {
         UpdateTimer();
-        /*
+        
         // TODO: REMOVE AFTER SHOWCASE
-        if (playerInventory.GetInventoryItemCount() >= 4) {
+        if (mapInventory.GetInventoryItemCount() >= 4) {
             // ACTIVATE EXTRACTION POINT
             extractionPoint.SetActive(true);
-        }*/
+        }
     }
     
     [PunRPC]
@@ -250,7 +255,8 @@ public class VrMissionManagerMulti : MonoBehaviourPunCallbacks {
         } else if (selectedCharacter == "DuendeController") {
             playerObj = PhotonNetwork.Instantiate(playerElfPrefab.name, playerPosition, Quaternion.identity);
         }
-        fovObj = PhotonNetwork.Instantiate(playerFOV.name, Vector3.zero, Quaternion.identity);
+        
+        fovObj = Instantiate(playerFOV, Vector3.zero, Quaternion.identity);
     }
     
     [PunRPC]

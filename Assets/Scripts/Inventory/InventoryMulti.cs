@@ -2,11 +2,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class InventoryMulti : MonoBehaviour {
-    //Initializes amounts of weight
-    [Header("Weight Variables")]
-    [SerializeField] private int maxWeight = 50;
-    [SerializeField] private int currentWeight = 0;
-    
     // Initializes item list with representation in UI
     [Header("Foreign Components")]
     [SerializeField] private List<Item> itemList;
@@ -19,31 +14,7 @@ public class InventoryMulti : MonoBehaviour {
 
     //Adding of items picked to the weight of the player and to the inventory
     public bool AddLoot(Item item) {
-        //Checks the possibility to add more items based on weight
-        if (currentWeight + item.weight > maxWeight || currentWeight == maxWeight) {
-            return false;
-        }
-
-        //Checks that item is of treasure type and adds to item list
-        if (item.IsStackable()) {
-            var isItemInInventory = false;
-
-            foreach (var inventoryItem in itemList) {
-                if (inventoryItem.entity == item.entity) {
-                    inventoryItem.amount += item.amount;
-                    isItemInInventory = true;
-                }
-            }
-
-            if (!isItemInInventory) {
-                itemList.Add(item);
-            }
-        }
-        else {
-            itemList.Add(item);
-        }
-        
-        currentWeight += item.weight;
+        itemList.Add(item);
         return true;
     }
 
