@@ -1,7 +1,8 @@
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 
-public class InventoryMulti : MonoBehaviour {
+public class InventoryMulti : MonoBehaviourPunCallbacks {
     // Initializes item list with representation in UI
     [Header("Foreign Components")]
     [SerializeField] private List<Item> itemList;
@@ -12,6 +13,7 @@ public class InventoryMulti : MonoBehaviour {
         //inventoryUI.SetInventory(this);
     }
 
+    [PunRPC]
     //Adding of items picked to the weight of the player and to the inventory
     public bool AddLoot(Item item) {
         itemList.Add(item);
@@ -32,4 +34,11 @@ public class InventoryMulti : MonoBehaviour {
     public int GetInventoryItemCount() {
         return itemList.Count;
     }
+
+    public bool AddLootRPC(Item item) {
+        Debug.Log("Uwu en rpc");
+        photonView.RPC("AddLoot", RpcTarget.All, item);
+        return true;
+    }
+    
 }

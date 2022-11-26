@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
+using ExitGames.Client.Photon.StructWrapping;
 using Photon.Pun;
 using TMPro;
 using UnityEditor;
@@ -70,8 +71,10 @@ public class VrMissionManagerMulti : MonoBehaviourPunCallbacks {
     public GameObject playerCatPrefab;
     public GameObject playerElfPrefab;
     public GameObject playerFOV;
+    public InteractionPromptUI interactionUI;
     [SerializeField] private GameObject playerObj;
     [SerializeField] private GameObject fovObj;
+    public InGamePauseMenuManager pauseManager;
 
     public CinemachineVirtualCamera playerCamera;
 
@@ -267,6 +270,8 @@ public class VrMissionManagerMulti : MonoBehaviourPunCallbacks {
         playerObj.GetComponent<MovementV2Multi>().fieldOfView = fovObj.GetComponent<FieldOfView>();
 
         playerCamera.Follow = playerObj.transform;
+        playerObj.GetComponent<Interactor>().interactionPromptUI = interactionUI;
+        inputController.inGameMenu = pauseManager;
 
     }
     

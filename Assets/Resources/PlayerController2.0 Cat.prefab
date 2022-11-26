@@ -929,7 +929,6 @@ GameObject:
   - component: {fileID: 3693265091574055735}
   - component: {fileID: 3693265091574055736}
   - component: {fileID: 3693265091574055739}
-  - component: {fileID: -605028320449557672}
   - component: {fileID: 5652002584807551614}
   - component: {fileID: -6898710571115945726}
   - component: {fileID: -7899921824845247790}
@@ -1085,7 +1084,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3693265091574055741}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 30105f99c559ba34db87934533f400d4, type: 3}
   m_Name: 
@@ -1097,21 +1096,6 @@ MonoBehaviour:
     m_Bits: 128
   numOfInteractablesFound: 0
   interactionPromptUI: {fileID: 0}
---- !u!114 &-605028320449557672
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3693265091574055741}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5bc0b1a154c3d6047a17ea7c15384e0b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxWeight: 50
-  currentWeight: 0
-  itemList: []
 --- !u!114 &5652002584807551614
 MonoBehaviour:
   m_ObjectHideFlags: 0

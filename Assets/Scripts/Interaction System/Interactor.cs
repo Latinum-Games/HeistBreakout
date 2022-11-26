@@ -11,7 +11,7 @@ public class  Interactor : MonoBehaviour {
 
     [Header("Interactable")]
     [SerializeField] private int numOfInteractablesFound;
-    [SerializeField] private InteractionPromptUI interactionPromptUI;
+    [SerializeField] public InteractionPromptUI interactionPromptUI;
     private readonly Collider2D[] colliders = new Collider2D[3];
     private IInteractable interactable;
 
@@ -28,6 +28,7 @@ public class  Interactor : MonoBehaviour {
     
     // Public Functions
     public void InteractAction(bool keyPress = false) {
+        
         //Interaction enabled if items are detected near player
         if (numOfInteractablesFound > 0) {
             interactable = colliders[0].GetComponent<IInteractable>();
@@ -38,6 +39,7 @@ public class  Interactor : MonoBehaviour {
                 }
                 
                 if (keyPress) { // ->
+                    Debug.Log("Interactuable tecla");
                     interactable.Interact(this);
                 }
             }

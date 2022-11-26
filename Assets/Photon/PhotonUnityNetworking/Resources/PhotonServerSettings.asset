@@ -53,6 +53,8 @@ MonoBehaviour:
   - OnClick_Yes
   - DisconnectPlayer
   - CharactersDeactivation
+  - AddLoot
+  - DestroyFieldItem
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1
