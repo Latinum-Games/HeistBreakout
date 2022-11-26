@@ -163,7 +163,8 @@ public class VrMissionManagerMulti : MonoBehaviourPunCallbacks {
         inputController.PartialSubscribeMenuMap();
         
         // Disable Enemies and Player
-        CharactersDeactivation();
+        photonView.RPC("CharactersDeactivation", RpcTarget.All);
+        //CharactersDeactivation();
 
         // Stop Timer
         StopTimer();
@@ -181,7 +182,8 @@ public class VrMissionManagerMulti : MonoBehaviourPunCallbacks {
         inputController.PartialSubscribeMenuMap();
 
         // Disable Enemies and Player
-        CharactersDeactivation();
+        photonView.RPC("CharactersDeactivation", RpcTarget.All);
+        //CharactersDeactivation();
 
         // Stop Timer
         StopTimer();
@@ -225,11 +227,12 @@ public class VrMissionManagerMulti : MonoBehaviourPunCallbacks {
         LeanTween.cancel(countdownLabel);
         LeanTween.scale(countdownLabel, new Vector3(0f, 0f, 0f), 0.6f).setEaseOutBounce().setOnComplete(() => {
             StartTimer();
-            //enemies.SetActive(true); //AQUI DESCOMENTAR
+            enemies.SetActive(true); //AQUI DESCOMENTAR
             countdownLabel.SetActive(false); 
         });
     }
 
+    [PunRPC]
     //Deactivation of Enemies and Player
     private void CharactersDeactivation() {
         enemies.SetActive(false);

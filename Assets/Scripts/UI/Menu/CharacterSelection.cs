@@ -10,7 +10,7 @@ public class CharacterSelection : MonoBehaviourPunCallbacks {
 
     public static CharacterSelection instance;
 
-    [SerializeField] private RawImage characterImage;
+    [SerializeField] private Sprite characterImage;
     public string characterController = "CatController";
 
     
@@ -21,12 +21,12 @@ public class CharacterSelection : MonoBehaviourPunCallbacks {
     
 
     public void CatSelection() {
-        characterImage.texture = Resources.Load<Texture2D>("Sprites/Gato Outline");
+        characterImage = Resources.Load<Sprite>("Sprites/Gato Outline");
         characterController = "CatController";
     }
     
     public void DuendeSelection() {
-        characterImage.texture = Resources.Load<Texture2D>("Sprites/Duende Outline");
+        characterImage = Resources.Load<Sprite>("Sprites/Duende Outline");
         characterController = "DuendeController";
     }
 
