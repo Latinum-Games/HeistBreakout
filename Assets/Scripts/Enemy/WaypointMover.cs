@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -117,7 +118,7 @@ public class WaypointMover : MonoBehaviour
     //Moves to the selected waypoint
     void Travel()
     {
-        transform.Translate(travelDirection * moveSpeed * Time.deltaTime);
+        //transform.Translate(travelDirection * moveSpeed * Time.deltaTime);
         bool overX = false;
         bool overY = false;
         bool overZ = false;
@@ -152,4 +153,5 @@ public class WaypointMover : MonoBehaviour
         stopped = true;
         timeToStartMovingAgain = Time.time + waitTime;
     }
+    
 }

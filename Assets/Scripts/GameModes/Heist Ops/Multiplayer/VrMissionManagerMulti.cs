@@ -95,6 +95,12 @@ public class VrMissionManagerMulti : MonoBehaviourPunCallbacks {
             child.onDetection.AddListener(LoseMultiMission);
         }
         
+        //Assignment of AI Chasing
+        foreach (AIChasing child in enemies.GetComponentsInChildren<AIChasing>()) {
+            // Add Lose condition to the player 
+            child.player = playerObj.transform;
+        }
+        
         // Add listener to extraction point
         extractionPoint.GetComponent<ExtractionPoint>().onExtraction.AddListener(WinMultiMission);
         
@@ -242,6 +248,7 @@ public class VrMissionManagerMulti : MonoBehaviourPunCallbacks {
     private void SpawnPlayers() {
         int randomPosition = Random.Range(0, spawnPlayerPositions.Length);//Obtener posicion random de lista de posiciones
         Vector3 playerPosition = spawnPlayerPositions[randomPosition].position;
+        playerPosition.z = 0;
 
         string selectedCharacter = CharacterSelection.instance.characterController;
         // instanciar el player en una posiciocion aleatoria dependiendo de su skin

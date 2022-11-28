@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class AIChasing : MonoBehaviour
 {
     //Takes player position
-    [SerializeField] Transform player;
+    [SerializeField] public Transform player;
     //Takes enemy navMesh
     NavMeshAgent enemy;
     // Start is called before the first frame update
