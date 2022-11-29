@@ -7,6 +7,7 @@ using Photon.Pun;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
@@ -249,8 +250,20 @@ public class VrMissionManagerMulti : MonoBehaviourPunCallbacks {
     [PunRPC]
     //Deactivation of Enemies and Player
     private void CharactersDeactivation() {
-        enemies.SetActive(false);
-        player.SetActive(false);
+        
+        foreach (WaypointMover child in enemies.GetComponentsInChildren<WaypointMover>()) {
+            // Add Lose condition to the player 
+            Destroy(child.GetComponent<NavMeshAgent>());
+            Destroy(child.GetComponent<AIChasing>());
+            Destroy(child.GetComponent<EnemyFieldOfView>());
+            Destroy(child);
+            
+        }
+
+        Destroy(playerObj.GetComponent<MovementV2Multi>());
+
+        //enemies.SetActive(false);
+        //player.SetActive(false);
     }
     
     private void SpawnPlayers() {

@@ -451,7 +451,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -5030104971225702831, guid: c5012437a4d11124c949149bd8ec9634, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3547312646814248652, guid: c5012437a4d11124c949149bd8ec9634, type: 3}
       propertyPath: m_RootOrder
@@ -505,9 +505,13 @@ PrefabInstance:
       propertyPath: sceneViewId
       value: 13
       objectReference: {fileID: 0}
+    - target: {fileID: 6504503579628370154, guid: c5012437a4d11124c949149bd8ec9634, type: 3}
+      propertyPath: ObservedComponents.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7519701105320922167, guid: c5012437a4d11124c949149bd8ec9634, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7925059357611706317, guid: c5012437a4d11124c949149bd8ec9634, type: 3}
       propertyPath: waypoints.Array.data[0]
@@ -525,15 +529,42 @@ PrefabInstance:
       propertyPath: waypoints.Array.data[3]
       value: 
       objectReference: {fileID: 1075870816}
-    m_RemovedComponents:
-    - {fileID: 7519701105320922167, guid: c5012437a4d11124c949149bd8ec9634, type: 3}
-    - {fileID: 6504503579628370154, guid: c5012437a4d11124c949149bd8ec9634, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5012437a4d11124c949149bd8ec9634, type: 3}
 --- !u!4 &96498523 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3547312646814248652, guid: c5012437a4d11124c949149bd8ec9634, type: 3}
   m_PrefabInstance: {fileID: 96498522}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &96498524 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3547312646814248654, guid: c5012437a4d11124c949149bd8ec9634, type: 3}
+  m_PrefabInstance: {fileID: 96498522}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &96498525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 96498524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b8c4a61274f60b4ea5fb4299cfdbf14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowLayerWeightsInspector: 1
+  ShowParameterInspector: 1
+  m_SynchronizeParameters:
+  - Type: 3
+    SynchronizeType: 1
+    Name: Movement
+  - Type: 1
+    SynchronizeType: 1
+    Name: Speed
+  m_SynchronizeLayers:
+  - SynchronizeType: 0
+    LayerIndex: 0
 --- !u!1 &133452224
 GameObject:
   m_ObjectHideFlags: 0
@@ -1781,7 +1812,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -5030104971225702831, guid: c5012437a4d11124c949149bd8ec9634, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3547312646814248652, guid: c5012437a4d11124c949149bd8ec9634, type: 3}
       propertyPath: m_RootOrder
@@ -1837,7 +1868,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7519701105320922167, guid: c5012437a4d11124c949149bd8ec9634, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7925059357611706317, guid: c5012437a4d11124c949149bd8ec9634, type: 3}
       propertyPath: waypoints.Array.data[0]
@@ -1862,6 +1893,35 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3547312646814248652, guid: c5012437a4d11124c949149bd8ec9634, type: 3}
   m_PrefabInstance: {fileID: 242832828}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &242832830 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3547312646814248654, guid: c5012437a4d11124c949149bd8ec9634, type: 3}
+  m_PrefabInstance: {fileID: 242832828}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &242832831
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 242832830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b8c4a61274f60b4ea5fb4299cfdbf14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowLayerWeightsInspector: 1
+  ShowParameterInspector: 1
+  m_SynchronizeParameters:
+  - Type: 3
+    SynchronizeType: 1
+    Name: Movement
+  - Type: 1
+    SynchronizeType: 1
+    Name: Speed
+  m_SynchronizeLayers:
+  - SynchronizeType: 0
+    LayerIndex: 0
 --- !u!1 &252410450
 GameObject:
   m_ObjectHideFlags: 0
@@ -13038,7 +13098,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -5030104971225702831, guid: c5012437a4d11124c949149bd8ec9634, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3547312646814248652, guid: c5012437a4d11124c949149bd8ec9634, type: 3}
       propertyPath: m_RootOrder
@@ -13094,7 +13154,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7519701105320922167, guid: c5012437a4d11124c949149bd8ec9634, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7925059357611706317, guid: c5012437a4d11124c949149bd8ec9634, type: 3}
       propertyPath: waypoints.Array.data[0]
@@ -13119,6 +13179,35 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3547312646814248652, guid: c5012437a4d11124c949149bd8ec9634, type: 3}
   m_PrefabInstance: {fileID: 712766460}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &712766462 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3547312646814248654, guid: c5012437a4d11124c949149bd8ec9634, type: 3}
+  m_PrefabInstance: {fileID: 712766460}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &712766463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 712766462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b8c4a61274f60b4ea5fb4299cfdbf14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowLayerWeightsInspector: 1
+  ShowParameterInspector: 1
+  m_SynchronizeParameters:
+  - Type: 3
+    SynchronizeType: 1
+    Name: Movement
+  - Type: 1
+    SynchronizeType: 1
+    Name: Speed
+  m_SynchronizeLayers:
+  - SynchronizeType: 0
+    LayerIndex: 0
 --- !u!1 &724781136
 GameObject:
   m_ObjectHideFlags: 0
@@ -15514,7 +15603,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -5030104971225702831, guid: c5012437a4d11124c949149bd8ec9634, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3547312646814248652, guid: c5012437a4d11124c949149bd8ec9634, type: 3}
       propertyPath: m_RootOrder
@@ -15570,7 +15659,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7519701105320922167, guid: c5012437a4d11124c949149bd8ec9634, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7925059357611706317, guid: c5012437a4d11124c949149bd8ec9634, type: 3}
       propertyPath: waypoints.Array.data[0]
@@ -15595,6 +15684,35 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3547312646814248652, guid: c5012437a4d11124c949149bd8ec9634, type: 3}
   m_PrefabInstance: {fileID: 1201684080}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1201684082 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3547312646814248654, guid: c5012437a4d11124c949149bd8ec9634, type: 3}
+  m_PrefabInstance: {fileID: 1201684080}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1201684083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1201684082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b8c4a61274f60b4ea5fb4299cfdbf14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowLayerWeightsInspector: 1
+  ShowParameterInspector: 1
+  m_SynchronizeParameters:
+  - Type: 3
+    SynchronizeType: 1
+    Name: Movement
+  - Type: 1
+    SynchronizeType: 1
+    Name: Speed
+  m_SynchronizeLayers:
+  - SynchronizeType: 0
+    LayerIndex: 0
 --- !u!1 &1219292944
 GameObject:
   m_ObjectHideFlags: 0
