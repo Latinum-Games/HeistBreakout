@@ -18,6 +18,9 @@ public class MenuUIController : MonoBehaviourPunCallbacks
     [Header("Lobby")]
     public Button startGameBtn; // Boton de iniciar partida
     public TextMeshProUGUI playertextList; //Texto para imprimir jugadores en room
+    public TextMeshProUGUI playerRoom;
+    public TextMeshProUGUI roomCode;
+    private string roomCodeStr = "";
 
 
     /// <summary>
@@ -53,6 +56,7 @@ public class MenuUIController : MonoBehaviourPunCallbacks
     public void CreateRoom(TMP_InputField _roomName)
     {
         _NetworkManager.instance.CreateRoom(_roomName.text); //Crear nuevo room desde networkManager
+        roomCodeStr = _roomName.text;
     }
 
     /// <summary>
@@ -85,6 +89,9 @@ public class MenuUIController : MonoBehaviourPunCallbacks
         {
             startGameBtn.interactable = false; // Desactivar boton de inicio de juego
         }
+
+        playerRoom.text = PhotonNetwork.PlayerList[0].NickName + "'s Lobby";
+        roomCode.text = "Room code: " + roomCodeStr;
     }
 
     /// <summary>
