@@ -1,3 +1,5 @@
+using System;
+using System.Security.Cryptography;
 using UnityEngine;
 
 public class  Interactor : MonoBehaviour {
@@ -14,6 +16,19 @@ public class  Interactor : MonoBehaviour {
     [SerializeField] public InteractionPromptUI interactionPromptUI;
     private readonly Collider2D[] colliders = new Collider2D[3];
     private IInteractable interactable;
+
+    private void Start() {
+        try {
+            if (interactionPromptUI == null) {
+                Destroy(this.GetComponent<Interactor>());
+            }
+        }
+        catch (Exception e) {
+            Debug.Log("ERROR DE UWU");
+            Console.WriteLine(e);
+            throw;
+        }
+    }
 
     private void Update() {
         numOfInteractablesFound = Physics2D.OverlapCircleNonAlloc(

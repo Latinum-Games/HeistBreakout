@@ -6,16 +6,18 @@ public class InventoryMulti : MonoBehaviourPunCallbacks {
     // Initializes item list with representation in UI
     [Header("Foreign Components")]
     [SerializeField] private List<Item> itemList;
-    //[SerializeField] private InventoryUI inventoryUI;
+    [SerializeField] private InventoryUIMulti inventoryUI;
 
     private void Awake() {
         //Setter of inventory for player
-        //inventoryUI.SetInventory(this);
+        inventoryUI.SetInventory(this);
     }
 
     [PunRPC]
     //Adding of items picked to the weight of the player and to the inventory
     public bool AddLoot(Item item) {
+        photonView.RPC("RefreshItemListMulti", RpcTarget.Others, item.title);
+        photonView.RPC("RefreshInventory", RpcTarget.Others);
         itemList.Add(item);
         return true;
     }
@@ -25,9 +27,10 @@ public class InventoryMulti : MonoBehaviourPunCallbacks {
         return itemList;
     }
 
+    [PunRPC]
     //Updater for the representation of items in UI
     public void RefreshInventory() {
-        //inventoryUI.OnInventoryChange();
+        inventoryUI.OnInventoryChange();
     }
     
     //Getter for the count of items in list
@@ -35,10 +38,10 @@ public class InventoryMulti : MonoBehaviourPunCallbacks {
         return itemList.Count;
     }
 
-    public bool AddLootRPC(Item item) {
-        Debug.Log("Uwu en rpc");
-        photonView.RPC("AddLoot", RpcTarget.All, item);
-        return true;
+    [PunRPC]
+    public void RefreshItemListMulti(string nameItem) {
+        Item item = GameObject.Find(nameItem).GetComponent<FieldItemMulti>().item;
+        itemList.Add(item);
     }
     
 }

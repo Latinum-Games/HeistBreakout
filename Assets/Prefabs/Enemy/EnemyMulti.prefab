@@ -41,10 +41,7 @@ GameObject:
   - component: {fileID: 3547312646814248652}
   - component: {fileID: 3547312646814248653}
   - component: {fileID: 3547312646814248649}
-  - component: {fileID: 3547312646814248650}
-  - component: {fileID: 656877670518411017}
   - component: {fileID: 3547312646814248651}
-  - component: {fileID: 3547312646814248648}
   - component: {fileID: 6172568571774968220}
   - component: {fileID: 7925059357611706319}
   - component: {fileID: 7925059357611706316}
@@ -52,6 +49,8 @@ GameObject:
   - component: {fileID: -2267491081063825172}
   - component: {fileID: -5030104971225702831}
   - component: {fileID: 5432761693421888813}
+  - component: {fileID: 7519701105320922167}
+  - component: {fileID: 6504503579628370154}
   m_Layer: 10
   m_Name: EnemyMulti
   m_TagString: Untagged
@@ -143,44 +142,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.74967
---- !u!114 &3547312646814248650
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3547312646814248654}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 826dc90b0bc2ad7428c0b3b647b5696f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 3
-  checkRadius: 4
-  attackRadius: 1
-  shouldRotate: 1
-  whatIsPlayer:
-    serializedVersion: 2
-    m_Bits: 64
-  dir: {x: 0, y: 0, z: 0}
---- !u!114 &656877670518411017
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3547312646814248654}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 55dd05186be9f3742883451095376907, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cast: {fileID: 3547312645903666296}
-  player: {fileID: 164018093791547642, guid: 54188cb219e5e6d4e8efdbf218f4c817, type: 3}
-  agroRange: 5
-  moveSpeed: 1
-  rb2d: {fileID: 3547312646814248651}
-  facingLeft: 0
 --- !u!50 &3547312646814248651
 Rigidbody2D:
   serializedVersion: 4
@@ -202,24 +163,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &3547312646814248648
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3547312646814248654}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f75b54221f555a46806ef2476a227c0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cast: {fileID: 3547312645903666296}
-  player: {fileID: 0}
-  agroRange: 5
-  moveSpeed: 1
-  rb2d: {fileID: 3547312646814248651}
-  facingLeft: 1
 --- !u!114 &6172568571774968220
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -357,6 +300,62 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &7519701105320922167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3547312646814248654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8efc6b1d64977384eb3405357896c656, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PositionModel:
+    SynchronizeEnabled: 1
+    TeleportEnabled: 1
+    TeleportIfDistanceGreaterThan: 3
+    InterpolateOption: 2
+    InterpolateMoveTowardsSpeed: 1
+    InterpolateLerpSpeed: 1
+    ExtrapolateOption: 0
+    ExtrapolateSpeed: 1
+    ExtrapolateIncludingRoundTripTime: 1
+    ExtrapolateNumberOfStoredPositions: 1
+  m_RotationModel:
+    SynchronizeEnabled: 0
+    InterpolateOption: 1
+    InterpolateRotateTowardsSpeed: 180
+    InterpolateLerpSpeed: 5
+  m_ScaleModel:
+    SynchronizeEnabled: 0
+    InterpolateOption: 0
+    InterpolateMoveTowardsSpeed: 1
+    InterpolateLerpSpeed: 0
+--- !u!114 &6504503579628370154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3547312646814248654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents:
+  - {fileID: 7519701105320922167}
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &8222090637565791563
 GameObject:
   m_ObjectHideFlags: 0

@@ -449,17 +449,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1123110791}
     m_Modifications:
+    - target: {fileID: -5030104971225702831, guid: c5012437a4d11124c949149bd8ec9634, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3547312646814248652, guid: c5012437a4d11124c949149bd8ec9634, type: 3}
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3547312646814248652, guid: c5012437a4d11124c949149bd8ec9634, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.4624918
+      value: -1.9
       objectReference: {fileID: 0}
     - target: {fileID: 3547312646814248652, guid: c5012437a4d11124c949149bd8ec9634, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.456036
+      value: 4.3
       objectReference: {fileID: 0}
     - target: {fileID: 3547312646814248652, guid: c5012437a4d11124c949149bd8ec9634, type: 3}
       propertyPath: m_LocalPosition.z
@@ -497,6 +501,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyMulti1
       objectReference: {fileID: 0}
+    - target: {fileID: 6504503579628370154, guid: c5012437a4d11124c949149bd8ec9634, type: 3}
+      propertyPath: sceneViewId
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 7519701105320922167, guid: c5012437a4d11124c949149bd8ec9634, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7925059357611706317, guid: c5012437a4d11124c949149bd8ec9634, type: 3}
       propertyPath: waypoints.Array.data[0]
       value: 
@@ -513,7 +525,9 @@ PrefabInstance:
       propertyPath: waypoints.Array.data[3]
       value: 
       objectReference: {fileID: 1075870816}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7519701105320922167, guid: c5012437a4d11124c949149bd8ec9634, type: 3}
+    - {fileID: 6504503579628370154, guid: c5012437a4d11124c949149bd8ec9634, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: c5012437a4d11124c949149bd8ec9634, type: 3}
 --- !u!4 &96498523 stripped
 Transform:
@@ -1765,17 +1779,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1123110791}
     m_Modifications:
+    - target: {fileID: -5030104971225702831, guid: c5012437a4d11124c949149bd8ec9634, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3547312646814248652, guid: c5012437a4d11124c949149bd8ec9634, type: 3}
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3547312646814248652, guid: c5012437a4d11124c949149bd8ec9634, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.4624918
+      value: 40.7
       objectReference: {fileID: 0}
     - target: {fileID: 3547312646814248652, guid: c5012437a4d11124c949149bd8ec9634, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.456036
+      value: 26.8
       objectReference: {fileID: 0}
     - target: {fileID: 3547312646814248652, guid: c5012437a4d11124c949149bd8ec9634, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1812,6 +1830,14 @@ PrefabInstance:
     - target: {fileID: 3547312646814248654, guid: c5012437a4d11124c949149bd8ec9634, type: 3}
       propertyPath: m_Name
       value: EnemyMulti4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6504503579628370154, guid: c5012437a4d11124c949149bd8ec9634, type: 3}
+      propertyPath: sceneViewId
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 7519701105320922167, guid: c5012437a4d11124c949149bd8ec9634, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7925059357611706317, guid: c5012437a4d11124c949149bd8ec9634, type: 3}
       propertyPath: waypoints.Array.data[0]
@@ -2217,7 +2243,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3386582109548040985, guid: dbe5dfdfae03cfd4cae497d792962436, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3386582109574339980, guid: dbe5dfdfae03cfd4cae497d792962436, type: 3}
       propertyPath: m_RootOrder
@@ -12184,6 +12210,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemList: []
+  inventoryUI: {fileID: 1552586521}
 --- !u!4 &572337558 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7584175183820718312, guid: 68aee87534318034fac28378981bf41a, type: 3}
@@ -12710,13 +12737,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item:
-    title: DEFAULT ITEM
+    title: Emerald
     type: 1
-    entity: 13
+    entity: 7
     weight: 1
     amount: 1
-    interactionPrompt: DEFAULT ITEM PROMPT
+    interactionPrompt: 
   sprite: {fileID: 0}
+  inventory: {fileID: 0}
 --- !u!61 &667972030
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -13008,17 +13036,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1123110791}
     m_Modifications:
+    - target: {fileID: -5030104971225702831, guid: c5012437a4d11124c949149bd8ec9634, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3547312646814248652, guid: c5012437a4d11124c949149bd8ec9634, type: 3}
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3547312646814248652, guid: c5012437a4d11124c949149bd8ec9634, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.4624918
+      value: 10.3
       objectReference: {fileID: 0}
     - target: {fileID: 3547312646814248652, guid: c5012437a4d11124c949149bd8ec9634, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.456036
+      value: 22.9
       objectReference: {fileID: 0}
     - target: {fileID: 3547312646814248652, guid: c5012437a4d11124c949149bd8ec9634, type: 3}
       propertyPath: m_LocalPosition.z
@@ -13055,6 +13087,14 @@ PrefabInstance:
     - target: {fileID: 3547312646814248654, guid: c5012437a4d11124c949149bd8ec9634, type: 3}
       propertyPath: m_Name
       value: EnemyMulti2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6504503579628370154, guid: c5012437a4d11124c949149bd8ec9634, type: 3}
+      propertyPath: sceneViewId
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 7519701105320922167, guid: c5012437a4d11124c949149bd8ec9634, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7925059357611706317, guid: c5012437a4d11124c949149bd8ec9634, type: 3}
       propertyPath: waypoints.Array.data[0]
@@ -13112,13 +13152,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item:
-    title: DEFAULT ITEM
+    title: Diamond
     type: 1
-    entity: 13
+    entity: 6
     weight: 1
     amount: 1
-    interactionPrompt: DEFAULT ITEM PROMPT
+    interactionPrompt: 
   sprite: {fileID: 0}
+  inventory: {fileID: 0}
 --- !u!61 &724781138
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -14895,13 +14936,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item:
-    title: DEFAULT ITEM
+    title: Duck
     type: 1
     entity: 13
     weight: 1
     amount: 1
-    interactionPrompt: DEFAULT ITEM PROMPT
+    interactionPrompt: 
   sprite: {fileID: 0}
+  inventory: {fileID: 0}
 --- !u!61 &1106223652
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -15470,17 +15512,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1123110791}
     m_Modifications:
+    - target: {fileID: -5030104971225702831, guid: c5012437a4d11124c949149bd8ec9634, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3547312646814248652, guid: c5012437a4d11124c949149bd8ec9634, type: 3}
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3547312646814248652, guid: c5012437a4d11124c949149bd8ec9634, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.4624918
+      value: 39.2
       objectReference: {fileID: 0}
     - target: {fileID: 3547312646814248652, guid: c5012437a4d11124c949149bd8ec9634, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.456036
+      value: 30.4
       objectReference: {fileID: 0}
     - target: {fileID: 3547312646814248652, guid: c5012437a4d11124c949149bd8ec9634, type: 3}
       propertyPath: m_LocalPosition.z
@@ -15517,6 +15563,14 @@ PrefabInstance:
     - target: {fileID: 3547312646814248654, guid: c5012437a4d11124c949149bd8ec9634, type: 3}
       propertyPath: m_Name
       value: EnemyMulti3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6504503579628370154, guid: c5012437a4d11124c949149bd8ec9634, type: 3}
+      propertyPath: sceneViewId
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7519701105320922167, guid: c5012437a4d11124c949149bd8ec9634, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7925059357611706317, guid: c5012437a4d11124c949149bd8ec9634, type: 3}
       propertyPath: waypoints.Array.data[0]
@@ -15574,13 +15628,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item:
-    title: DEFAULT ITEM
+    title: Clock
     type: 1
-    entity: 13
+    entity: 14
     weight: 1
     amount: 1
-    interactionPrompt: DEFAULT ITEM PROMPT
+    interactionPrompt: 
   sprite: {fileID: 0}
+  inventory: {fileID: 0}
 --- !u!61 &1219292946
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -16589,9 +16644,9 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1552586519}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7c812410c42c495a8e76c41d4730d0b, type: 3}
+  m_Script: {fileID: 11500000, guid: d4a91d0679c644f3989eab914338713b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   itemSlotContainer: {fileID: 0}
@@ -18372,7 +18427,7 @@ MonoBehaviour:
   m_VoxelSize: 0.16666667
   m_BuildHeightMesh: 0
   m_HideEditorLogs: 0
-  m_NavMeshData: {fileID: 23800000, guid: 5be4960c40883d44f91474c7efbc0203, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 10e2dc92a01083248a7866f7fdd06884, type: 2}
 --- !u!4 &1910327084
 Transform:
   m_ObjectHideFlags: 0
@@ -18380,7 +18435,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1910327082}
-  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: -0.7071068}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -0.8649652, y: -1.950149, z: -1657.409}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []

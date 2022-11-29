@@ -117,7 +117,7 @@ public class WaypointMover : MonoBehaviour
     //Moves to the selected waypoint
     void Travel()
     {
-        transform.Translate(travelDirection * moveSpeed * Time.deltaTime);
+        //transform.Translate(travelDirection * moveSpeed * Time.deltaTime);
         bool overX = false;
         bool overY = false;
         bool overZ = false;
