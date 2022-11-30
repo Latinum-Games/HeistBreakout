@@ -21,6 +21,8 @@ public class InputController : MonoBehaviour {
     // Variables
     private InputMapType currentInputMap;
 
+    [SerializeField] SpriteRenderer spriteRenderer;
+
     // Start is called before the first frame update
     private void Awake() {
         movementV2 = GetComponent<MovementV2>();
@@ -100,7 +102,7 @@ public class InputController : MonoBehaviour {
             SubscribeMenuMap();
 
             // Hide Character and HUD TODO: HIDE HUD 
-            var spriteRenderer = GetComponent<SpriteRenderer>();
+            spriteRenderer = GetComponent<SpriteRenderer>();
             spriteRenderer.color = new Color(1f, 1f, 1f, 0f);
 
             
@@ -116,7 +118,7 @@ public class InputController : MonoBehaviour {
             SubscribePlayerOverworldMap();
             
             // SHOW Character and HUD TODO: SHOW HUD 
-            var spriteRenderer = GetComponent<SpriteRenderer>();
+            spriteRenderer = GetComponent<SpriteRenderer>();
             spriteRenderer.color = new Color(1f, 1f, 1f, 1f);
             
             // Close Menu

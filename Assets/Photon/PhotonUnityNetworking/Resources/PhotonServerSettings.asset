@@ -53,6 +53,11 @@ MonoBehaviour:
   - OnClick_Yes
   - DisconnectPlayer
   - CharactersDeactivation
+  - AddLoot
+  - DestroyFieldItem
+  - RefreshItemListMulti
+  - RefreshInventoryMulti
+  - RefreshInventory
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

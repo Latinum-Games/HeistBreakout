@@ -1,9 +1,13 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using Cinemachine;
+using ExitGames.Client.Photon.StructWrapping;
 using Photon.Pun;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
@@ -46,6 +50,9 @@ public class VrMissionManagerMulti : MonoBehaviourPunCallbacks {
     [SerializeField] private int countdownTimer;
     [SerializeField] private GameObject countdownLabel;
     
+    // Map inventory
+    [Header("Map Inventory")] 
+    [SerializeField] private InventoryMulti mapInventory;
 
     //All enemies in scene
     [Header("Enemies in map")]
@@ -65,8 +72,10 @@ public class VrMissionManagerMulti : MonoBehaviourPunCallbacks {
     public GameObject playerCatPrefab;
     public GameObject playerElfPrefab;
     public GameObject playerFOV;
+    public InteractionPromptUI interactionUI;
     [SerializeField] private GameObject playerObj;
     [SerializeField] private GameObject fovObj;
+    public InGamePauseMenuManager pauseManager;
 
     public CinemachineVirtualCamera playerCamera;
 
@@ -95,6 +104,12 @@ public class VrMissionManagerMulti : MonoBehaviourPunCallbacks {
             child.onDetection.AddListener(LoseMultiMission);
         }
         
+        //Assignment of player
+        foreach (AIChasing child in enemies.GetComponentsInChildren<AIChasing>()) {
+            // Add Lose condition to the player 
+            child.player = playerObj.transform;
+        }
+        
         // Add listener to extraction point
         extractionPoint.GetComponent<ExtractionPoint>().onExtraction.AddListener(WinMultiMission);
         
@@ -104,12 +119,12 @@ public class VrMissionManagerMulti : MonoBehaviourPunCallbacks {
 
     private void Update() {
         UpdateTimer();
-        /*
+        
         // TODO: REMOVE AFTER SHOWCASE
-        if (playerInventory.GetInventoryItemCount() >= 4) {
+        if (mapInventory.GetInventoryItemCount() >= 4) {
             // ACTIVATE EXTRACTION POINT
             extractionPoint.SetActive(true);
-        }*/
+        }
     }
     
     [PunRPC]
@@ -235,13 +250,26 @@ public class VrMissionManagerMulti : MonoBehaviourPunCallbacks {
     [PunRPC]
     //Deactivation of Enemies and Player
     private void CharactersDeactivation() {
-        enemies.SetActive(false);
-        player.SetActive(false);
+        
+        foreach (WaypointMover child in enemies.GetComponentsInChildren<WaypointMover>()) {
+            // Add Lose condition to the player 
+            Destroy(child.GetComponent<NavMeshAgent>());
+            Destroy(child.GetComponent<AIChasing>());
+            Destroy(child.GetComponent<EnemyFieldOfView>());
+            Destroy(child);
+            
+        }
+
+        Destroy(playerObj.GetComponent<MovementV2Multi>());
+
+        //enemies.SetActive(false);
+        //player.SetActive(false);
     }
     
     private void SpawnPlayers() {
         int randomPosition = Random.Range(0, spawnPlayerPositions.Length);//Obtener posicion random de lista de posiciones
         Vector3 playerPosition = spawnPlayerPositions[randomPosition].position;
+        playerPosition.z = 0;
 
         string selectedCharacter = CharacterSelection.instance.characterController;
         // instanciar el player en una posiciocion aleatoria dependiendo de su skin
@@ -250,7 +278,8 @@ public class VrMissionManagerMulti : MonoBehaviourPunCallbacks {
         } else if (selectedCharacter == "DuendeController") {
             playerObj = PhotonNetwork.Instantiate(playerElfPrefab.name, playerPosition, Quaternion.identity);
         }
-        fovObj = PhotonNetwork.Instantiate(playerFOV.name, Vector3.zero, Quaternion.identity);
+        
+        fovObj = Instantiate(playerFOV, Vector3.zero, Quaternion.identity);
     }
     
     [PunRPC]
@@ -261,6 +290,8 @@ public class VrMissionManagerMulti : MonoBehaviourPunCallbacks {
         playerObj.GetComponent<MovementV2Multi>().fieldOfView = fovObj.GetComponent<FieldOfView>();
 
         playerCamera.Follow = playerObj.transform;
+        playerObj.GetComponent<Interactor>().interactionPromptUI = interactionUI;
+        inputController.inGameMenu = pauseManager;
 
     }
     

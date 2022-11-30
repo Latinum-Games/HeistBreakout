@@ -8,7 +8,7 @@ public class InputControllerMulti : MonoBehaviour {
     }
     
     // Foreign Components
-    [SerializeField] private InGamePauseMenuManager inGameMenu;
+    [SerializeField] public InGamePauseMenuManager inGameMenu;
     
     // Components 
     private MovementV2Multi movementV2Multi;

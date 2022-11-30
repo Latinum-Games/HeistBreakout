@@ -1,24 +1,25 @@
-using System.Collections;
-using System.Collections.Generic;
 using Photon.Pun;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
-public class ExitMenuMulti : MonoBehaviourPunCallbacks
-{
-    [PunRPC]
-    //Load scene when exit
-    public void OnClick_Yes()
-    {
+public class OptionsUIMulti : MonoBehaviourPunCallbacks {
+    
+    // Buttons
+    [SerializeField] private GameObject exitButton;
+    
+    private void Start() {
+        //Gets button and adds listener to exit to main menu
+        exitButton.GetComponent<Button>().onClick.AddListener(ExitToMainMenu);
+    }
+
+    //Loads main menu 
+    private void ExitToMainMenu() {
         StartCoroutine("DisconnectAndLoad");
+        Debug.Log("picado");
     }
-
-    //Returns to pause menu 
-    public void OnClick_No()
-    {
-        MenuManager.OpenMenu(Menu.PAUSE_MENU, gameObject);
-    }
-
+    
     [PunRPC]
     //Corroutine to load main menu (UI Heist Breakout)
     private IEnumerator DisconnectAndLoad()
@@ -37,5 +38,4 @@ public class ExitMenuMulti : MonoBehaviourPunCallbacks
         MenuManager.OpenMenu(Menu.MAIN_MENU, gameObject);
         
     }
-
 }

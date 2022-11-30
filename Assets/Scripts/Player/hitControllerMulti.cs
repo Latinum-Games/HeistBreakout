@@ -70,6 +70,6 @@ public class hitControllerMulti : MonoBehaviour
     public void SetHit(bool hit =false)
     {
         canHit= hit;
-        Debug.Log(canHit);
+        
     }
 }

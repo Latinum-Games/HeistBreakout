@@ -1,49 +1,24 @@
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 
-public class InventoryMulti : MonoBehaviour {
-    //Initializes amounts of weight
-    [Header("Weight Variables")]
-    [SerializeField] private int maxWeight = 50;
-    [SerializeField] private int currentWeight = 0;
-    
+public class InventoryMulti : MonoBehaviourPunCallbacks {
     // Initializes item list with representation in UI
     [Header("Foreign Components")]
     [SerializeField] private List<Item> itemList;
-    //[SerializeField] private InventoryUI inventoryUI;
+    [SerializeField] private InventoryUIMulti inventoryUI;
 
     private void Awake() {
         //Setter of inventory for player
-        //inventoryUI.SetInventory(this);
+        inventoryUI.SetInventory(this);
     }
 
+    [PunRPC]
     //Adding of items picked to the weight of the player and to the inventory
     public bool AddLoot(Item item) {
-        //Checks the possibility to add more items based on weight
-        if (currentWeight + item.weight > maxWeight || currentWeight == maxWeight) {
-            return false;
-        }
-
-        //Checks that item is of treasure type and adds to item list
-        if (item.IsStackable()) {
-            var isItemInInventory = false;
-
-            foreach (var inventoryItem in itemList) {
-                if (inventoryItem.entity == item.entity) {
-                    inventoryItem.amount += item.amount;
-                    isItemInInventory = true;
-                }
-            }
-
-            if (!isItemInInventory) {
-                itemList.Add(item);
-            }
-        }
-        else {
-            itemList.Add(item);
-        }
-        
-        currentWeight += item.weight;
+        photonView.RPC("RefreshItemListMulti", RpcTarget.Others, item.title);
+        photonView.RPC("RefreshInventory", RpcTarget.Others);
+        itemList.Add(item);
         return true;
     }
 
@@ -52,13 +27,21 @@ public class InventoryMulti : MonoBehaviour {
         return itemList;
     }
 
+    [PunRPC]
     //Updater for the representation of items in UI
     public void RefreshInventory() {
-        //inventoryUI.OnInventoryChange();
+        inventoryUI.OnInventoryChange();
     }
     
     //Getter for the count of items in list
     public int GetInventoryItemCount() {
         return itemList.Count;
     }
+
+    [PunRPC]
+    public void RefreshItemListMulti(string nameItem) {
+        Item item = GameObject.Find(nameItem).GetComponent<FieldItemMulti>().item;
+        itemList.Add(item);
+    }
+    
 }
