@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.UI;
 
 public class VrMissionManager : MonoBehaviour {
@@ -212,7 +213,19 @@ public class VrMissionManager : MonoBehaviour {
 
     //Deactivation of Enemies and Player
     private void CharactersDeactivation() {
-        enemies.SetActive(false);
-        player.SetActive(false);
+        
+        foreach (WaypointMover child in enemies.GetComponentsInChildren<WaypointMover>()) {
+            // Add Lose condition to the player 
+            Destroy(child.GetComponent<NavMeshAgent>());
+            Destroy(child.GetComponent<AIChasing>());
+            Destroy(child.GetComponent<EnemyFieldOfView>());
+            Destroy(child);
+            
+        }
+
+        Destroy(player.GetComponent<MovementV2>());
+
+        //enemies.SetActive(false);
+        //player.SetActive(false);
     }
 }

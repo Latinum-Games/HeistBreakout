@@ -11,7 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Showcase/VrMission1.unity
     guid: 2f2551fff4e8a7f4794c04e23f8be681
-  - enabled: 1
+  - enabled: 0
     path: Assets/Multiplayer/Scenes/SceneGamePlay.unity
     guid: 17cd3244a5139074bb0676386ecee046
   - enabled: 1
@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Mini Games/SimonSaysMinigame.unity
     guid: fad981fe44709784786542b56422708c
+  - enabled: 1
+    path: Assets/Scenes/Showcase Multiplayer/VrMissionMulti1.unity
+    guid: 2a3f407fad8f0eb44af606a48001810a
   m_configObjects: {}

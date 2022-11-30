@@ -7,14 +7,14 @@ public static class MenuManager {
     //Initializer for menus at global level
     [SerializeField] public static bool IsInitialised { get; set;}
     //Initializer of menus
-    public static GameObject mainMenu, optionsMenu, exitMenu, pauseMenu, shopMenu, rewardMenu, gameOverMenu, lobbyMenu, museumMenu;
+    public static GameObject mainMenu, optionsMenu, exitMenu, pauseMenu, shopMenu, rewardMenu, gameOverMenu, lobbyMenu, lobbyMenuMulti, museumMenu;
     //Current scene
-    private static string currentScene;
+    private static string currentScene = "UI Heist Breakout";
 
     public static void Init() {
         //Canvas initializer with respective scene
         GameObject canvas = GameObject.Find("Canvas");
-        currentScene = SceneManager.GetActiveScene().name;
+        //currentScene = SceneManager.GetActiveScene().name;
 
         //Menu initializer depending on main menu or in game menu
         if (currentScene == "UI Heist Breakout") {
@@ -22,14 +22,15 @@ public static class MenuManager {
             shopMenu = canvas.transform.Find("Shop").gameObject;
             lobbyMenu = canvas.transform.Find("Lobby").gameObject;
             museumMenu = canvas.transform.Find("My Museum").gameObject;
+            lobbyMenuMulti = canvas.transform.Find("LobbyMulti").gameObject;
 
-        } else if(currentScene == "Interfaces 2") {
+        } /*else if(currentScene == "Interfaces 2") {
             exitMenu = canvas.transform.Find("Exit menu").gameObject;
             optionsMenu = canvas.transform.Find("Options menu").gameObject;
             pauseMenu = canvas.transform.Find("Pause menu").gameObject;
             rewardMenu = canvas.transform.Find("Rewards menu").gameObject;
             gameOverMenu = canvas.transform.Find("Game Over menu").gameObject;
-        }
+        }*/
         //Blocked menu changes
         IsInitialised = true;
     }
@@ -64,6 +65,9 @@ public static class MenuManager {
                 break;
             case Menu.LOBBY_MENU:
                 lobbyMenu.SetActive(true);
+                break;
+            case Menu.LOBBY_MENU_MULTI:
+                lobbyMenuMulti.SetActive(true);
                 break;
             case Menu.MUSEUM_MENU:
                 museumMenu.SetActive(true);

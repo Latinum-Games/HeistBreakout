@@ -4,7 +4,6 @@ using UnityEngine.UI;
 
 public class FieldItem : MonoBehaviour, IInteractable { // TODO RENAME FUNCTION TO FIELD_ITEM or smt
     
-    
     // Private Variables
     [Header("Item")]
     [SerializeField] private Item item;

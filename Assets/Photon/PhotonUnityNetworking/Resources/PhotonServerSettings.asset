@@ -44,6 +44,20 @@ MonoBehaviour:
   - DestroySpaceship
   - Fire
   - RespawnSpaceship
+  - AssignPlayerProps
+  - LoseGame
+  - StartVRMission
+  - WinGame
+  - OnClick_Play
+  - DisconnectAndLoad
+  - OnClick_Yes
+  - DisconnectPlayer
+  - CharactersDeactivation
+  - AddLoot
+  - DestroyFieldItem
+  - RefreshItemListMulti
+  - RefreshInventoryMulti
+  - RefreshInventory
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

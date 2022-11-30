@@ -7,6 +7,7 @@ public enum Menu {
     REWARD_MENU,
     GAME_OVER_MENU,
     LOBBY_MENU,
+    LOBBY_MENU_MULTI,
     MUSEUM_MENU
 
 }
