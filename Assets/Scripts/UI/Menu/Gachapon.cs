@@ -76,7 +76,7 @@ public class Gachapon : MonoBehaviour {
     public void GachaAnimation() {
         LeanTween.cancel(gachaBox);
         // Gacha scale animation
-        LeanTween.scale(gachaBox, new Vector3(1.2f, 1.2f, 1.2f), 0.2f).setLoopPingPong(3).setOnComplete(() => {
+        LeanTween.scale(gachaBox, new Vector3(1.2f, 1.2f, 1.2f), 0.2f).setLoopPingPong(10).setOnComplete(() => {
             
             // Gacha reward label animation in
             LeanTween.cancel(rewardText);
