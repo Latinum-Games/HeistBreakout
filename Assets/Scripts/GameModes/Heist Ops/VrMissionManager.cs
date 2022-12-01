@@ -3,6 +3,7 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class VrMissionManager : MonoBehaviour {
@@ -57,6 +58,10 @@ public class VrMissionManager : MonoBehaviour {
     [Header("Player Inventory REMOVE AFTER SHOWCASE")] 
     [SerializeField] private Inventory playerInventory;
     [SerializeField] private GameObject extractionPoint;
+
+    [Header("Events")] 
+    public UnityEvent OnWin;
+    public UnityEvent OnLose;
 
     private void Awake() {
         // Subscribe partial controller to just enable UI controls and not pause menu controls
@@ -153,6 +158,7 @@ public class VrMissionManager : MonoBehaviour {
         // Open Mission Failed Modal TODO: UPDATE THE MODAL FOR THE WIN CONDITION
         LeanTween.cancel(missionFailedModal);
         LeanTween.scale(missionFailedModal, new Vector3(1f, 1f, 1f), 0.5f).setEaseOutElastic();
+        OnWin.Invoke();
     }
     
     // Lose Condition
@@ -170,6 +176,7 @@ public class VrMissionManager : MonoBehaviour {
         // Open Mission Failed Modal
         LeanTween.cancel(missionFailedModal);
         LeanTween.scale(missionFailedModal, new Vector3(1f, 1f, 1f), 0.5f).setEaseOutElastic();
+        OnLose.Invoke();
     }
 
     // Coroutines

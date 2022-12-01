@@ -1,6 +1,7 @@
 using System;
 using Photon.Pun;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class FieldItemMulti : MonoBehaviourPunCallbacks, IInteractable { // TODO RENAME FUNCTION TO FIELD_ITEM or smt
@@ -9,6 +10,10 @@ public class FieldItemMulti : MonoBehaviourPunCallbacks, IInteractable { // TODO
     [Header("Item")]
     [SerializeField] public Item item;
     [SerializeField] private Sprite sprite;
+    
+    //Unity Events
+    [Header("Events")] 
+    public UnityEvent PickItem;
     public string InteractionPrompt => item.interactionPrompt == string.Empty ? "Pickup " + item.title  : item.interactionPrompt;
 
     [SerializeField] InventoryMulti inventory;
@@ -38,8 +43,7 @@ public class FieldItemMulti : MonoBehaviourPunCallbacks, IInteractable { // TODO
         if (!inventory.AddLoot(item: item)) {
             return false;
         }
-
-        Debug.Log("Interact add loot");
+        
         //inventory.AddLootRPC(item: item);
 
         //photonView.RPC("RefreshInventoryMulti", RpcTarget.All);
@@ -51,6 +55,7 @@ public class FieldItemMulti : MonoBehaviourPunCallbacks, IInteractable { // TODO
     
     [PunRPC]
     private void DestroyFieldItem() {
+        PickItem.Invoke();
         Destroy(this.gameObject);
     }
 

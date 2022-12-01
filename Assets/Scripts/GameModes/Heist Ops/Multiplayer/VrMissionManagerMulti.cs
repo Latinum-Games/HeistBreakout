@@ -8,6 +8,7 @@ using TMPro;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Events;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
@@ -66,6 +67,10 @@ public class VrMissionManagerMulti : MonoBehaviourPunCallbacks {
     [Header("Player Inventory REMOVE AFTER SHOWCASE")] 
     //[SerializeField] private Inventory playerInventory;
     [SerializeField] private GameObject extractionPoint;
+    
+    [Header("Events")] 
+    public UnityEvent OnWin;
+    public UnityEvent OnLose;
     
     //MULTIPLAYER VARIABLES
     [Header("Player variables")]
@@ -187,6 +192,7 @@ public class VrMissionManagerMulti : MonoBehaviourPunCallbacks {
         // Open Mission Failed Modal TODO: UPDATE THE MODAL FOR THE WIN CONDITION
         LeanTween.cancel(missionFailedModal);
         LeanTween.scale(missionFailedModal, new Vector3(1f, 1f, 1f), 0.5f).setEaseOutElastic();
+        OnWin.Invoke();
     }
     
     [PunRPC]
@@ -206,6 +212,7 @@ public class VrMissionManagerMulti : MonoBehaviourPunCallbacks {
         // Open Mission Failed Modal
         LeanTween.cancel(missionFailedModal);
         LeanTween.scale(missionFailedModal, new Vector3(1f, 1f, 1f), 0.5f).setEaseOutElastic();
+        OnLose.Invoke();
     }
 
     // Coroutines

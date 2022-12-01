@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class FieldItem : MonoBehaviour, IInteractable { // TODO RENAME FUNCTION TO FIELD_ITEM or smt
@@ -8,6 +9,11 @@ public class FieldItem : MonoBehaviour, IInteractable { // TODO RENAME FUNCTION 
     [Header("Item")]
     [SerializeField] private Item item;
     [SerializeField] private Sprite sprite;
+    
+    //Unity Events
+    [Header("Unity Events")] 
+    public UnityEvent pickItem;
+    
     public string InteractionPrompt => item.interactionPrompt == string.Empty ? "Pickup " + item.title  : item.interactionPrompt;
 
     private void Start() {
@@ -36,6 +42,7 @@ public class FieldItem : MonoBehaviour, IInteractable { // TODO RENAME FUNCTION 
         
         inventory.RefreshInventory();
 
+        pickItem.Invoke();
         Destroy(this.gameObject);
         return true;
     }

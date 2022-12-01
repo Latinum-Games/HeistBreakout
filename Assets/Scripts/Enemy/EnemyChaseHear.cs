@@ -16,7 +16,6 @@ public class EnemyChaseHear : MonoBehaviour
     {
         if (other.CompareTag("Sound")) {
             scriptFOV.State = EnemyFieldOfView.EnemyState.Persecution;
-            Debug.Log("Te escuche");
         }
     }
 

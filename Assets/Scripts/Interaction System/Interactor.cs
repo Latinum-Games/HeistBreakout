@@ -54,7 +54,6 @@ public class  Interactor : MonoBehaviour {
                 }
                 
                 if (keyPress) { // ->
-                    Debug.Log("Interactuable tecla");
                     interactable.Interact(this);
                 }
             }

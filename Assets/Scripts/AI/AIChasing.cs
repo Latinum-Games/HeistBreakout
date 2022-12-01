@@ -24,6 +24,5 @@ public class AIChasing : MonoBehaviour
     {
         //Determine path to follow for chase
         enemy.SetDestination(player.position);
-        Debug.Log("Lo sigo" + player.position);
     }
 }

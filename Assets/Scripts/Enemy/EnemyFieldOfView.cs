@@ -12,6 +12,8 @@ public class EnemyFieldOfView : MonoBehaviour {
     //Initializes based on detection
     [Header("Events")]
     public UnityEvent onDetection;
+    public UnityEvent onChasing;
+    public UnityEvent onLost;
 
     //Initializes timers based for see time and changes in view
     [Header("Timers")]
@@ -169,6 +171,7 @@ public class EnemyFieldOfView : MonoBehaviour {
 
                 if (timer>=seeTime)
                 {
+                    onLost.Invoke();
                     scriptChasing.enabled = false;
                     scriptWaypoint.enabled = true;  
                     State= EnemyState.Patrolling;
@@ -192,8 +195,9 @@ public class EnemyFieldOfView : MonoBehaviour {
             if (!CanSeePlayer)
             {
                 timer += Time.deltaTime;
-                if (timer>=seeTime)
-                {
+                if (timer>=seeTime) {
+                    
+                    onChasing.Invoke();
                     scriptWaypoint.enabled = false;
                     scriptChasing.enabled = true;
 

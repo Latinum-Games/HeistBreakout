@@ -143,7 +143,6 @@ public class WaypointMover : MonoBehaviour
         if (overX && overY || overZ)
         {
             BeginWait();
-            Debug.Log("Esperando");
         }
     }
     

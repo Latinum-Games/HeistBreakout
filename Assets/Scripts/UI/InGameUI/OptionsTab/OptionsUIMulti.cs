@@ -17,7 +17,6 @@ public class OptionsUIMulti : MonoBehaviourPunCallbacks {
     //Loads main menu 
     private void ExitToMainMenu() {
         StartCoroutine("DisconnectAndLoad");
-        Debug.Log("picado");
     }
     
     [PunRPC]
