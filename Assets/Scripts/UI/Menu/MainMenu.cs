@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour {
+    private Image cola;
 
     // Foreign Components -> IMPROVE LOGIC
     [Header("FOREING COMPONENTS -> REMOVE AFTER")] 
@@ -214,6 +215,7 @@ public class MainMenu : MonoBehaviour {
         });
     }
 
+    // Transform animation tween
     private void MainMenu_CloseAnimation(Action action = null) {
         var heistOpsTile = heistOpsTileParent.transform.Find("Tile").gameObject;
         var multiplayerTile = multiplayerTileParent.transform.Find("Tile").gameObject;
@@ -233,7 +235,7 @@ public class MainMenu : MonoBehaviour {
         });
     }
     
-    // Tween Animations
+    // General Tween Animations
     private void OnSelectTween(GameObject unselectedObj, GameObject selectedObj) {
         // Unselected Components
         unselectedObj.SetActive(false);
@@ -250,6 +252,7 @@ public class MainMenu : MonoBehaviour {
         selectedObj.SetActive(false);
     }
         
+    // Select Punch animation tween
     private void SelectedTweenAnimation(GameObject obj) {
         obj.SetActive(true);
         obj.transform.rotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
