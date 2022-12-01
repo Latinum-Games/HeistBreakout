@@ -13,6 +13,11 @@ public class MainMenu : MonoBehaviour {
     [SerializeField] private MiniGamesMenu miniGamesMenu;
     
     // Splash Art Components
+    
+    [Header("HeistBreakoutLogo")]
+    [SerializeField] private GameObject heistBreakoutLogo;
+    [SerializeField] private GameObject heistLogoPositionIn;
+    [SerializeField] private GameObject heistLogoPositionOut;
 
     [Header("Heist Ops Tile")]
     [SerializeField] private GameObject heistOpsTileParent;
@@ -197,22 +202,32 @@ public class MainMenu : MonoBehaviour {
         var multiplayerTile = multiplayerTileParent.transform.Find("Tile").gameObject;
         var extraTiles = extraTilesParent.transform.Find("Tiles").gameObject;
         
-        // HeistOps Tile
-        LeanTween.delayedCall(heistOpsTile, 1f, () => {
-            LeanTween.cancel(heistOpsTile);
-            LeanTween.move(heistOpsTile, heistOpsPositionIn.transform.position, 0.3f).setEaseOutExpo();
-        });
+        // Opening Logo
+        LeanTween.cancel(heistBreakoutLogo);
+        LeanTween.move(heistBreakoutLogo, heistLogoPositionIn.transform.position, 0.5f).setEaseOutExpo().setDelay(0.5f).setOnComplete(
+            () => {
+                LeanTween.delayedCall(heistOpsTile, 1f, () => {
+                    LeanTween.move(heistBreakoutLogo, heistLogoPositionOut.transform.position, 0.5f).setEaseOutExpo().setOnComplete(
+                        () => {
+                            // HeistOps Tile
+                            LeanTween.delayedCall(heistOpsTile, 0.5f, () => {
+                                LeanTween.cancel(heistOpsTile);
+                                LeanTween.move(heistOpsTile, heistOpsPositionIn.transform.position, 0.3f).setEaseOutExpo();
+                            });
 
-        // Multiplayer Tile
-        LeanTween.delayedCall(multiplayerTile, 1.1f, () => {
-            LeanTween.cancel(multiplayerTile);
-            LeanTween.move(multiplayerTile, multiplayerPositionIn.transform.position, 0.3f).setEaseOutExpo();
-        });
+                            // Multiplayer Tile
+                            LeanTween.delayedCall(multiplayerTile, 0.6f, () => {
+                                LeanTween.cancel(multiplayerTile);
+                                LeanTween.move(multiplayerTile, multiplayerPositionIn.transform.position, 0.3f).setEaseOutExpo();
+                            });
 
-        LeanTween.delayedCall(extraTiles, 1.2f, () => {
-            LeanTween.cancel(extraTiles);
-            LeanTween.move(extraTiles, extraTilesPositionIn.transform.position, 0.3f).setEaseOutExpo();
-        });
+                            LeanTween.delayedCall(extraTiles, 0.7f, () => {
+                                LeanTween.cancel(extraTiles);
+                                LeanTween.move(extraTiles, extraTilesPositionIn.transform.position, 0.3f).setEaseOutExpo();
+                            });
+                        });
+                });
+            });
     }
 
     // Transform animation tween
